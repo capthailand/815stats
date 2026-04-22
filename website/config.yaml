@@ -1,0 +1,106 @@
+# ================================================================
+# Thailand Refugee Statistics Tool — Configuration
+# ================================================================
+# Edit this file to customise the tool for your organisation.
+# Rules:
+#   - Use spaces for indentation, not tabs
+#   - Text containing colons or special characters needs quotes
+#   - After editing, save and push to GitHub
+# ================================================================
+
+
+# ----------------------------------------------------------------
+# ORGANISATION
+# ----------------------------------------------------------------
+organisation:
+  name: "Center for Asylum Protection"
+
+  # Path to your logo, relative to index.html
+  # Place your logo file in the assets/ folder
+  logo: "assets/logo.png"
+
+  # How wide the logo appears on screen, in pixels
+  # Your source image can be any size — the browser scales it
+  logo_max_width: 250
+
+  # Trim visual whitespace around the logo
+  # 0 = no trimming | negative number = trim that many pixels from each side
+  # Useful if your logo file has large transparent borders
+  logo_padding: 0
+
+  # Alt text for screen readers and broken image fallback
+  logo_alt: "Center for Asylum Protection logo"
+
+
+# ----------------------------------------------------------------
+# FONTS
+# ----------------------------------------------------------------
+# Bunny Fonts is a privacy-respecting font service that works
+# identically to Google Fonts but does not track users or collect
+# personal data. Browse available fonts at: https://bunny.net/fonts
+# Use the exact font name as shown on that page.
+fonts:
+  body: "IBM Plex Sans"
+  body_weights: "400,600" # weights for body, heading
+  mono: "IBM Plex Mono"
+
+
+# ----------------------------------------------------------------
+# COLOURS
+# ----------------------------------------------------------------
+colours:
+  primary: "#29307d"   # Header, headings, active tabs, primary buttons
+  accent:  "#f9ad18"   # Highlights, chart accents, map bubbles, underlines
+
+
+# ----------------------------------------------------------------
+# CITATION & METHODOLOGY
+# ----------------------------------------------------------------
+citation:
+  source_name: "UNHCR Refugee Data Finder"
+  source_url: "https://www.unhcr.org/refugee-statistics/"
+  processed_by: "Kristian Benestad (Center for Asylum Protection"
+  methodology_url: "https://www.unhcr.org/refugee-statistics/methodology/"
+
+  # Shown as a footnote on the Refugees & Asylum-Seekers section
+  note: >
+    Myanmar nationals are excluded from these figures by default.
+    Under Thai law, persons from Myanmar are subject to a separate
+    national protection regime (the Temporary Shelter Policy) and
+    are not processed under UNHCR mandate refugee status
+    determination procedures.
+
+
+# ----------------------------------------------------------------
+# LABELS
+# ----------------------------------------------------------------
+labels:
+
+  # Label for resettlement cases where origin country is not recorded
+  unknown_origin: "Origin not disclosed"
+
+  # Explanation shown in footnotes — update this after consulting UNHCR
+  unknown_origin_note: >
+    A proportion of resettlement cases have no country of origin
+    recorded in UNHCR source data. The composition of this group
+    is not known. Clarification from UNHCR is pending.
+
+  # Note about "Others of Concern" — a small UNHCR category not
+  # included in the main totals. Leave blank to hide the note.
+  # Source: UNHCR Statistical Methodology
+  # https://www.unhcr.org/refugee-statistics/methodology/
+  others_of_concern_note: ""
+
+
+# ----------------------------------------------------------------
+# DATA FILES
+# ----------------------------------------------------------------
+# Paths to CSV files, relative to index.html
+# To update: replace files in data/ with new UNHCR exports,
+# keeping the same filenames. No code changes needed.
+data:
+  persons_of_concern:     "data/persons_of_concern.csv"
+  asylum_applications:    "data/asylum_applications.csv"
+  asylum_decisions:       "data/asylum_decisions.csv"
+  resettlement_departures: "data/solutions_departures.csv"
+  resettlement_submissions: "data/solutions_submissions.csv"

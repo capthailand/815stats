@@ -1,0 +1,500 @@
+Year,"Country of Asylum","Country of Origin","Country of Resettlement","Country of Asylum ISO","Country of Origin ISO","Country of Resettlement ISO",Total
+2003,Thailand,Indonesia,Denmark,THA,IDN,DNK,5
+2003,Thailand,Iraq,"New Zealand",THA,IRQ,NZL,17
+2003,Thailand,Myanmar,Australia,THA,MMR,AUS,12
+2003,Thailand,Myanmar,Canada,THA,MMR,CAN,22
+2003,Thailand,Myanmar,"Netherlands (Kingdom of the)",THA,MMR,NLD,5
+2003,Thailand,Myanmar,Norway,THA,MMR,NOR,22
+2003,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,7
+2003,Thailand,Myanmar,"United States of America",THA,MMR,USA,188
+2003,Thailand,"Unknown ",Canada,THA,UNK,CAN,21
+2003,Thailand,"Unknown ",Denmark,THA,UNK,DNK,82
+2003,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,1
+2003,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,2
+2003,Thailand,"Unknown ",Norway,THA,UNK,NOR,22
+2003,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,15
+2003,Thailand,"Unknown ",Sweden,THA,UNK,SWE,10
+2003,Thailand,"Unknown ","United States of America",THA,UNK,USA,21
+2004,Thailand,"Lao People's Dem. Rep.",Australia,THA,LAO,AUS,14
+2004,Thailand,"Lao People's Dem. Rep.","United States of America",THA,LAO,USA,7006
+2004,Thailand,Myanmar,Australia,THA,MMR,AUS,17
+2004,Thailand,Myanmar,Canada,THA,MMR,CAN,31
+2004,Thailand,Myanmar,Norway,THA,MMR,NOR,146
+2004,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,7
+2004,Thailand,Myanmar,Sweden,THA,MMR,SWE,21
+2004,Thailand,Myanmar,"United States of America",THA,MMR,USA,1222
+2004,Thailand,"Unknown ",Canada,THA,UNK,CAN,14
+2004,Thailand,"Unknown ",Denmark,THA,UNK,DNK,9
+2004,Thailand,"Unknown ",Finland,THA,UNK,FIN,27
+2004,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,16
+2004,Thailand,"Unknown ",Norway,THA,UNK,NOR,16
+2004,Thailand,"Unknown ",Sweden,THA,UNK,SWE,20
+2004,Thailand,"Unknown ","United States of America",THA,UNK,USA,19
+2005,Thailand,"Dem. Rep. of the Congo",Sweden,THA,COD,SWE,5
+2005,Thailand,"Lao People's Dem. Rep.","United States of America",THA,LAO,USA,7822
+2005,Thailand,Myanmar,Australia,THA,MMR,AUS,288
+2005,Thailand,Myanmar,Canada,THA,MMR,CAN,6
+2005,Thailand,Myanmar,Denmark,THA,MMR,DNK,59
+2005,Thailand,Myanmar,Finland,THA,MMR,FIN,72
+2005,Thailand,Myanmar,Norway,THA,MMR,NOR,277
+2005,Thailand,Myanmar,Sweden,THA,MMR,SWE,317
+2005,Thailand,Myanmar,"United States of America",THA,MMR,USA,1313
+2005,Thailand,"Viet Nam","United States of America",THA,VNM,USA,7
+2005,Thailand,"Unknown ",Australia,THA,UNK,AUS,11
+2005,Thailand,"Unknown ",Canada,THA,UNK,CAN,4
+2005,Thailand,"Unknown ",Denmark,THA,UNK,DNK,14
+2005,Thailand,"Unknown ",Finland,THA,UNK,FIN,16
+2005,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,55
+2005,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,1
+2005,Thailand,"Unknown ",Norway,THA,UNK,NOR,17
+2005,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,2
+2005,Thailand,"Unknown ",Sweden,THA,UNK,SWE,13
+2005,Thailand,"Unknown ","United States of America",THA,UNK,USA,21
+2006,Thailand,"Dem. Rep. of the Congo",Canada,THA,COD,CAN,16
+2006,Thailand,Myanmar,Australia,THA,MMR,AUS,746
+2006,Thailand,Myanmar,Canada,THA,MMR,CAN,432
+2006,Thailand,Myanmar,Finland,THA,MMR,FIN,206
+2006,Thailand,Myanmar,"United Kingdom of Great Britain and Northern Ireland",THA,MMR,GBR,81
+2006,Thailand,Myanmar,"Netherlands (Kingdom of the)",THA,MMR,NLD,115
+2006,Thailand,Myanmar,Norway,THA,MMR,NOR,299
+2006,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,177
+2006,Thailand,Myanmar,Sweden,THA,MMR,SWE,318
+2006,Thailand,Myanmar,"United States of America",THA,MMR,USA,2149
+2006,Thailand,"Viet Nam","New Zealand",THA,VNM,NZL,7
+2006,Thailand,"Unknown ",Australia,THA,UNK,AUS,8
+2006,Thailand,"Unknown ",Belgium,THA,UNK,BEL,5
+2006,Thailand,"Unknown ",Canada,THA,UNK,CAN,19
+2006,Thailand,"Unknown ",Denmark,THA,UNK,DNK,2
+2006,Thailand,"Unknown ",Norway,THA,UNK,NOR,28
+2006,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,18
+2006,Thailand,"Unknown ",Sweden,THA,UNK,SWE,9
+2006,Thailand,"Unknown ","United States of America",THA,UNK,USA,67
+2007,Thailand,"Dem. Rep. of the Congo",Canada,THA,COD,CAN,10
+2007,Thailand,"Dem. Rep. of the Congo","New Zealand",THA,COD,NZL,5
+2007,Thailand,Myanmar,Australia,THA,MMR,AUS,1451
+2007,Thailand,Myanmar,Canada,THA,MMR,CAN,1507
+2007,Thailand,Myanmar,Finland,THA,MMR,FIN,347
+2007,Thailand,Myanmar,"United Kingdom of Great Britain and Northern Ireland",THA,MMR,GBR,111
+2007,Thailand,Myanmar,Ireland,THA,MMR,IRL,97
+2007,Thailand,Myanmar,"Netherlands (Kingdom of the)",THA,MMR,NLD,55
+2007,Thailand,Myanmar,Norway,THA,MMR,NOR,405
+2007,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,139
+2007,Thailand,Myanmar,Sweden,THA,MMR,SWE,162
+2007,Thailand,Myanmar,"United States of America",THA,MMR,USA,10060
+2007,Thailand,Somalia,Sweden,THA,SOM,SWE,5
+2007,Thailand,"Viet Nam",Canada,THA,VNM,CAN,6
+2007,Thailand,"Viet Nam",Sweden,THA,VNM,SWE,8
+2007,Thailand,"Viet Nam","United States of America",THA,VNM,USA,56
+2007,Thailand,"Unknown ",Canada,THA,UNK,CAN,15
+2007,Thailand,"Unknown ",Denmark,THA,UNK,DNK,5
+2007,Thailand,"Unknown ",Finland,THA,UNK,FIN,27
+2007,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,33
+2007,Thailand,"Unknown ",Norway,THA,UNK,NOR,46
+2007,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,5
+2007,Thailand,"Unknown ",Sweden,THA,UNK,SWE,15
+2007,Thailand,"Unknown ","United States of America",THA,UNK,USA,40
+2008,Thailand,"Dem. Rep. of the Congo",Canada,THA,COD,CAN,8
+2008,Thailand,"Dem. Rep. of the Congo",Finland,THA,COD,FIN,5
+2008,Thailand,"State of Palestine","Netherlands (Kingdom of the)",THA,PSE,NLD,11
+2008,Thailand,Iraq,Canada,THA,IRQ,CAN,5
+2008,Thailand,Iraq,"United States of America",THA,IRQ,USA,5
+2008,Thailand,Myanmar,Australia,THA,MMR,AUS,1510
+2008,Thailand,Myanmar,Canada,THA,MMR,CAN,686
+2008,Thailand,Myanmar,Finland,THA,MMR,FIN,281
+2008,Thailand,Myanmar,"United Kingdom of Great Britain and Northern Ireland",THA,MMR,GBR,29
+2008,Thailand,Myanmar,"Netherlands (Kingdom of the)",THA,MMR,NLD,135
+2008,Thailand,Myanmar,Norway,THA,MMR,NOR,55
+2008,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,24
+2008,Thailand,Myanmar,Sweden,THA,MMR,SWE,131
+2008,Thailand,Myanmar,"United States of America",THA,MMR,USA,13755
+2008,Thailand,"Viet Nam","United States of America",THA,VNM,USA,12
+2008,Thailand,"Unknown ",Australia,THA,UNK,AUS,11
+2008,Thailand,"Unknown ",Canada,THA,UNK,CAN,40
+2008,Thailand,"Unknown ",Finland,THA,UNK,FIN,16
+2008,Thailand,"Unknown ",France,THA,UNK,FRA,1
+2008,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,34
+2008,Thailand,"Unknown ",Norway,THA,UNK,NOR,6
+2008,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,1
+2008,Thailand,"Unknown ",Sweden,THA,UNK,SWE,8
+2008,Thailand,"Unknown ","United States of America",THA,UNK,USA,38
+2009,Thailand,Burundi,Finland,THA,BDI,FIN,6
+2009,Thailand,China,Canada,THA,CHN,CAN,6
+2009,Thailand,China,Norway,THA,CHN,NOR,5
+2009,Thailand,China,"United States of America",THA,CHN,USA,55
+2009,Thailand,"State of Palestine","New Zealand",THA,PSE,NZL,25
+2009,Thailand,Iraq,"United States of America",THA,IRQ,USA,11
+2009,Thailand,"Sri Lanka",Canada,THA,LKA,CAN,28
+2009,Thailand,"Sri Lanka",Finland,THA,LKA,FIN,18
+2009,Thailand,"Sri Lanka","Netherlands (Kingdom of the)",THA,LKA,NLD,13
+2009,Thailand,"Sri Lanka","United States of America",THA,LKA,USA,39
+2009,Thailand,Myanmar,Australia,THA,MMR,AUS,2211
+2009,Thailand,Myanmar,Canada,THA,MMR,CAN,800
+2009,Thailand,Myanmar,Finland,THA,MMR,FIN,197
+2009,Thailand,Myanmar,Norway,THA,MMR,NOR,257
+2009,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,81
+2009,Thailand,Myanmar,Sweden,THA,MMR,SWE,118
+2009,Thailand,Myanmar,"United States of America",THA,MMR,USA,12849
+2009,Thailand,Pakistan,Finland,THA,PAK,FIN,5
+2009,Thailand,Somalia,"United States of America",THA,SOM,USA,9
+2009,Thailand,"Unknown ",Australia,THA,UNK,AUS,6
+2009,Thailand,"Unknown ",Canada,THA,UNK,CAN,12
+2009,Thailand,"Unknown ",Finland,THA,UNK,FIN,6
+2009,Thailand,"Unknown ",France,THA,UNK,FRA,1
+2009,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,5
+2009,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,16
+2009,Thailand,"Unknown ",Norway,THA,UNK,NOR,7
+2009,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,10
+2009,Thailand,"Unknown ",Sweden,THA,UNK,SWE,17
+2009,Thailand,"Unknown ","United States of America",THA,UNK,USA,22
+2010,Thailand,"State of Palestine","Netherlands (Kingdom of the)",THA,PSE,NLD,5
+2010,Thailand,Iraq,"United States of America",THA,IRQ,USA,31
+2010,Thailand,"Lao People's Dem. Rep.",Australia,THA,LAO,AUS,212
+2010,Thailand,"Lao People's Dem. Rep.",Canada,THA,LAO,CAN,27
+2010,Thailand,"Lao People's Dem. Rep.","Netherlands (Kingdom of the)",THA,LAO,NLD,33
+2010,Thailand,"Lao People's Dem. Rep.","United States of America",THA,LAO,USA,103
+2010,Thailand,"Sri Lanka","United States of America",THA,LKA,USA,71
+2010,Thailand,Myanmar,Australia,THA,MMR,AUS,818
+2010,Thailand,Myanmar,Canada,THA,MMR,CAN,321
+2010,Thailand,Myanmar,Czechia,THA,MMR,CZE,23
+2010,Thailand,Myanmar,Finland,THA,MMR,FIN,118
+2010,Thailand,Myanmar,Japan,THA,MMR,JPN,27
+2010,Thailand,Myanmar,"Netherlands (Kingdom of the)",THA,MMR,NLD,43
+2010,Thailand,Myanmar,Norway,THA,MMR,NOR,39
+2010,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,6
+2010,Thailand,Myanmar,Sweden,THA,MMR,SWE,81
+2010,Thailand,Myanmar,"United States of America",THA,MMR,USA,9342
+2010,Thailand,Somalia,"United States of America",THA,SOM,USA,7
+2010,Thailand,"Unknown ",Canada,THA,UNK,CAN,4
+2010,Thailand,"Unknown ",Denmark,THA,UNK,DNK,8
+2010,Thailand,"Unknown ",Finland,THA,UNK,FIN,6
+2010,Thailand,"Unknown ",France,THA,UNK,FRA,7
+2010,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,4
+2010,Thailand,"Unknown ",Ireland,THA,UNK,IRL,3
+2010,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,19
+2010,Thailand,"Unknown ",Sweden,THA,UNK,SWE,9
+2010,Thailand,"Unknown ",Switzerland,THA,UNK,CHE,1
+2010,Thailand,"Unknown ","United States of America",THA,UNK,USA,49
+2011,Thailand,"State of Palestine","Netherlands (Kingdom of the)",THA,PSE,NLD,6
+2011,Thailand,Iraq,"United States of America",THA,IRQ,USA,7
+2011,Thailand,"Lao People's Dem. Rep.",Australia,THA,LAO,AUS,24
+2011,Thailand,"Lao People's Dem. Rep.","United States of America",THA,LAO,USA,111
+2011,Thailand,"Sri Lanka",Canada,THA,LKA,CAN,5
+2011,Thailand,"Sri Lanka",Finland,THA,LKA,FIN,25
+2011,Thailand,"Sri Lanka","Netherlands (Kingdom of the)",THA,LKA,NLD,21
+2011,Thailand,"Sri Lanka","New Zealand",THA,LKA,NZL,11
+2011,Thailand,"Sri Lanka",Switzerland,THA,LKA,CHE,5
+2011,Thailand,"Sri Lanka","United States of America",THA,LKA,USA,37
+2011,Thailand,Myanmar,Australia,THA,MMR,AUS,764
+2011,Thailand,Myanmar,Finland,THA,MMR,FIN,146
+2011,Thailand,Myanmar,Japan,THA,MMR,JPN,18
+2011,Thailand,Myanmar,"Netherlands (Kingdom of the)",THA,MMR,NLD,75
+2011,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,160
+2011,Thailand,Myanmar,Sweden,THA,MMR,SWE,14
+2011,Thailand,Myanmar,"United States of America",THA,MMR,USA,7968
+2011,Thailand,Pakistan,Finland,THA,PAK,FIN,6
+2011,Thailand,Pakistan,"United States of America",THA,PAK,USA,33
+2011,Thailand,Somalia,"United States of America",THA,SOM,USA,14
+2011,Thailand,"Unknown ",Australia,THA,UNK,AUS,4
+2011,Thailand,"Unknown ",Canada,THA,UNK,CAN,73
+2011,Thailand,"Unknown ",Finland,THA,UNK,FIN,1
+2011,Thailand,"Unknown ",France,THA,UNK,FRA,3
+2011,Thailand,"Unknown ",Ireland,THA,UNK,IRL,1
+2011,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,1
+2011,Thailand,"Unknown ",Sweden,THA,UNK,SWE,4
+2011,Thailand,"Unknown ","United States of America",THA,UNK,USA,32
+2012,Thailand,"State of Palestine",Australia,THA,PSE,AUS,8
+2012,Thailand,"State of Palestine","New Zealand",THA,PSE,NZL,5
+2012,Thailand,"State of Palestine",Sweden,THA,PSE,SWE,13
+2012,Thailand,Iraq,"United States of America",THA,IRQ,USA,9
+2012,Thailand,"Sri Lanka",Finland,THA,LKA,FIN,23
+2012,Thailand,"Sri Lanka","United States of America",THA,LKA,USA,38
+2012,Thailand,Myanmar,Australia,THA,MMR,AUS,330
+2012,Thailand,Myanmar,Canada,THA,MMR,CAN,66
+2012,Thailand,Myanmar,Finland,THA,MMR,FIN,107
+2012,Thailand,Myanmar,"Netherlands (Kingdom of the)",THA,MMR,NLD,57
+2012,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,127
+2012,Thailand,Myanmar,Sweden,THA,MMR,SWE,15
+2012,Thailand,Myanmar,"United States of America",THA,MMR,USA,6143
+2012,Thailand,Pakistan,Canada,THA,PAK,CAN,6
+2012,Thailand,Pakistan,Finland,THA,PAK,FIN,22
+2012,Thailand,Pakistan,"Netherlands (Kingdom of the)",THA,PAK,NLD,31
+2012,Thailand,Pakistan,"United States of America",THA,PAK,USA,112
+2012,Thailand,Somalia,"United States of America",THA,SOM,USA,48
+2012,Thailand,"Unknown ",Canada,THA,UNK,CAN,6
+2012,Thailand,"Unknown ",Finland,THA,UNK,FIN,6
+2012,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,6
+2012,Thailand,"Unknown ",Norway,THA,UNK,NOR,1
+2012,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,14
+2012,Thailand,"Unknown ",Portugal,THA,UNK,PRT,1
+2012,Thailand,"Unknown ",Sweden,THA,UNK,SWE,2
+2012,Thailand,"Unknown ","United States of America",THA,UNK,USA,78
+2013,Thailand,China,Australia,THA,CHN,AUS,5
+2013,Thailand,China,Finland,THA,CHN,FIN,6
+2013,Thailand,China,"United States of America",THA,CHN,USA,59
+2013,Thailand,"Dem. Rep. of the Congo",Australia,THA,COD,AUS,6
+2013,Thailand,Iraq,"United States of America",THA,IRQ,USA,11
+2013,Thailand,"Sri Lanka",Finland,THA,LKA,FIN,17
+2013,Thailand,"Sri Lanka","Netherlands (Kingdom of the)",THA,LKA,NLD,10
+2013,Thailand,"Sri Lanka","New Zealand",THA,LKA,NZL,25
+2013,Thailand,"Sri Lanka",Switzerland,THA,LKA,CHE,7
+2013,Thailand,"Sri Lanka","United States of America",THA,LKA,USA,58
+2013,Thailand,Myanmar,Australia,THA,MMR,AUS,847
+2013,Thailand,Myanmar,Canada,THA,MMR,CAN,38
+2013,Thailand,Myanmar,Japan,THA,MMR,JPN,18
+2013,Thailand,Myanmar,Norway,THA,MMR,NOR,15
+2013,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,70
+2013,Thailand,Myanmar,"United States of America",THA,MMR,USA,7085
+2013,Thailand,Pakistan,Australia,THA,PAK,AUS,12
+2013,Thailand,Pakistan,Canada,THA,PAK,CAN,28
+2013,Thailand,Pakistan,Finland,THA,PAK,FIN,6
+2013,Thailand,Pakistan,"Netherlands (Kingdom of the)",THA,PAK,NLD,31
+2013,Thailand,Pakistan,"United States of America",THA,PAK,USA,125
+2013,Thailand,Somalia,"United States of America",THA,SOM,USA,72
+2013,Thailand,Sudan,Australia,THA,SDN,AUS,7
+2013,Thailand,"Unknown ",Australia,THA,UNK,AUS,20
+2013,Thailand,"Unknown ",Canada,THA,UNK,CAN,8
+2013,Thailand,"Unknown ",Finland,THA,UNK,FIN,109
+2013,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,1
+2013,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,34
+2013,Thailand,"Unknown ",Norway,THA,UNK,NOR,2
+2013,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,1
+2013,Thailand,"Unknown ",Sweden,THA,UNK,SWE,1
+2013,Thailand,"Unknown ","United States of America",THA,UNK,USA,72
+2014,Thailand,"Dem. Rep. of the Congo","United States of America",THA,COD,USA,8
+2014,Thailand,"State of Palestine",Canada,THA,PSE,CAN,9
+2014,Thailand,"State of Palestine","Netherlands (Kingdom of the)",THA,PSE,NLD,52
+2014,Thailand,"State of Palestine",Sweden,THA,PSE,SWE,17
+2014,Thailand,"State of Palestine","United States of America",THA,PSE,USA,8
+2014,Thailand,"Sri Lanka","Netherlands (Kingdom of the)",THA,LKA,NLD,16
+2014,Thailand,"Sri Lanka","United States of America",THA,LKA,USA,15
+2014,Thailand,Myanmar,Australia,THA,MMR,AUS,934
+2014,Thailand,Myanmar,Canada,THA,MMR,CAN,157
+2014,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,49
+2014,Thailand,Myanmar,"United States of America",THA,MMR,USA,5465
+2014,Thailand,Pakistan,"Netherlands (Kingdom of the)",THA,PAK,NLD,35
+2014,Thailand,Pakistan,"United States of America",THA,PAK,USA,84
+2014,Thailand,Somalia,"United States of America",THA,SOM,USA,30
+2014,Thailand,"Syrian Arab Rep.",Canada,THA,SYR,CAN,6
+2014,Thailand,"Syrian Arab Rep.","Netherlands (Kingdom of the)",THA,SYR,NLD,22
+2014,Thailand,"Unknown ",Australia,THA,UNK,AUS,5
+2014,Thailand,"Unknown ",Canada,THA,UNK,CAN,39
+2014,Thailand,"Unknown ",Denmark,THA,UNK,DNK,3
+2014,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,3
+2014,Thailand,"Unknown ",Ireland,THA,UNK,IRL,1
+2014,Thailand,"Unknown ",Japan,THA,UNK,JPN,23
+2014,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,50
+2014,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,1
+2014,Thailand,"Unknown ","United States of America",THA,UNK,USA,138
+2015,Thailand,"State of Palestine","Netherlands (Kingdom of the)",THA,PSE,NLD,36
+2015,Thailand,"State of Palestine","New Zealand",THA,PSE,NZL,10
+2015,Thailand,"State of Palestine",Sweden,THA,PSE,SWE,17
+2015,Thailand,"State of Palestine","United States of America",THA,PSE,USA,5
+2015,Thailand,"Iran (Islamic Rep. of)","United States of America",THA,IRN,USA,8
+2015,Thailand,Iraq,"United States of America",THA,IRQ,USA,5
+2015,Thailand,"Sri Lanka","New Zealand",THA,LKA,NZL,5
+2015,Thailand,"Sri Lanka",Switzerland,THA,LKA,CHE,23
+2015,Thailand,"Sri Lanka","United States of America",THA,LKA,USA,10
+2015,Thailand,Myanmar,Australia,THA,MMR,AUS,709
+2015,Thailand,Myanmar,Canada,THA,MMR,CAN,275
+2015,Thailand,Myanmar,"Rep. of Korea",THA,MMR,KOR,22
+2015,Thailand,Myanmar,Norway,THA,MMR,NOR,5
+2015,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,164
+2015,Thailand,Myanmar,"United States of America",THA,MMR,USA,5099
+2015,Thailand,Pakistan,Canada,THA,PAK,CAN,78
+2015,Thailand,Pakistan,"Netherlands (Kingdom of the)",THA,PAK,NLD,38
+2015,Thailand,Pakistan,Sweden,THA,PAK,SWE,5
+2015,Thailand,Pakistan,"United States of America",THA,PAK,USA,34
+2015,Thailand,Somalia,"United States of America",THA,SOM,USA,24
+2015,Thailand,"Syrian Arab Rep.","Netherlands (Kingdom of the)",THA,SYR,NLD,7
+2015,Thailand,"Unknown ",Australia,THA,UNK,AUS,4
+2015,Thailand,"Unknown ",Brazil,THA,UNK,BRA,1
+2015,Thailand,"Unknown ",Canada,THA,UNK,CAN,48
+2015,Thailand,"Unknown ",Finland,THA,UNK,FIN,1
+2015,Thailand,"Unknown ",France,THA,UNK,FRA,9
+2015,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,6
+2015,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,4
+2015,Thailand,"Unknown ",Sweden,THA,UNK,SWE,4
+2015,Thailand,"Unknown ","United States of America",THA,UNK,USA,60
+2016,Thailand,Afghanistan,Australia,THA,AFG,AUS,8
+2016,Thailand,"Dem. Rep. of the Congo",Australia,THA,COD,AUS,8
+2016,Thailand,"State of Palestine","New Zealand",THA,PSE,NZL,37
+2016,Thailand,Iraq,Australia,THA,IRQ,AUS,8
+2016,Thailand,Iraq,"United States of America",THA,IRQ,USA,8
+2016,Thailand,"Sri Lanka","United States of America",THA,LKA,USA,11
+2016,Thailand,Myanmar,Australia,THA,MMR,AUS,1256
+2016,Thailand,Myanmar,Canada,THA,MMR,CAN,297
+2016,Thailand,Myanmar,"Rep. of Korea",THA,MMR,KOR,34
+2016,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,66
+2016,Thailand,Myanmar,"United States of America",THA,MMR,USA,3634
+2016,Thailand,Pakistan,"New Zealand",THA,PAK,NZL,8
+2016,Thailand,Pakistan,"United States of America",THA,PAK,USA,164
+2016,Thailand,Somalia,"United States of America",THA,SOM,USA,27
+2016,Thailand,"Syrian Arab Rep.",Australia,THA,SYR,AUS,11
+2016,Thailand,"Syrian Arab Rep.","United States of America",THA,SYR,USA,36
+2016,Thailand,"Unknown ",Australia,THA,UNK,AUS,5
+2016,Thailand,"Unknown ",Canada,THA,UNK,CAN,86
+2016,Thailand,"Unknown ",Denmark,THA,UNK,DNK,7
+2016,Thailand,"Unknown ",Germany,THA,UNK,DEU,1
+2016,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,24
+2016,Thailand,"Unknown ",Sweden,THA,UNK,SWE,14
+2016,Thailand,"Unknown ",Switzerland,THA,UNK,CHE,1
+2016,Thailand,"Unknown ","United States of America",THA,UNK,USA,139
+2017,Thailand,"State of Palestine",Canada,THA,PSE,CAN,5
+2017,Thailand,"State of Palestine","New Zealand",THA,PSE,NZL,27
+2017,Thailand,"State of Palestine",Sweden,THA,PSE,SWE,13
+2017,Thailand,"State of Palestine","United States of America",THA,PSE,USA,21
+2017,Thailand,Myanmar,Australia,THA,MMR,AUS,824
+2017,Thailand,Myanmar,Canada,THA,MMR,CAN,76
+2017,Thailand,Myanmar,"Rep. of Korea",THA,MMR,KOR,30
+2017,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,89
+2017,Thailand,Myanmar,"United States of America",THA,MMR,USA,1284
+2017,Thailand,Pakistan,Canada,THA,PAK,CAN,80
+2017,Thailand,Pakistan,"New Zealand",THA,PAK,NZL,44
+2017,Thailand,Pakistan,"United States of America",THA,PAK,USA,47
+2017,Thailand,Somalia,"United States of America",THA,SOM,USA,7
+2017,Thailand,"Unknown ",Australia,THA,UNK,AUS,8
+2017,Thailand,"Unknown ",Canada,THA,UNK,CAN,47
+2017,Thailand,"Unknown ",France,THA,UNK,FRA,1
+2017,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,4
+2017,Thailand,"Unknown ",Norway,THA,UNK,NOR,4
+2017,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,5
+2017,Thailand,"Unknown ",Sweden,THA,UNK,SWE,3
+2017,Thailand,"Unknown ",Switzerland,THA,UNK,CHE,1
+2017,Thailand,"Unknown ","United States of America",THA,UNK,USA,35
+2018,Thailand,"Dem. Rep. of the Congo","United States of America",THA,COD,USA,8
+2018,Thailand,"State of Palestine",Canada,THA,PSE,CAN,5
+2018,Thailand,"State of Palestine","New Zealand",THA,PSE,NZL,25
+2018,Thailand,Iraq,Canada,THA,IRQ,CAN,5
+2018,Thailand,Myanmar,Australia,THA,MMR,AUS,547
+2018,Thailand,Myanmar,Canada,THA,MMR,CAN,85
+2018,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,80
+2018,Thailand,Myanmar,"United States of America",THA,MMR,USA,1538
+2018,Thailand,Pakistan,Canada,THA,PAK,CAN,135
+2018,Thailand,Pakistan,"New Zealand",THA,PAK,NZL,29
+2018,Thailand,Pakistan,"United States of America",THA,PAK,USA,86
+2018,Thailand,Somalia,Canada,THA,SOM,CAN,5
+2018,Thailand,"Unknown ",Australia,THA,UNK,AUS,22
+2018,Thailand,"Unknown ",Canada,THA,UNK,CAN,13
+2018,Thailand,"Unknown ",Finland,THA,UNK,FIN,2
+2018,Thailand,"Unknown ",France,THA,UNK,FRA,3
+2018,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,4
+2018,Thailand,"Unknown ",Norway,THA,UNK,NOR,2
+2018,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,4
+2018,Thailand,"Unknown ","United States of America",THA,UNK,USA,25
+2019,Thailand,Afghanistan,Canada,THA,AFG,CAN,5
+2019,Thailand,"State of Palestine",Australia,THA,PSE,AUS,7
+2019,Thailand,"State of Palestine",Canada,THA,PSE,CAN,20
+2019,Thailand,"State of Palestine","New Zealand",THA,PSE,NZL,27
+2019,Thailand,Iraq,Australia,THA,IRQ,AUS,23
+2019,Thailand,Myanmar,Australia,THA,MMR,AUS,135
+2019,Thailand,Myanmar,Canada,THA,MMR,CAN,73
+2019,Thailand,Myanmar,Norway,THA,MMR,NOR,6
+2019,Thailand,Myanmar,"United States of America",THA,MMR,USA,2204
+2019,Thailand,Pakistan,Australia,THA,PAK,AUS,27
+2019,Thailand,Pakistan,Canada,THA,PAK,CAN,12
+2019,Thailand,Pakistan,"United Kingdom of Great Britain and Northern Ireland",THA,PAK,GBR,16
+2019,Thailand,Pakistan,"New Zealand",THA,PAK,NZL,27
+2019,Thailand,Pakistan,"United States of America",THA,PAK,USA,69
+2019,Thailand,Somalia,Canada,THA,SOM,CAN,18
+2019,Thailand,"Unknown ",Australia,THA,UNK,AUS,29
+2019,Thailand,"Unknown ",Canada,THA,UNK,CAN,48
+2019,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,1
+2019,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,83
+2019,Thailand,"Unknown ",Sweden,THA,UNK,SWE,6
+2019,Thailand,"Unknown ","United States of America",THA,UNK,USA,11
+2020,Thailand,"State of Palestine",Canada,THA,PSE,CAN,12
+2020,Thailand,Myanmar,Australia,THA,MMR,AUS,11
+2020,Thailand,Myanmar,Canada,THA,MMR,CAN,7
+2020,Thailand,Myanmar,"United States of America",THA,MMR,USA,811
+2020,Thailand,Pakistan,"New Zealand",THA,PAK,NZL,15
+2020,Thailand,Somalia,Canada,THA,SOM,CAN,6
+2020,Thailand,"Unknown ",Australia,THA,UNK,AUS,22
+2020,Thailand,"Unknown ",Canada,THA,UNK,CAN,19
+2020,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,75
+2020,Thailand,"Unknown ","United States of America",THA,UNK,USA,44
+2021,Thailand,Afghanistan,Australia,THA,AFG,AUS,8
+2021,Thailand,"State of Palestine","United States of America",THA,PSE,USA,16
+2021,Thailand,Iraq,Canada,THA,IRQ,CAN,6
+2021,Thailand,Myanmar,Canada,THA,MMR,CAN,17
+2021,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,89
+2021,Thailand,Myanmar,"United States of America",THA,MMR,USA,292
+2021,Thailand,Pakistan,"New Zealand",THA,PAK,NZL,21
+2021,Thailand,"Syrian Arab Rep.",Australia,THA,SYR,AUS,5
+2021,Thailand,"Unknown ",Australia,THA,UNK,AUS,16
+2021,Thailand,"Unknown ",Canada,THA,UNK,CAN,20
+2021,Thailand,"Unknown ",Finland,THA,UNK,FIN,4
+2021,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,2
+2021,Thailand,"Unknown ","United States of America",THA,UNK,USA,27
+2022,Thailand,Cambodia,Australia,THA,KHM,AUS,10
+2022,Thailand,Cambodia,Canada,THA,KHM,CAN,55
+2022,Thailand,Cambodia,"United States of America",THA,KHM,USA,32
+2022,Thailand,"State of Palestine",Canada,THA,PSE,CAN,54
+2022,Thailand,"State of Palestine","United States of America",THA,PSE,USA,5
+2022,Thailand,Iraq,Australia,THA,IRQ,AUS,6
+2022,Thailand,Myanmar,Australia,THA,MMR,AUS,35
+2022,Thailand,Myanmar,Canada,THA,MMR,CAN,17
+2022,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,17
+2022,Thailand,Myanmar,"United States of America",THA,MMR,USA,320
+2022,Thailand,Pakistan,Australia,THA,PAK,AUS,77
+2022,Thailand,Pakistan,Canada,THA,PAK,CAN,34
+2022,Thailand,Pakistan,"United States of America",THA,PAK,USA,15
+2022,Thailand,Somalia,Australia,THA,SOM,AUS,9
+2022,Thailand,"Unknown ",Australia,THA,UNK,AUS,65
+2022,Thailand,"Unknown ",Canada,THA,UNK,CAN,65
+2022,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,22
+2022,Thailand,"Unknown ","Netherlands (Kingdom of the)",THA,UNK,NLD,3
+2022,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,2
+2022,Thailand,"Unknown ","United States of America",THA,UNK,USA,31
+2023,Thailand,Afghanistan,Canada,THA,AFG,CAN,8
+2023,Thailand,Afghanistan,"United States of America",THA,AFG,USA,13
+2023,Thailand,"State of Palestine",Australia,THA,PSE,AUS,11
+2023,Thailand,"State of Palestine",Canada,THA,PSE,CAN,11
+2023,Thailand,Myanmar,Australia,THA,MMR,AUS,36
+2023,Thailand,Myanmar,Canada,THA,MMR,CAN,31
+2023,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,21
+2023,Thailand,Myanmar,"United States of America",THA,MMR,USA,1162
+2023,Thailand,Pakistan,Australia,THA,PAK,AUS,78
+2023,Thailand,Pakistan,Canada,THA,PAK,CAN,5
+2023,Thailand,Pakistan,"United States of America",THA,PAK,USA,110
+2023,Thailand,Somalia,"United States of America",THA,SOM,USA,5
+2023,Thailand,"Viet Nam",Australia,THA,VNM,AUS,5
+2023,Thailand,"Viet Nam",Canada,THA,VNM,CAN,30
+2023,Thailand,"Viet Nam","New Zealand",THA,VNM,NZL,7
+2023,Thailand,"Viet Nam","United States of America",THA,VNM,USA,82
+2023,Thailand,"Syrian Arab Rep.","United States of America",THA,SYR,USA,7
+2023,Thailand,"Unknown ",Australia,THA,UNK,AUS,42
+2023,Thailand,"Unknown ",Canada,THA,UNK,CAN,10
+2023,Thailand,"Unknown ",Finland,THA,UNK,FIN,1
+2023,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,10
+2023,Thailand,"Unknown ","United States of America",THA,UNK,USA,32
+2024,Thailand,Cambodia,Australia,THA,KHM,AUS,17
+2024,Thailand,Cambodia,"United States of America",THA,KHM,USA,76
+2024,Thailand,"Iran (Islamic Rep. of)",Australia,THA,IRN,AUS,5
+2024,Thailand,Myanmar,Australia,THA,MMR,AUS,90
+2024,Thailand,Myanmar,Canada,THA,MMR,CAN,17
+2024,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,7
+2024,Thailand,Myanmar,"United States of America",THA,MMR,USA,1093
+2024,Thailand,Pakistan,Australia,THA,PAK,AUS,15
+2024,Thailand,Pakistan,Canada,THA,PAK,CAN,17
+2024,Thailand,Pakistan,"New Zealand",THA,PAK,NZL,8
+2024,Thailand,Pakistan,"United States of America",THA,PAK,USA,98
+2024,Thailand,"Viet Nam",Australia,THA,VNM,AUS,13
+2024,Thailand,"Viet Nam",Canada,THA,VNM,CAN,10
+2024,Thailand,"Viet Nam","New Zealand",THA,VNM,NZL,12
+2024,Thailand,"Viet Nam","United States of America",THA,VNM,USA,90
+2024,Thailand,"Unknown ",Australia,THA,UNK,AUS,7
+2024,Thailand,"Unknown ",Canada,THA,UNK,CAN,11
+2024,Thailand,"Unknown ","United Kingdom of Great Britain and Northern Ireland",THA,UNK,GBR,1
+2024,Thailand,"Unknown ","New Zealand",THA,UNK,NZL,12
+2024,Thailand,"Unknown ","United States of America",THA,UNK,USA,56
+2025,Thailand,Myanmar,Australia,THA,MMR,AUS,253
+2025,Thailand,Myanmar,Canada,THA,MMR,CAN,70
+2025,Thailand,Myanmar,"Rep. of Korea",THA,MMR,KOR,56
+2025,Thailand,Myanmar,"New Zealand",THA,MMR,NZL,8
+2025,Thailand,Myanmar,"United States of America",THA,MMR,USA,142
+2025,Thailand,Pakistan,Australia,THA,PAK,AUS,14
+2025,Thailand,Pakistan,Canada,THA,PAK,CAN,7
+2025,Thailand,"Syrian Arab Rep.",Australia,THA,SYR,AUS,5
+2025,Thailand,"Unknown ",Australia,THA,UNK,AUS,25
+2025,Thailand,"Unknown ",Canada,THA,UNK,CAN,29
+2025,Thailand,"Unknown ","United States of America",THA,UNK,USA,1

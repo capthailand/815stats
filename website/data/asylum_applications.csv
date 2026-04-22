@@ -1,0 +1,823 @@
+Year,"Country of Asylum","Country of Origin","Country of Asylum ISO","Country of Origin ISO","Procedure Type","Application type","Decision level",App_pc,Applied
+2000,Thailand,Afghanistan,THA,AFG,U,V,FI,P,25
+2000,Thailand,Cambodia,THA,KHM,U,V,AR,P,14
+2000,Thailand,Cambodia,THA,KHM,U,V,FI,P,102
+2000,Thailand,China,THA,CHN,U,V,AR,P,27
+2000,Thailand,China,THA,CHN,U,V,FI,P,43
+2000,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,V,AR,P,18
+2000,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,V,FI,P,56
+2000,Thailand,Iraq,THA,IRQ,U,V,AR,P,49
+2000,Thailand,Iraq,THA,IRQ,U,V,FI,P,116
+2000,Thailand,"Dem. People's Rep. of Korea",THA,PRK,U,V,FI,P,24
+2000,Thailand,"Sri Lanka",THA,LKA,U,V,AR,P,8
+2000,Thailand,"Sri Lanka",THA,LKA,U,V,FI,P,38
+2000,Thailand,Myanmar,THA,MMR,U,V,AR,P,319
+2000,Thailand,Myanmar,THA,MMR,U,V,FI,P,479
+2000,Thailand,Somalia,THA,SOM,U,V,FI,P,19
+2000,Thailand,"Unknown ",THA,UNK,U,V,AR,P,32
+2000,Thailand,"Unknown ",THA,UNK,U,V,FI,P,179
+2001,Thailand,Afghanistan,THA,AFG,U,V,FA,P,21
+2001,Thailand,Cambodia,THA,KHM,U,V,FA,P,45
+2001,Thailand,China,THA,CHN,U,V,FA,P,63
+2001,Thailand,"State of Palestine",THA,PSE,U,V,FA,P,10
+2001,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,V,FA,P,42
+2001,Thailand,Iraq,THA,IRQ,U,V,FA,P,116
+2001,Thailand,"Dem. People's Rep. of Korea",THA,PRK,U,V,FA,P,76
+2001,Thailand,"Sri Lanka",THA,LKA,U,V,FA,P,28
+2001,Thailand,Myanmar,THA,MMR,U,V,FA,P,848
+2001,Thailand,"Unknown ",THA,UNK,U,V,FA,P,204
+2002,Thailand,Afghanistan,THA,AFG,U,V,FA,P,15
+2002,Thailand,Cambodia,THA,KHM,U,V,FA,P,60
+2002,Thailand,China,THA,CHN,U,V,FA,P,61
+2002,Thailand,"State of Palestine",THA,PSE,U,V,FA,P,8
+2002,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,V,FA,P,67
+2002,Thailand,Iraq,THA,IRQ,U,V,FA,P,134
+2002,Thailand,"Dem. People's Rep. of Korea",THA,PRK,U,V,FA,P,169
+2002,Thailand,"Sri Lanka",THA,LKA,U,V,FA,P,83
+2002,Thailand,Myanmar,THA,MMR,U,V,FA,P,1659
+2002,Thailand,"Viet Nam",THA,VNM,U,V,FA,P,43
+2002,Thailand,"Unknown ",THA,UNK,U,V,FA,P,735
+2003,Thailand,Bangladesh,THA,BGD,U,V,FA,P,5
+2003,Thailand,Cambodia,THA,KHM,U,V,FA,P,70
+2003,Thailand,China,THA,CHN,U,V,FA,P,60
+2003,Thailand,Cameroon,THA,CMR,U,V,FA,P,12
+2003,Thailand,Congo,THA,COG,U,V,FA,P,36
+2003,Thailand,"Dem. Rep. of the Congo",THA,COD,U,V,FA,P,15
+2003,Thailand,Ethiopia,THA,ETH,U,V,FA,P,5
+2003,Thailand,"State of Palestine",THA,PSE,U,V,FA,P,12
+2003,Thailand,Germany,THA,DEU,U,V,FA,P,5
+2003,Thailand,Ghana,THA,GHA,U,V,FA,P,5
+2003,Thailand,Guinea,THA,GIN,U,V,FA,P,6
+2003,Thailand,"Cote d'Ivoire",THA,CIV,U,V,FA,P,19
+2003,Thailand,India,THA,IND,U,V,FA,P,13
+2003,Thailand,Indonesia,THA,IDN,U,V,FA,P,6
+2003,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,V,FA,P,54
+2003,Thailand,Iraq,THA,IRQ,U,V,FA,P,103
+2003,Thailand,Kenya,THA,KEN,U,V,FA,P,5
+2003,Thailand,"Dem. People's Rep. of Korea",THA,PRK,U,V,FA,P,126
+2003,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,V,FA,P,47
+2003,Thailand,Liberia,THA,LBR,U,V,FA,P,136
+2003,Thailand,"Sri Lanka",THA,LKA,U,V,FA,P,96
+2003,Thailand,Myanmar,THA,MMR,U,V,FA,P,2930
+2003,Thailand,Nepal,THA,NPL,U,V,FA,P,14
+2003,Thailand,Nigeria,THA,NGA,U,V,FA,P,93
+2003,Thailand,Pakistan,THA,PAK,U,V,FA,P,31
+2003,Thailand,"Sierra Leone",THA,SLE,U,V,FA,P,33
+2003,Thailand,Somalia,THA,SOM,U,V,FA,P,22
+2003,Thailand,"Viet Nam",THA,VNM,U,V,FA,P,40
+2003,Thailand,Uganda,THA,UGA,U,V,FA,P,6
+2004,Thailand,Egypt,THA,EGY,U,V,FA,P,5
+2004,Thailand,Cambodia,THA,KHM,U,V,FA,P,129
+2004,Thailand,China,THA,CHN,U,V,FA,P,57
+2004,Thailand,Cameroon,THA,CMR,U,V,FA,P,5
+2004,Thailand,"Dem. Rep. of the Congo",THA,COD,U,V,FA,P,26
+2004,Thailand,Guinea,THA,GIN,U,V,FA,P,5
+2004,Thailand,"Cote d'Ivoire",THA,CIV,U,V,FA,P,5
+2004,Thailand,India,THA,IND,U,V,FA,P,10
+2004,Thailand,Indonesia,THA,IDN,U,V,FA,P,8
+2004,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,V,FA,P,46
+2004,Thailand,Iraq,THA,IRQ,U,V,FA,P,34
+2004,Thailand,"Dem. People's Rep. of Korea",THA,PRK,U,V,FA,P,55
+2004,Thailand,Kuwait,THA,KWT,U,V,FA,P,5
+2004,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,V,FA,P,569
+2004,Thailand,Liberia,THA,LBR,U,V,FA,P,9
+2004,Thailand,"Sri Lanka",THA,LKA,U,V,FA,P,16
+2004,Thailand,Myanmar,THA,MMR,U,V,FA,P,1270
+2004,Thailand,Nepal,THA,NPL,U,V,FA,P,54
+2004,Thailand,Nigeria,THA,NGA,U,V,FA,P,24
+2004,Thailand,Pakistan,THA,PAK,U,V,FA,P,13
+2004,Thailand,Philippines,THA,PHL,U,V,FA,P,5
+2004,Thailand,"Sierra Leone",THA,SLE,U,V,FA,P,9
+2004,Thailand,Somalia,THA,SOM,U,V,FA,P,6
+2004,Thailand,"Viet Nam",THA,VNM,U,V,FA,P,83
+2004,Thailand,Sudan,THA,SDN,U,V,FA,P,5
+2004,Thailand,Uganda,THA,UGA,U,V,FA,P,5
+2004,Thailand,Zimbabwe,THA,ZWE,U,V,FA,P,5
+2005,Thailand,Egypt,THA,EGY,U,V,FI,P,5
+2005,Thailand,Cambodia,THA,KHM,U,V,AR,P,158
+2005,Thailand,Cambodia,THA,KHM,U,V,FI,P,317
+2005,Thailand,Cambodia,THA,KHM,U,V,RA,P,8
+2005,Thailand,China,THA,CHN,U,V,AR,P,18
+2005,Thailand,China,THA,CHN,U,V,FI,P,67
+2005,Thailand,China,THA,CHN,U,V,RA,P,8
+2005,Thailand,Cameroon,THA,CMR,U,V,AR,P,5
+2005,Thailand,Cameroon,THA,CMR,U,V,FI,P,5
+2005,Thailand,"Dem. Rep. of the Congo",THA,COD,U,V,AR,P,10
+2005,Thailand,"Dem. Rep. of the Congo",THA,COD,U,V,FI,P,26
+2005,Thailand,"Dem. Rep. of the Congo",THA,COD,U,V,RA,P,5
+2005,Thailand,"China, Hong Kong SAR",THA,HKG,U,V,FI,P,5
+2005,Thailand,"Cote d'Ivoire",THA,CIV,U,V,AR,P,5
+2005,Thailand,"Cote d'Ivoire",THA,CIV,U,V,FI,P,10
+2005,Thailand,India,THA,IND,U,V,AR,P,5
+2005,Thailand,India,THA,IND,U,V,FI,P,6
+2005,Thailand,Indonesia,THA,IDN,U,V,FI,P,9
+2005,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,V,AR,P,12
+2005,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,V,FI,P,13
+2005,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,V,RA,P,5
+2005,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,V,AR,P,13
+2005,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,V,FI,P,165
+2005,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,V,RA,P,8
+2005,Thailand,Liberia,THA,LBR,U,V,FI,P,5
+2005,Thailand,"Sri Lanka",THA,LKA,U,V,AR,P,10
+2005,Thailand,"Sri Lanka",THA,LKA,U,V,FI,P,58
+2005,Thailand,"Sri Lanka",THA,LKA,U,V,RA,P,5
+2005,Thailand,Myanmar,THA,MMR,G,V,FI,P,46209
+2005,Thailand,Myanmar,THA,MMR,U,V,AR,P,25
+2005,Thailand,Myanmar,THA,MMR,U,V,FI,P,169
+2005,Thailand,Myanmar,THA,MMR,U,V,RA,P,28
+2005,Thailand,Nepal,THA,NPL,U,V,AR,P,16
+2005,Thailand,Nepal,THA,NPL,U,V,FI,P,100
+2005,Thailand,Nigeria,THA,NGA,U,V,AR,P,5
+2005,Thailand,Nigeria,THA,NGA,U,V,FI,P,21
+2005,Thailand,Pakistan,THA,PAK,U,V,FI,P,5
+2005,Thailand,"Sierra Leone",THA,SLE,U,V,FI,P,8
+2005,Thailand,Somalia,THA,SOM,U,V,AR,P,5
+2005,Thailand,Somalia,THA,SOM,U,V,FI,P,8
+2005,Thailand,"Viet Nam",THA,VNM,U,V,AR,P,56
+2005,Thailand,"Viet Nam",THA,VNM,U,V,FI,P,53
+2005,Thailand,"Viet Nam",THA,VNM,U,V,RA,P,5
+2005,Thailand,Sudan,THA,SDN,U,V,FI,P,7
+2006,Thailand,Bangladesh,THA,BGD,U,N,FI,P,5
+2006,Thailand,Cambodia,THA,KHM,U,A,AR,P,43
+2006,Thailand,Cambodia,THA,KHM,U,N,FI,P,88
+2006,Thailand,Cambodia,THA,KHM,U,R,RA,P,5
+2006,Thailand,China,THA,CHN,U,A,AR,P,19
+2006,Thailand,China,THA,CHN,U,N,FI,P,103
+2006,Thailand,Cameroon,THA,CMR,U,N,FI,P,5
+2006,Thailand,"Dem. Rep. of the Congo",THA,COD,U,A,AR,P,12
+2006,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,49
+2006,Thailand,Ethiopia,THA,ETH,U,N,FI,P,5
+2006,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,46
+2006,Thailand,Ghana,THA,GHA,U,N,FI,P,5
+2006,Thailand,"Cote d'Ivoire",THA,CIV,U,A,AR,P,5
+2006,Thailand,"Cote d'Ivoire",THA,CIV,U,N,FI,P,12
+2006,Thailand,India,THA,IND,U,A,AR,P,5
+2006,Thailand,India,THA,IND,U,N,FI,P,9
+2006,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,27
+2006,Thailand,Iraq,THA,IRQ,U,N,FI,P,5
+2006,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,A,AR,P,8
+2006,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,240
+2006,Thailand,Liberia,THA,LBR,U,N,FI,P,5
+2006,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,21
+2006,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,98
+2006,Thailand,Myanmar,THA,MMR,G,N,FA,P,3619
+2006,Thailand,Myanmar,THA,MMR,U,A,AR,P,5
+2006,Thailand,Myanmar,THA,MMR,U,N,FI,P,14
+2006,Thailand,Nepal,THA,NPL,U,A,AR,P,20
+2006,Thailand,Nepal,THA,NPL,U,N,FI,P,54
+2006,Thailand,Nigeria,THA,NGA,U,A,AR,P,6
+2006,Thailand,Nigeria,THA,NGA,U,N,FI,P,21
+2006,Thailand,Pakistan,THA,PAK,U,N,FI,P,6
+2006,Thailand,Somalia,THA,SOM,U,N,FI,P,5
+2006,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,18
+2006,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,96
+2006,Thailand,Uganda,THA,UGA,U,N,FI,P,5
+2007,Thailand,Egypt,THA,EGY,U,N,FI,P,5
+2007,Thailand,Cambodia,THA,KHM,U,A,AR,P,15
+2007,Thailand,Cambodia,THA,KHM,U,N,FI,P,61
+2007,Thailand,Cambodia,THA,KHM,U,R,RA,P,54
+2007,Thailand,China,THA,CHN,U,A,AR,P,12
+2007,Thailand,China,THA,CHN,U,N,FI,P,100
+2007,Thailand,China,THA,CHN,U,R,RA,P,26
+2007,Thailand,Cameroon,THA,CMR,U,A,AR,P,5
+2007,Thailand,Cameroon,THA,CMR,U,N,FI,P,5
+2007,Thailand,"Dem. Rep. of the Congo",THA,COD,U,A,AR,P,14
+2007,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,17
+2007,Thailand,"Dem. Rep. of the Congo",THA,COD,U,R,RA,P,5
+2007,Thailand,Ethiopia,THA,ETH,U,A,AR,P,5
+2007,Thailand,Ethiopia,THA,ETH,U,N,FI,P,12
+2007,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,10
+2007,Thailand,Guinea,THA,GIN,U,N,FI,P,5
+2007,Thailand,"Cote d'Ivoire",THA,CIV,U,N,FI,P,5
+2007,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,7
+2007,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,14
+2007,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,R,RA,P,7
+2007,Thailand,Iraq,THA,IRQ,U,N,FI,P,117
+2007,Thailand,Iraq,THA,IRQ,U,R,RA,P,6
+2007,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,38
+2007,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,5
+2007,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,352
+2007,Thailand,"Sri Lanka",THA,LKA,U,R,RA,P,17
+2007,Thailand,Myanmar,THA,MMR,G,N,FA,P,228
+2007,Thailand,Myanmar,THA,MMR,U,N,FI,P,5
+2007,Thailand,Nepal,THA,NPL,U,A,AR,P,13
+2007,Thailand,Nepal,THA,NPL,U,N,FI,P,31
+2007,Thailand,Nigeria,THA,NGA,U,A,AR,P,5
+2007,Thailand,Nigeria,THA,NGA,U,N,FI,P,11
+2007,Thailand,Pakistan,THA,PAK,U,N,FI,P,18
+2007,Thailand,Rwanda,THA,RWA,U,N,FI,P,6
+2007,Thailand,Somalia,THA,SOM,U,N,FI,P,75
+2007,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,17
+2007,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,39
+2007,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,68
+2007,Thailand,Zimbabwe,THA,ZWE,U,N,FI,P,5
+2008,Thailand,Burundi,THA,BDI,U,N,FI,P,5
+2008,Thailand,Bangladesh,THA,BGD,U,N,FI,P,8
+2008,Thailand,Cambodia,THA,KHM,U,A,AR,P,13
+2008,Thailand,Cambodia,THA,KHM,U,N,FI,P,50
+2008,Thailand,Cambodia,THA,KHM,U,R,RA,P,26
+2008,Thailand,China,THA,CHN,U,A,AR,P,43
+2008,Thailand,China,THA,CHN,U,N,FI,P,73
+2008,Thailand,China,THA,CHN,U,R,RA,P,17
+2008,Thailand,Cameroon,THA,CMR,U,N,FI,P,5
+2008,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,35
+2008,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,6
+2008,Thailand,"Cote d'Ivoire",THA,CIV,U,A,AR,P,5
+2008,Thailand,"Cote d'Ivoire",THA,CIV,U,N,FI,P,22
+2008,Thailand,India,THA,IND,U,N,FI,P,10
+2008,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,8
+2008,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,16
+2008,Thailand,Iraq,THA,IRQ,U,A,AR,P,5
+2008,Thailand,Iraq,THA,IRQ,U,N,FI,P,62
+2008,Thailand,Iraq,THA,IRQ,U,R,RA,P,11
+2008,Thailand,Kuwait,THA,KWT,U,N,FI,P,5
+2008,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,15
+2008,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,65
+2008,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,236
+2008,Thailand,"Sri Lanka",THA,LKA,U,R,RA,P,25
+2008,Thailand,Myanmar,THA,MMR,G,A,FA,P,193
+2008,Thailand,Myanmar,THA,MMR,U,N,FI,P,5
+2008,Thailand,Nepal,THA,NPL,U,A,AR,P,6
+2008,Thailand,Nepal,THA,NPL,U,N,FI,P,5
+2008,Thailand,Pakistan,THA,PAK,U,A,AR,P,5
+2008,Thailand,Pakistan,THA,PAK,U,N,FI,P,14
+2008,Thailand,Rwanda,THA,RWA,U,A,AR,P,5
+2008,Thailand,"Sierra Leone",THA,SLE,U,N,FI,P,7
+2008,Thailand,Somalia,THA,SOM,U,A,AR,P,13
+2008,Thailand,Somalia,THA,SOM,U,N,FI,P,110
+2008,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,10
+2008,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,58
+2008,Thailand,Sudan,THA,SDN,U,N,FI,P,5
+2009,Thailand,Afghanistan,THA,AFG,U,N,FI,P,6
+2009,Thailand,Bangladesh,THA,BGD,U,A,AR,P,5
+2009,Thailand,Cambodia,THA,KHM,U,A,AR,P,9
+2009,Thailand,Cambodia,THA,KHM,U,N,FI,P,65
+2009,Thailand,Cambodia,THA,KHM,U,R,RA,P,13
+2009,Thailand,China,THA,CHN,U,A,AR,P,16
+2009,Thailand,China,THA,CHN,U,N,FI,P,76
+2009,Thailand,China,THA,CHN,U,R,RA,P,30
+2009,Thailand,Cameroon,THA,CMR,U,N,FI,P,11
+2009,Thailand,"Dem. Rep. of the Congo",THA,COD,U,A,AR,P,20
+2009,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,49
+2009,Thailand,Ethiopia,THA,ETH,U,N,FI,P,5
+2009,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,12
+2009,Thailand,Guinea,THA,GIN,U,N,FI,P,16
+2009,Thailand,"Cote d'Ivoire",THA,CIV,U,A,AR,P,5
+2009,Thailand,"Cote d'Ivoire",THA,CIV,U,N,FI,P,6
+2009,Thailand,India,THA,IND,U,A,AR,P,5
+2009,Thailand,India,THA,IND,U,N,FI,P,5
+2009,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,6
+2009,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,28
+2009,Thailand,Iraq,THA,IRQ,U,A,AR,P,5
+2009,Thailand,Iraq,THA,IRQ,U,N,FI,P,35
+2009,Thailand,Kuwait,THA,KWT,U,N,FI,P,5
+2009,Thailand,Kuwait,THA,KWT,U,R,RA,P,5
+2009,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,13
+2009,Thailand,Liberia,THA,LBR,U,N,FI,P,5
+2009,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,84
+2009,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,601
+2009,Thailand,"Sri Lanka",THA,LKA,U,R,RA,P,20
+2009,Thailand,Myanmar,THA,MMR,G,N,FA,P,4883
+2009,Thailand,Nepal,THA,NPL,U,N,FI,P,18
+2009,Thailand,Pakistan,THA,PAK,U,A,AR,P,8
+2009,Thailand,Pakistan,THA,PAK,U,N,FI,P,356
+2009,Thailand,"Sierra Leone",THA,SLE,U,N,FI,P,19
+2009,Thailand,Somalia,THA,SOM,U,A,AR,P,18
+2009,Thailand,Somalia,THA,SOM,U,N,FI,P,21
+2009,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,64
+2009,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,268
+2009,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,15
+2009,Thailand,Sudan,THA,SDN,U,N,FI,P,5
+2009,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,5
+2010,Thailand,Afghanistan,THA,AFG,U,N,FI,P,6
+2010,Thailand,Bangladesh,THA,BGD,U,N,FI,P,7
+2010,Thailand,Cambodia,THA,KHM,U,A,AR,P,5
+2010,Thailand,Cambodia,THA,KHM,U,N,FI,P,34
+2010,Thailand,Cambodia,THA,KHM,U,R,RA,P,39
+2010,Thailand,China,THA,CHN,U,A,AR,P,5
+2010,Thailand,China,THA,CHN,U,N,FI,P,51
+2010,Thailand,China,THA,CHN,U,R,RA,P,27
+2010,Thailand,Cameroon,THA,CMR,U,N,FI,P,5
+2010,Thailand,"Dem. Rep. of the Congo",THA,COD,U,A,AR,P,18
+2010,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,47
+2010,Thailand,"Dem. Rep. of the Congo",THA,COD,U,R,RA,P,5
+2010,Thailand,Ethiopia,THA,ETH,U,N,FI,P,5
+2010,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,5
+2010,Thailand,Guinea,THA,GIN,U,A,AR,P,5
+2010,Thailand,Guinea,THA,GIN,U,N,FI,P,29
+2010,Thailand,"Cote d'Ivoire",THA,CIV,U,N,FI,P,9
+2010,Thailand,India,THA,IND,U,N,FI,P,5
+2010,Thailand,India,THA,IND,U,R,RA,P,5
+2010,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,6
+2010,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,40
+2010,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,R,RA,P,6
+2010,Thailand,Iraq,THA,IRQ,U,N,FI,P,21
+2010,Thailand,Iraq,THA,IRQ,U,R,RA,P,5
+2010,Thailand,Kuwait,THA,KWT,U,A,AR,P,5
+2010,Thailand,Kuwait,THA,KWT,U,N,FI,P,5
+2010,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,54
+2010,Thailand,Liberia,THA,LBR,U,N,FI,P,18
+2010,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,83
+2010,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,425
+2010,Thailand,"Sri Lanka",THA,LKA,U,R,RA,P,36
+2010,Thailand,Myanmar,THA,MMR,G,N,FA,P,5
+2010,Thailand,Nepal,THA,NPL,U,N,FI,P,6
+2010,Thailand,Nigeria,THA,NGA,U,N,FI,P,7
+2010,Thailand,Pakistan,THA,PAK,U,A,AR,P,29
+2010,Thailand,Pakistan,THA,PAK,U,N,FI,P,290
+2010,Thailand,Pakistan,THA,PAK,U,R,RA,P,10
+2010,Thailand,"Sierra Leone",THA,SLE,U,N,FI,P,5
+2010,Thailand,Somalia,THA,SOM,U,A,AR,P,67
+2010,Thailand,Somalia,THA,SOM,U,N,FI,P,25
+2010,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,73
+2010,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,86
+2010,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,36
+2010,Thailand,Uganda,THA,UGA,U,N,FI,P,8
+2011,Thailand,Afghanistan,THA,AFG,U,N,FI,P,5
+2011,Thailand,Egypt,THA,EGY,U,N,FI,P,8
+2011,Thailand,Burundi,THA,BDI,U,N,FI,P,5
+2011,Thailand,Bangladesh,THA,BGD,U,N,FI,P,10
+2011,Thailand,Cambodia,THA,KHM,U,N,FI,P,22
+2011,Thailand,Cambodia,THA,KHM,U,R,RA,P,9
+2011,Thailand,China,THA,CHN,U,N,FI,P,66
+2011,Thailand,China,THA,CHN,U,R,RA,P,18
+2011,Thailand,Cameroon,THA,CMR,U,N,FI,P,14
+2011,Thailand,"Dem. Rep. of the Congo",THA,COD,U,A,AR,P,14
+2011,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,58
+2011,Thailand,Ethiopia,THA,ETH,U,N,FI,P,5
+2011,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,9
+2011,Thailand,Ghana,THA,GHA,U,N,FI,P,5
+2011,Thailand,Guinea,THA,GIN,U,A,AR,P,5
+2011,Thailand,Guinea,THA,GIN,U,N,FI,P,20
+2011,Thailand,"Cote d'Ivoire",THA,CIV,U,N,FI,P,8
+2011,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,33
+2011,Thailand,Iraq,THA,IRQ,U,N,FI,P,19
+2011,Thailand,Iraq,THA,IRQ,U,R,RA,P,5
+2011,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,5
+2011,Thailand,Liberia,THA,LBR,U,A,AR,P,5
+2011,Thailand,Liberia,THA,LBR,U,N,FI,P,16
+2011,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,102
+2011,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,110
+2011,Thailand,"Sri Lanka",THA,LKA,U,R,RA,P,19
+2011,Thailand,Myanmar,THA,MMR,G,R,FA,P,11894
+2011,Thailand,Nepal,THA,NPL,U,N,FI,P,7
+2011,Thailand,Pakistan,THA,PAK,U,A,AR,P,19
+2011,Thailand,Pakistan,THA,PAK,U,N,FI,P,90
+2011,Thailand,Pakistan,THA,PAK,U,R,RA,P,9
+2011,Thailand,Somalia,THA,SOM,U,N,FI,P,61
+2011,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,10
+2011,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,202
+2011,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,31
+2011,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,9
+2012,Thailand,Afghanistan,THA,AFG,U,N,FI,P,10
+2012,Thailand,Egypt,THA,EGY,U,N,FI,P,9
+2012,Thailand,Bangladesh,THA,BGD,U,A,AR,P,8
+2012,Thailand,Cambodia,THA,KHM,U,A,AR,P,17
+2012,Thailand,Cambodia,THA,KHM,U,N,FI,P,27
+2012,Thailand,Cambodia,THA,KHM,U,R,RA,P,18
+2012,Thailand,China,THA,CHN,U,A,AR,P,29
+2012,Thailand,China,THA,CHN,U,N,FI,P,52
+2012,Thailand,China,THA,CHN,U,R,RA,P,15
+2012,Thailand,Cameroon,THA,CMR,U,A,AR,P,5
+2012,Thailand,Cameroon,THA,CMR,U,N,FI,P,13
+2012,Thailand,"Dem. Rep. of the Congo",THA,COD,U,A,AR,P,45
+2012,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,21
+2012,Thailand,"Dem. Rep. of the Congo",THA,COD,U,R,RA,P,14
+2012,Thailand,Ethiopia,THA,ETH,U,N,FI,P,5
+2012,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,103
+2012,Thailand,Guinea,THA,GIN,U,A,AR,P,9
+2012,Thailand,Guinea,THA,GIN,U,N,FI,P,5
+2012,Thailand,"Cote d'Ivoire",THA,CIV,U,A,AR,P,5
+2012,Thailand,"Cote d'Ivoire",THA,CIV,U,N,FI,P,8
+2012,Thailand,India,THA,IND,U,N,FI,P,7
+2012,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,29
+2012,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,80
+2012,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,R,RA,P,6
+2012,Thailand,Iraq,THA,IRQ,U,N,FI,P,14
+2012,Thailand,Iraq,THA,IRQ,U,R,RA,P,5
+2012,Thailand,Kuwait,THA,KWT,U,N,FI,P,5
+2012,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,A,AR,P,7
+2012,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,22
+2012,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,56
+2012,Thailand,"Sri Lanka",THA,LKA,U,R,RA,P,28
+2012,Thailand,Myanmar,THA,MMR,G,N,FA,P,1133
+2012,Thailand,Nepal,THA,NPL,U,A,AR,P,8
+2012,Thailand,Nepal,THA,NPL,U,N,FI,P,14
+2012,Thailand,Nigeria,THA,NGA,U,N,FI,P,5
+2012,Thailand,Pakistan,THA,PAK,U,A,AR,P,10
+2012,Thailand,Pakistan,THA,PAK,U,N,FI,P,489
+2012,Thailand,Pakistan,THA,PAK,U,R,RA,P,5
+2012,Thailand,Somalia,THA,SOM,U,A,AR,P,8
+2012,Thailand,Somalia,THA,SOM,U,N,FI,P,49
+2012,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,218
+2012,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,287
+2012,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,50
+2012,Thailand,Stateless,THA,XXA,U,A,AR,P,5
+2012,Thailand,Sudan,THA,SDN,U,N,FI,P,11
+2012,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,89
+2012,Thailand,Uganda,THA,UGA,U,N,FI,P,5
+2012,Thailand,Yemen,THA,YEM,U,N,FI,P,5
+2013,Thailand,Afghanistan,THA,AFG,U,N,FI,P,10
+2013,Thailand,Egypt,THA,EGY,U,N,FI,P,15
+2013,Thailand,Cambodia,THA,KHM,U,N,FI,P,67
+2013,Thailand,Cambodia,THA,KHM,U,R,RA,P,17
+2013,Thailand,China,THA,CHN,U,N,FI,P,83
+2013,Thailand,Cameroon,THA,CMR,U,A,AR,P,5
+2013,Thailand,Cameroon,THA,CMR,U,N,FI,P,10
+2013,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,6
+2013,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,565
+2013,Thailand,"Cote d'Ivoire",THA,CIV,U,N,FI,P,6
+2013,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,5
+2013,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,69
+2013,Thailand,Iraq,THA,IRQ,U,N,FI,P,42
+2013,Thailand,Jordan,THA,JOR,U,N,FI,P,8
+2013,Thailand,Liberia,THA,LBR,U,N,FI,P,5
+2013,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,22
+2013,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,41
+2013,Thailand,"Sri Lanka",THA,LKA,U,R,RA,P,37
+2013,Thailand,Malaysia,THA,MYS,U,N,FI,P,5
+2013,Thailand,Myanmar,THA,MMR,G,N,FA,P,1120
+2013,Thailand,Nepal,THA,NPL,U,N,FI,P,7
+2013,Thailand,Pakistan,THA,PAK,U,A,AR,P,5
+2013,Thailand,Pakistan,THA,PAK,U,N,FI,P,1244
+2013,Thailand,Somalia,THA,SOM,U,N,FI,P,84
+2013,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,64
+2013,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,99
+2013,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,44
+2013,Thailand,Sudan,THA,SDN,U,N,FI,P,21
+2013,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,155
+2014,Thailand,Afghanistan,THA,AFG,U,A,AR,P,5
+2014,Thailand,Afghanistan,THA,AFG,U,N,FI,P,42
+2014,Thailand,Egypt,THA,EGY,U,N,FI,P,11
+2014,Thailand,Bahrain,THA,BHR,U,N,FI,P,5
+2014,Thailand,Cambodia,THA,KHM,U,N,FI,P,67
+2014,Thailand,Cambodia,THA,KHM,U,R,RA,P,11
+2014,Thailand,China,THA,CHN,U,A,AR,P,6
+2014,Thailand,China,THA,CHN,U,N,FI,P,113
+2014,Thailand,China,THA,CHN,U,R,RA,P,5
+2014,Thailand,Cameroon,THA,CMR,U,N,FI,P,13
+2014,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,16
+2014,Thailand,Eritrea,THA,ERI,U,N,FI,P,6
+2014,Thailand,Ethiopia,THA,ETH,U,N,FI,P,19
+2014,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,102
+2014,Thailand,Guinea,THA,GIN,U,N,FI,P,5
+2014,Thailand,"Cote d'Ivoire",THA,CIV,U,N,FI,P,5
+2014,Thailand,India,THA,IND,U,N,FI,P,20
+2014,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,8
+2014,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,88
+2014,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,R,RA,P,5
+2014,Thailand,Iraq,THA,IRQ,U,N,FI,P,127
+2014,Thailand,Iraq,THA,IRQ,U,R,RA,P,5
+2014,Thailand,Liberia,THA,LBR,U,N,FI,P,76
+2014,Thailand,Libya,THA,LBY,U,N,FI,P,5
+2014,Thailand,Lebanon,THA,LBN,U,N,FI,P,5
+2014,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,160
+2014,Thailand,"Sri Lanka",THA,LKA,U,R,RA,P,19
+2014,Thailand,Morocco,THA,MAR,U,N,FI,P,5
+2014,Thailand,Myanmar,THA,MMR,G,N,FI,P,134
+2014,Thailand,Nepal,THA,NPL,U,N,FI,P,5
+2014,Thailand,Nigeria,THA,NGA,U,N,FI,P,6
+2014,Thailand,Pakistan,THA,PAK,U,A,AR,P,175
+2014,Thailand,Pakistan,THA,PAK,U,N,FI,P,3971
+2014,Thailand,Pakistan,THA,PAK,U,R,RA,P,5
+2014,Thailand,Philippines,THA,PHL,U,N,FI,P,7
+2014,Thailand,"Russian Federation",THA,RUS,U,N,FI,P,5
+2014,Thailand,"Sierra Leone",THA,SLE,U,N,FI,P,18
+2014,Thailand,Somalia,THA,SOM,U,N,FI,P,234
+2014,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,22
+2014,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,286
+2014,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,41
+2014,Thailand,Sudan,THA,SDN,U,N,FI,P,10
+2014,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,157
+2014,Thailand,Togo,THA,TGO,U,N,FI,P,5
+2014,Thailand,Uzbekistan,THA,UZB,U,N,FI,P,6
+2014,Thailand,Yemen,THA,YEM,U,N,FI,P,9
+2015,Thailand,Afghanistan,THA,AFG,U,N,FI,P,15
+2015,Thailand,Egypt,THA,EGY,U,N,FI,P,8
+2015,Thailand,Bangladesh,THA,BGD,U,N,FI,P,9
+2015,Thailand,Cambodia,THA,KHM,U,N,FI,P,35
+2015,Thailand,China,THA,CHN,U,N,FI,P,73
+2015,Thailand,Cameroon,THA,CMR,U,N,FI,P,8
+2015,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,17
+2015,Thailand,Eritrea,THA,ERI,U,N,FI,P,5
+2015,Thailand,Ethiopia,THA,ETH,U,N,FI,P,10
+2015,Thailand,Gambia,THA,GMB,U,N,FI,P,5
+2015,Thailand,"State of Palestine",THA,PSE,U,A,AR,P,5
+2015,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,46
+2015,Thailand,India,THA,IND,U,N,FI,P,9
+2015,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,10
+2015,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,72
+2015,Thailand,Iraq,THA,IRQ,U,N,FI,P,149
+2015,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,5
+2015,Thailand,Liberia,THA,LBR,U,A,AR,P,5
+2015,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,5
+2015,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,55
+2015,Thailand,"Sri Lanka",THA,LKA,U,R,RA,P,6
+2015,Thailand,Myanmar,THA,MMR,G,N,FI,P,356
+2015,Thailand,Nepal,THA,NPL,U,N,FI,P,5
+2015,Thailand,Nigeria,THA,NGA,U,N,FI,P,15
+2015,Thailand,Pakistan,THA,PAK,U,A,AR,P,131
+2015,Thailand,Pakistan,THA,PAK,U,N,FI,P,768
+2015,Thailand,Pakistan,THA,PAK,U,R,RA,P,5
+2015,Thailand,Somalia,THA,SOM,U,A,AR,P,9
+2015,Thailand,Somalia,THA,SOM,U,N,FI,P,249
+2015,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,8
+2015,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,260
+2015,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,31
+2015,Thailand,Sudan,THA,SDN,U,N,FI,P,10
+2015,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,177
+2015,Thailand,Uzbekistan,THA,UZB,U,N,FI,P,5
+2015,Thailand,Yemen,THA,YEM,U,N,FI,P,20
+2016,Thailand,Afghanistan,THA,AFG,U,N,FI,P,33
+2016,Thailand,Egypt,THA,EGY,U,N,FI,P,22
+2016,Thailand,Cambodia,THA,KHM,U,A,AR,P,7
+2016,Thailand,Cambodia,THA,KHM,U,N,FI,P,99
+2016,Thailand,Cambodia,THA,KHM,U,R,RA,P,10
+2016,Thailand,China,THA,CHN,U,A,AR,P,6
+2016,Thailand,China,THA,CHN,U,N,FI,P,67
+2016,Thailand,Cameroon,THA,CMR,U,N,FI,P,5
+2016,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,9
+2016,Thailand,Ethiopia,THA,ETH,U,A,AR,P,5
+2016,Thailand,Ethiopia,THA,ETH,U,N,FI,P,28
+2016,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,23
+2016,Thailand,Guinea,THA,GIN,U,N,FI,P,15
+2016,Thailand,India,THA,IND,U,A,AR,P,6
+2016,Thailand,India,THA,IND,U,N,FI,P,20
+2016,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,23
+2016,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,66
+2016,Thailand,Iraq,THA,IRQ,U,N,FI,P,113
+2016,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,5
+2016,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,16
+2016,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,35
+2016,Thailand,Myanmar,THA,MMR,G,N,FI,P,176
+2016,Thailand,Nepal,THA,NPL,U,N,FI,P,5
+2016,Thailand,Nigeria,THA,NGA,U,N,FI,P,18
+2016,Thailand,Pakistan,THA,PAK,U,A,AR,P,469
+2016,Thailand,Pakistan,THA,PAK,U,N,FI,P,853
+2016,Thailand,Pakistan,THA,PAK,U,R,RA,P,5
+2016,Thailand,"Russian Federation",THA,RUS,U,N,FI,P,10
+2016,Thailand,Somalia,THA,SOM,U,A,AR,P,17
+2016,Thailand,Somalia,THA,SOM,U,N,FI,P,51
+2016,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,51
+2016,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,222
+2016,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,16
+2016,Thailand,Sudan,THA,SDN,U,N,FI,P,5
+2016,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,70
+2016,Thailand,Uzbekistan,THA,UZB,U,N,FI,P,5
+2016,Thailand,Yemen,THA,YEM,U,N,FI,P,14
+2017,Thailand,Afghanistan,THA,AFG,U,N,FI,P,42
+2017,Thailand,Egypt,THA,EGY,U,A,AR,P,8
+2017,Thailand,Egypt,THA,EGY,U,N,FI,P,23
+2017,Thailand,Bangladesh,THA,BGD,U,N,FI,P,5
+2017,Thailand,Cambodia,THA,KHM,U,A,AR,P,18
+2017,Thailand,Cambodia,THA,KHM,U,N,FI,P,149
+2017,Thailand,Cambodia,THA,KHM,U,R,RA,P,5
+2017,Thailand,China,THA,CHN,U,A,AR,P,10
+2017,Thailand,China,THA,CHN,U,N,FI,P,51
+2017,Thailand,"Dem. Rep. of the Congo",THA,COD,U,A,AR,P,5
+2017,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,15
+2017,Thailand,Ethiopia,THA,ETH,U,A,AR,P,5
+2017,Thailand,Ethiopia,THA,ETH,U,N,FI,P,14
+2017,Thailand,"State of Palestine",THA,PSE,U,A,AR,P,7
+2017,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,23
+2017,Thailand,Guinea,THA,GIN,U,A,AR,P,6
+2017,Thailand,India,THA,IND,U,A,AR,P,11
+2017,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,35
+2017,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,48
+2017,Thailand,Iraq,THA,IRQ,U,N,FI,P,54
+2017,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,6
+2017,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,36
+2017,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,26
+2017,Thailand,Myanmar,THA,MMR,G,N,FI,P,109
+2017,Thailand,Nepal,THA,NPL,U,A,AR,P,5
+2017,Thailand,Nigeria,THA,NGA,U,A,AR,P,5
+2017,Thailand,Nigeria,THA,NGA,U,N,FI,P,6
+2017,Thailand,Pakistan,THA,PAK,U,A,AR,P,1579
+2017,Thailand,Pakistan,THA,PAK,U,N,FI,P,314
+2017,Thailand,Pakistan,THA,PAK,U,R,RA,P,20
+2017,Thailand,"Russian Federation",THA,RUS,U,N,FI,P,5
+2017,Thailand,Somalia,THA,SOM,U,A,AR,P,18
+2017,Thailand,Somalia,THA,SOM,U,N,FI,P,54
+2017,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,162
+2017,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,216
+2017,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,47
+2017,Thailand,Sudan,THA,SDN,U,N,FI,P,5
+2017,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,57
+2017,Thailand,Yemen,THA,YEM,U,N,FI,P,15
+2017,Thailand,Zimbabwe,THA,ZWE,U,N,FI,P,8
+2018,Thailand,Afghanistan,THA,AFG,U,N,FI,P,56
+2018,Thailand,Egypt,THA,EGY,U,N,FI,P,7
+2018,Thailand,Cambodia,THA,KHM,U,A,AR,P,56
+2018,Thailand,Cambodia,THA,KHM,U,N,FI,P,232
+2018,Thailand,China,THA,CHN,U,A,AR,P,5
+2018,Thailand,China,THA,CHN,U,N,FI,P,38
+2018,Thailand,Cameroon,THA,CMR,U,A,AR,P,5
+2018,Thailand,Cameroon,THA,CMR,U,N,FI,P,6
+2018,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,5
+2018,Thailand,Ethiopia,THA,ETH,U,A,AR,P,5
+2018,Thailand,Ethiopia,THA,ETH,U,N,FI,P,5
+2018,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,8
+2018,Thailand,Guinea,THA,GIN,U,N,FI,P,5
+2018,Thailand,India,THA,IND,U,N,FI,P,5
+2018,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,8
+2018,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,28
+2018,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,R,RA,P,5
+2018,Thailand,Iraq,THA,IRQ,U,N,FI,P,49
+2018,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,A,AR,P,5
+2018,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,10
+2018,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,18
+2018,Thailand,Myanmar,THA,MMR,G,N,FI,P,10
+2018,Thailand,Nigeria,THA,NGA,U,N,FI,P,5
+2018,Thailand,Pakistan,THA,PAK,U,A,AR,P,77
+2018,Thailand,Pakistan,THA,PAK,U,N,FI,P,141
+2018,Thailand,Pakistan,THA,PAK,U,R,RA,P,23
+2018,Thailand,"Russian Federation",THA,RUS,U,A,AR,P,7
+2018,Thailand,"Russian Federation",THA,RUS,U,N,FI,P,5
+2018,Thailand,Somalia,THA,SOM,U,A,AR,P,43
+2018,Thailand,Somalia,THA,SOM,U,N,FI,P,22
+2018,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,96
+2018,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,497
+2018,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,11
+2018,Thailand,Sudan,THA,SDN,U,N,FI,P,6
+2018,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,10
+2018,Thailand,Uganda,THA,UGA,U,N,FI,P,5
+2018,Thailand,Yemen,THA,YEM,U,N,FI,P,5
+2019,Thailand,Afghanistan,THA,AFG,U,N,FI,P,34
+2019,Thailand,Egypt,THA,EGY,U,A,AR,P,5
+2019,Thailand,Egypt,THA,EGY,U,N,FI,P,5
+2019,Thailand,Cambodia,THA,KHM,U,A,AR,P,48
+2019,Thailand,Cambodia,THA,KHM,U,N,FI,P,125
+2019,Thailand,China,THA,CHN,U,N,FI,P,22
+2019,Thailand,Cameroon,THA,CMR,U,N,FI,P,46
+2019,Thailand,Ethiopia,THA,ETH,U,N,FI,P,5
+2019,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,7
+2019,Thailand,India,THA,IND,U,N,FI,P,5
+2019,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,7
+2019,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,28
+2019,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,R,RA,P,5
+2019,Thailand,Iraq,THA,IRQ,U,N,FI,P,6
+2019,Thailand,Jordan,THA,JOR,U,N,FI,P,5
+2019,Thailand,Kuwait,THA,KWT,U,N,FI,P,5
+2019,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,5
+2019,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,5
+2019,Thailand,Myanmar,THA,MMR,G,N,FI,P,24
+2019,Thailand,Pakistan,THA,PAK,U,A,AR,P,21
+2019,Thailand,Pakistan,THA,PAK,U,N,FI,P,123
+2019,Thailand,Pakistan,THA,PAK,U,R,RA,P,20
+2019,Thailand,Somalia,THA,SOM,U,A,AR,P,12
+2019,Thailand,Somalia,THA,SOM,U,N,FI,P,19
+2019,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,118
+2019,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,227
+2019,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,13
+2019,Thailand,Yemen,THA,YEM,U,N,FI,P,8
+2019,Thailand,Zimbabwe,THA,ZWE,U,N,FI,P,9
+2020,Thailand,Afghanistan,THA,AFG,U,N,FI,P,36
+2020,Thailand,Cambodia,THA,KHM,U,A,AR,P,9
+2020,Thailand,Cambodia,THA,KHM,U,N,FI,P,71
+2020,Thailand,Cambodia,THA,KHM,U,R,RA,P,5
+2020,Thailand,China,THA,CHN,U,N,FI,P,18
+2020,Thailand,Cameroon,THA,CMR,U,N,FI,P,13
+2020,Thailand,"Dem. Rep. of the Congo",THA,COD,U,R,RA,P,5
+2020,Thailand,Ethiopia,THA,ETH,U,N,FI,P,5
+2020,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,5
+2020,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,17
+2020,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,5
+2020,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,7
+2020,Thailand,Nigeria,THA,NGA,U,N,FI,P,5
+2020,Thailand,Pakistan,THA,PAK,U,A,AR,P,6
+2020,Thailand,Pakistan,THA,PAK,U,N,FI,P,67
+2020,Thailand,Pakistan,THA,PAK,U,R,RA,P,18
+2020,Thailand,Somalia,THA,SOM,U,N,FI,P,5
+2020,Thailand,Somalia,THA,SOM,U,R,RA,P,5
+2020,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,22
+2020,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,204
+2020,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,25
+2020,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,11
+2020,Thailand,Yemen,THA,YEM,U,N,FI,P,5
+2021,Thailand,Afghanistan,THA,AFG,U,N,FI,P,9
+2021,Thailand,Algeria,THA,DZA,U,N,FI,P,5
+2021,Thailand,Cambodia,THA,KHM,U,A,AR,P,41
+2021,Thailand,Cambodia,THA,KHM,U,N,FI,P,67
+2021,Thailand,Cambodia,THA,KHM,U,R,RA,P,5
+2021,Thailand,China,THA,CHN,U,A,AR,P,9
+2021,Thailand,China,THA,CHN,U,N,FI,P,10
+2021,Thailand,Cameroon,THA,CMR,U,A,AR,P,7
+2021,Thailand,Cameroon,THA,CMR,U,N,FI,P,16
+2021,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,5
+2021,Thailand,Guinea,THA,GIN,U,A,AR,P,5
+2021,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,A,AR,P,5
+2021,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,6
+2021,Thailand,"Sri Lanka",THA,LKA,U,A,AR,P,5
+2021,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,5
+2021,Thailand,Morocco,THA,MAR,U,N,FI,P,6
+2021,Thailand,Myanmar,THA,MMR,U,N,FI,P,5
+2021,Thailand,Nigeria,THA,NGA,U,N,FI,P,12
+2021,Thailand,Pakistan,THA,PAK,U,A,AR,P,23
+2021,Thailand,Pakistan,THA,PAK,U,N,FI,P,36
+2021,Thailand,Pakistan,THA,PAK,U,R,RA,P,19
+2021,Thailand,Somalia,THA,SOM,U,N,FI,P,5
+2021,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,131
+2021,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,103
+2021,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,40
+2021,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,6
+2021,Thailand,Yemen,THA,YEM,U,N,FI,P,5
+2022,Thailand,Afghanistan,THA,AFG,U,N,FI,P,38
+2022,Thailand,Cambodia,THA,KHM,U,A,AR,P,8
+2022,Thailand,Cambodia,THA,KHM,U,N,FI,P,111
+2022,Thailand,China,THA,CHN,U,N,FI,P,71
+2022,Thailand,Cameroon,THA,CMR,U,N,FI,P,19
+2022,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,5
+2022,Thailand,Ethiopia,THA,ETH,U,N,FI,P,6
+2022,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,5
+2022,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,5
+2022,Thailand,Iraq,THA,IRQ,U,N,FI,P,11
+2022,Thailand,Myanmar,THA,MMR,G,N,FI,P,32
+2022,Thailand,Nigeria,THA,NGA,U,A,AR,P,10
+2022,Thailand,Nigeria,THA,NGA,U,N,FI,P,5
+2022,Thailand,Pakistan,THA,PAK,U,A,AR,P,5
+2022,Thailand,Pakistan,THA,PAK,U,N,FI,P,161
+2022,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,27
+2022,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,148
+2022,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,10
+2022,Thailand,Sudan,THA,SDN,U,N,FI,P,5
+2022,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,10
+2022,Thailand,Yemen,THA,YEM,U,N,FI,P,5
+2023,Thailand,Afghanistan,THA,AFG,U,N,FI,P,32
+2023,Thailand,Egypt,THA,EGY,U,N,FI,P,5
+2023,Thailand,Cambodia,THA,KHM,U,A,AR,P,53
+2023,Thailand,Cambodia,THA,KHM,U,N,FI,P,172
+2023,Thailand,China,THA,CHN,U,A,AR,P,9
+2023,Thailand,China,THA,CHN,U,N,FI,P,69
+2023,Thailand,Cameroon,THA,CMR,U,A,AR,P,12
+2023,Thailand,Cameroon,THA,CMR,U,N,FI,P,70
+2023,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,6
+2023,Thailand,Ethiopia,THA,ETH,U,N,FI,P,39
+2023,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,11
+2023,Thailand,Iraq,THA,IRQ,U,N,FI,P,5
+2023,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,5
+2023,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,8
+2023,Thailand,Myanmar,THA,MMR,G,N,FI,P,47
+2023,Thailand,Nigeria,THA,NGA,U,A,AR,P,8
+2023,Thailand,Nigeria,THA,NGA,U,N,FI,P,9
+2023,Thailand,Pakistan,THA,PAK,U,A,AR,P,61
+2023,Thailand,Pakistan,THA,PAK,U,N,FI,P,470
+2023,Thailand,Pakistan,THA,PAK,U,R,RA,P,14
+2023,Thailand,Somalia,THA,SOM,U,N,FI,P,23
+2023,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,47
+2023,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,504
+2023,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,25
+2023,Thailand,Sudan,THA,SDN,U,N,FI,P,5
+2023,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,15
+2023,Thailand,Uganda,THA,UGA,U,N,FI,P,5
+2023,Thailand,Yemen,THA,YEM,U,N,FI,P,5
+2024,Thailand,Afghanistan,THA,AFG,U,N,FI,P,86
+2024,Thailand,Cambodia,THA,KHM,U,A,AR,P,20
+2024,Thailand,Cambodia,THA,KHM,U,N,FI,P,104
+2024,Thailand,China,THA,CHN,U,A,AR,P,11
+2024,Thailand,China,THA,CHN,U,N,FI,P,39
+2024,Thailand,Cameroon,THA,CMR,U,A,AR,P,12
+2024,Thailand,Cameroon,THA,CMR,U,N,FI,P,24
+2024,Thailand,Ethiopia,THA,ETH,U,N,FI,P,25
+2024,Thailand,"State of Palestine",THA,PSE,U,N,FI,P,6
+2024,Thailand,Guinea,THA,GIN,U,N,FI,P,5
+2024,Thailand,India,THA,IND,U,N,FI,P,5
+2024,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,11
+2024,Thailand,Iraq,THA,IRQ,U,N,FI,P,5
+2024,Thailand,Kuwait,THA,KWT,U,N,FI,P,5
+2024,Thailand,"Lao People's Dem. Rep.",THA,LAO,U,N,FI,P,7
+2024,Thailand,"Sri Lanka",THA,LKA,U,N,FI,P,17
+2024,Thailand,Nigeria,THA,NGA,U,A,AR,P,13
+2024,Thailand,Nigeria,THA,NGA,U,N,FI,P,13
+2024,Thailand,Pakistan,THA,PAK,U,A,AR,P,58
+2024,Thailand,Pakistan,THA,PAK,U,N,FI,P,552
+2024,Thailand,Pakistan,THA,PAK,U,R,RA,P,5
+2024,Thailand,"Russian Federation",THA,RUS,U,N,FI,P,11
+2024,Thailand,Somalia,THA,SOM,U,N,FI,P,29
+2024,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,8
+2024,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,651
+2024,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,8
+2024,Thailand,Sudan,THA,SDN,U,N,FI,P,12
+2024,Thailand,"Syrian Arab Rep.",THA,SYR,U,N,FI,P,18
+2024,Thailand,Uganda,THA,UGA,U,N,FI,P,5
+2024,Thailand,Yemen,THA,YEM,U,N,FI,P,6
+2025,Thailand,Afghanistan,THA,AFG,U,N,FI,P,70
+2025,Thailand,Cambodia,THA,KHM,U,A,AR,P,35
+2025,Thailand,Cambodia,THA,KHM,U,N,FI,P,34
+2025,Thailand,Cambodia,THA,KHM,U,R,RA,P,6
+2025,Thailand,China,THA,CHN,U,A,AR,P,8
+2025,Thailand,China,THA,CHN,U,N,FI,P,14
+2025,Thailand,Cameroon,THA,CMR,U,N,FI,P,5
+2025,Thailand,"Dem. Rep. of the Congo",THA,COD,U,N,FI,P,7
+2025,Thailand,Ethiopia,THA,ETH,U,N,FI,P,6
+2025,Thailand,"State of Palestine",THA,PSE,U,R,RA,P,5
+2025,Thailand,Guinea,THA,GIN,U,N,FI,P,5
+2025,Thailand,"Iran (Islamic Rep. of)",THA,IRN,U,N,FI,P,5
+2025,Thailand,Nigeria,THA,NGA,U,A,AR,P,5
+2025,Thailand,Nigeria,THA,NGA,U,N,FI,P,8
+2025,Thailand,Pakistan,THA,PAK,U,A,AR,P,94
+2025,Thailand,Pakistan,THA,PAK,U,N,FI,P,244
+2025,Thailand,Pakistan,THA,PAK,U,R,RA,P,25
+2025,Thailand,Somalia,THA,SOM,U,N,FI,P,11
+2025,Thailand,"Viet Nam",THA,VNM,U,A,AR,P,24
+2025,Thailand,"Viet Nam",THA,VNM,U,N,FI,P,101
+2025,Thailand,"Viet Nam",THA,VNM,U,R,RA,P,6
