@@ -101,6 +101,30 @@ labels:
 
 
 # ----------------------------------------------------------------
+# NOTES
+# ----------------------------------------------------------------
+# Optional extra text appended to each section's footnote area.
+# Leave a key blank (or omit it) to show no extra note for that section.
+notes:
+  poc: ""           # Refugees & asylum-seekers footnote
+  departures: ""    # Resettlement departures footnote
+  submissions: ""   # Resettlement submissions footnote
+
+
+# ----------------------------------------------------------------
+# FOOTER
+# ----------------------------------------------------------------
+# Each element is displayed in the footer, separated by a bullet (·).
+# If this section is absent the tool falls back to the citation block above.
+# HTML is allowed (e.g. <a href="...">link text</a>).
+# footer:
+#   elements:
+#     - 'Source: <a href="https://www.unhcr.org/refugee-statistics/" target="_blank" rel="noopener">UNHCR Refugee Data Finder</a>'
+#     - "Processed by: Kristian Benestad (Center for Asylum Protection)"
+#     - '<a href="https://www.unhcr.org/refugee-statistics/methodology/" target="_blank" rel="noopener">Methodology</a>'
+
+
+# ----------------------------------------------------------------
 # DATA FILES
 # ----------------------------------------------------------------
 # Paths to CSV files, relative to index.html
