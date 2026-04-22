@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <style>
-:root{--primary:#29307d;--accent:#f9ad18;--bg:#fff;--surface:#f4f6fb;--border:#e2e8f0;--text:#1a1a2e;--muted:#64748b;--font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;--r:6px;--sh:0 1px 3px rgba(0,0,0,.08);--sh-md:0 4px 12px rgba(0,0,0,.10)}
+:root{--primary:#29307d;--accent:#f9ad18;--bg:#fff;--surface:#f4f6fb;--border:#e2e8f0;--text:#1a1a2e;--muted:#64748b;--font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;--r:6px;--sh:0 1px 3px rgba(0,0,0,.08);--sh-md:0 4px 12px rgba(0,0,0,.10);--header-bg:var(--primary);--header-title-color:#fff;--header-subtitle-color:rgba(255,255,255,.6)}
 [data-theme="dark"]{--bg:#0f1117;--surface:#191c2a;--border:#2a2f45;--text:#e8eaf0;--muted:#8892a4;--sh:0 1px 3px rgba(0,0,0,.4);--sh-md:0 4px 12px rgba(0,0,0,.5)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);font-weight:300;background:var(--bg);color:var(--text);line-height:1.65;transition:background .2s,color .2s}
@@ -22,14 +22,14 @@ a{color:var(--primary)}[data-theme="dark"] a{color:#7b8cde}
 #loading.hidden{display:none}
 .spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,.25);border-top-color:var(--accent);border-radius:50%;animation:spin .75s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-header{background:var(--primary);position:sticky;top:0;z-index:200;box-shadow:var(--sh-md)}
+header{background:var(--header-bg);position:sticky;top:0;z-index:200;box-shadow:var(--sh-md)}
 .hdr{max-width:1280px;margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;gap:1rem}
 .logo-wrap{flex-shrink:0;line-height:0}
 #site-logo{display:none;height:auto}
 .hdr-text{flex:1;min-width:0}
-.hdr-text h1{font-size:1.05rem;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hdr-text p{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:.1rem}
-#theme-btn{flex-shrink:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.35rem .85rem;border-radius:var(--r);cursor:pointer;font-size:.8rem;font-family:var(--font);white-space:nowrap;transition:background .15s}
+.hdr-text h1{font-size:1.05rem;font-weight:600;color:var(--header-title-color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-text p{font-size:.75rem;color:var(--header-subtitle-color);margin-top:.1rem}
+#theme-btn{flex-shrink:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:var(--header-title-color);padding:.35rem .85rem;border-radius:var(--r);cursor:pointer;font-size:.8rem;font-family:var(--font);white-space:nowrap;transition:background .15s}
 #theme-btn:hover{background:rgba(255,255,255,.22)}
 .filters-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:.6rem 1.5rem}
 .filters-inner{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center}
@@ -281,6 +281,11 @@ function applyConfig(){
   const org=cfg.organisation||{},col=cfg.colours||{},fnt=cfg.fonts||{},cit=cfg.citation||{};
   if(col.primary)document.documentElement.style.setProperty('--primary',col.primary);
   if(col.accent)document.documentElement.style.setProperty('--accent',col.accent);
+  function hc(v){if(!v)return null;const m={primary:'var(--primary)',accent:'var(--accent)',white:'#ffffff',black:'#000000',mutedlight:'rgba(255,255,255,.6)',muteddark:'var(--muted)'};return m[v]!==undefined?m[v]:v;}
+  const hBg=hc(col.header_background),hTi=hc(col.header_title),hSu=hc(col.header_subtitle);
+  if(hBg)document.documentElement.style.setProperty('--header-bg',hBg);
+  if(hTi)document.documentElement.style.setProperty('--header-title-color',hTi);
+  if(hSu)document.documentElement.style.setProperty('--header-subtitle-color',hSu);
   if(fnt.body||fnt.mono){
     const bs=(fnt.body||'IBM Plex Sans').toLowerCase().replace(/\s+/g,'-');
     const ms=(fnt.mono||'IBM Plex Mono').toLowerCase().replace(/\s+/g,'-');
