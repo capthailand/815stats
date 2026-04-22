@@ -13,7 +13,7 @@
 # ORGANISATION
 # ----------------------------------------------------------------
 organisation:
-  name: "Center for Asylum Protection"
+  name: "Thailand Refugee Statistics Dashboard"
 
   # Path to your logo, relative to index.html
   # Place your logo file in the assets/ folder
@@ -56,9 +56,9 @@ colours:
   # header_background options: primary | accent | white | [hexcode]
   # header_title     options: primary | accent | white | black | [hexcode]
   # header_subtitle  options: primary | accent | mutedlight | muteddark | [hexcode]
-  header_background: primary
-  header_title: white
-  header_subtitle: mutedlight
+  header_background: white
+  header_title: primary
+  header_subtitle: muteddark
 
 
 # ----------------------------------------------------------------
