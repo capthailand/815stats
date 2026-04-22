@@ -52,6 +52,14 @@ colours:
   primary: "#29307d"   # Header, headings, active tabs, primary buttons
   accent:  "#f9ad18"   # Highlights, chart accents, map bubbles, underlines
 
+  # Header colours — use a named value or any hex code (e.g. "#1a3a5c")
+  # header_background options: primary | accent | white | [hexcode]
+  # header_title     options: primary | accent | white | black | [hexcode]
+  # header_subtitle  options: primary | accent | mutedlight | muteddark | [hexcode]
+  header_background: primary
+  header_title: white
+  header_subtitle: mutedlight
+
 
 # ----------------------------------------------------------------
 # CITATION & METHODOLOGY
