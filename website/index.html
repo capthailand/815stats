@@ -264,7 +264,7 @@ let cfg={},raw={};
 const charts={},maps={};
 let activeTab='poc';
 const F={myanmar:'exclude',yearMin:null,yearMax:null};
-let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false,showSubDelta=false;
+let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false;
 let showAppDelta=false;
 let decView='totals',decChartBuilt=false,decChartSel=null;
 let depFlowBuilt=false,depFlowSel=null;
@@ -937,26 +937,30 @@ function renderSubmissions(){
   const sorted=Object.entries(om).map(([k,yrs])=>({k,yrs,tc:Object.values(yrs).reduce((s,v)=>s+v.cases,0),tp:Object.values(yrs).reduce((s,v)=>s+v.persons,0)})).sort((a,b)=>b.tp-a.tp);
   const el=document.getElementById('tbl-sub');if(!el)return;
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
-  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions"><button class="btn-sm'+(showSubDelta?' on':'')+'" onclick="toggleSubDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
-  html+='<div class="tbl-scroll"><table id="tbl-sub-t"><thead><tr><th>Country of origin</th><th class="num">Cases (total)</th><th class="num">Persons (total)</th></tr></thead><tbody>';
+  const gByYear={};years.forEach(y=>{gByYear[y]={cases:sorted.reduce((s,{yrs})=>s+(yrs[y]?yrs[y].cases:0),0),persons:sorted.reduce((s,{yrs})=>s+(yrs[y]?yrs[y].persons:0),0)};});
+  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions"><button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
+  html+='<div class="tbl-scroll"><table id="tbl-sub-t"><thead><tr><th>Country of origin</th><th class="num">Cases</th><th class="num">Δ% cases</th><th class="num">Persons</th><th class="num">Δ% persons</th></tr></thead><tbody>';
   sorted.forEach(({k,yrs,tc,tp})=>{
     const sk=safeKey(k);
-    html+='<tr class="row-exp" onclick="toggleSubRows(\'sub_'+sk+'\')"><td><span class="exp-icon" id="icon-sub_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk" title="'+unkNote+'">?</span>':'')+'</td><td class="num">'+tc.toLocaleString()+'</td><td class="num">'+tp.toLocaleString()+'</td></tr>';
+    const yks=Object.keys(yrs).sort().filter(y=>yrs[y]&&(yrs[y].cases||yrs[y].persons));
+    const lastY=yks[yks.length-1],prevY=yks.length>1?yks[yks.length-2]:null;
+    const dC=prevY?pctChange(yrs[lastY].cases,yrs[prevY].cases):null;
+    const dP=prevY?pctChange(yrs[lastY].persons,yrs[prevY].persons):null;
+    html+='<tr class="row-exp" onclick="toggleSubRows(\'sub_'+sk+'\')"><td><span class="exp-icon" id="icon-sub_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk" title="'+unkNote+'">?</span>':'')+'</td><td class="num">'+tc.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dC)+'">'+(dC||'—')+'</span></td><td class="num">'+tp.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dP)+'">'+(dP||'—')+'</span></td></tr>';
     years.forEach((y,yi)=>{
       const v=yrs[y];if(!v||(!v.cases&&!v.persons))return;
-      if(showSubDelta){
-        const pv=yi>0?yrs[years[yi-1]]:null;
-        const dC=pv?pctChange(v.cases,pv.cases):null,dP=pv?pctChange(v.persons,pv.persons):null;
-        html+='<tr class="row-sub" data-parent="sub_'+sk+'" style="display:none"><td>'+y+'</td>';
-        html+='<td class="num"><span class="'+pctClass(dC)+'">'+(dC||'—')+'</span></td>';
-        html+='<td class="num"><span class="'+pctClass(dP)+'">'+(dP||'—')+'</span></td></tr>';
-      } else {
-        html+='<tr class="row-sub" data-parent="sub_'+sk+'" style="display:none"><td>'+y+'</td><td class="num">'+v.cases.toLocaleString()+'</td><td class="num">'+v.persons.toLocaleString()+'</td></tr>';
-      }
+      const pv=yi>0?yrs[years[yi-1]]:null;
+      const dCy=pv&&pv.cases?pctChange(v.cases,pv.cases):null,dPy=pv&&pv.persons?pctChange(v.persons,pv.persons):null;
+      html+='<tr class="row-sub" data-parent="sub_'+sk+'" style="display:none"><td>'+y+'</td><td class="num">'+v.cases.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dCy)+'">'+(dCy||'—')+'</span></td><td class="num">'+v.persons.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dPy)+'">'+(dPy||'—')+'</span></td></tr>';
     });
   });
   const totC=sorted.reduce((s,r)=>s+r.tc,0),totP=sorted.reduce((s,r)=>s+r.tp,0);
-  html+='<tfoot><tr><td>Total</td><td class="num">'+totC.toLocaleString()+'</td><td class="num">'+totP.toLocaleString()+'</td></tr></tfoot></table></div>';
+  const lastGY=years[years.length-1],prevGY=years.length>1?years[years.length-2]:null;
+  const dGC=prevGY?pctChange(gByYear[lastGY].cases,gByYear[prevGY].cases):null;
+  const dGP=prevGY?pctChange(gByYear[lastGY].persons,gByYear[prevGY].persons):null;
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'sub_total\')"><td><span class="exp-icon" id="icon-sub_total">▶</span>Total</td><td class="num">'+totC.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dGC)+'">'+(dGC||'—')+'</span></td><td class="num">'+totP.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dGP)+'">'+(dGP||'—')+'</span></td></tr>';
+  years.forEach((y,yi)=>{const yv=gByYear[y];const pv=yi>0?gByYear[years[yi-1]]:null;const dCy=pv&&pv.cases?pctChange(yv.cases,pv.cases):null,dPy=pv&&pv.persons?pctChange(yv.persons,pv.persons):null;html+='<tr class="row-sub" data-parent="sub_total" style="display:none"><td>'+y+'</td><td class="num">'+yv.cases.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dCy)+'">'+(dCy||'—')+'</span></td><td class="num">'+yv.persons.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dPy)+'">'+(dPy||'—')+'</span></td></tr>';});
+  html+='</tfoot></table></div>';
   el.innerHTML=html;
   const unkNote2=((cfg.labels||{}).unknown_origin_note||'').replace(/[\n\r]+/g,' ');
   const unkLabel=(cfg.labels||{}).unknown_origin||'Origin not disclosed';
@@ -969,8 +973,6 @@ function renderSubmissions(){
     fnSubEl.innerHTML=fn;
   }
 }
-function toggleSubDelta(){showSubDelta=!showSubDelta;renderSubmissions();}
-
 function buildSimpleTable(cid,title,headers,rows,foot,dlName){
   const el=document.getElementById(cid);if(!el)return;
   if(!rows.length){el.innerHTML='<div class="empty">No data for current filters.</div>';return;}
