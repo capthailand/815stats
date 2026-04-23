@@ -313,6 +313,7 @@ function applyConfig(){
     const p=(org.logo_padding||0)+'px';img.style.margin=p;
   }
   if(org.name)document.getElementById('org-name').textContent=org.name;
+  if(org.subtitle!==undefined)document.getElementById('hdr-sub').textContent=org.subtitle;
   const ftrEls=(cfg.footer||{}).elements;
   let c;
   if(ftrEls&&ftrEls.length){

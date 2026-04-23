@@ -15,6 +15,9 @@
 organisation:
   name: "Thailand Refugee Statistics Dashboard"
 
+  # Short subtitle shown below the title in the header
+  subtitle: "UNHCR data · Thailand"
+
   # Path to your logo, relative to index.html
   # Place your logo file in the assets/ folder
   logo: "assets/logo.png"
