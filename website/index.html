@@ -91,6 +91,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--primary) 4%,transparent)}
 td.num{text-align:right;font-family:var(--mono);font-size:.78rem}
 tfoot td{font-weight:600;border-top:2px solid var(--border);border-bottom:none}
 tfoot td.num{font-family:var(--mono);font-size:.78rem;text-align:right}
+tfoot .row-sub td{font-weight:300;border-top:none;}
 .yr-grp{text-align:center;background:color-mix(in srgb,var(--primary) 6%,var(--surface));font-weight:600;color:var(--muted)}
 .sticky-col{position:sticky;left:0;background:var(--surface);z-index:1}
 tbody tr:hover .sticky-col{background:color-mix(in srgb,var(--primary) 4%,var(--surface))}
@@ -603,7 +604,10 @@ function renderApplications(){
   const nm={};rows.forEach(r=>{const k=r['Country of Origin'];if(!nm[k])nm[k]={N:0,A:0,R:0};nm[k][r['Application type']]=(nm[k][r['Application type']]||0)+n(r['Applied']);});
   const tRows=Object.entries(nm).map(([k,v])=>({Country:dispOrigin(k),New:v.N||0,Appeal:v.A||0,'Repeat/reopened':v.R||0,Total:(v.N||0)+(v.A||0)+(v.R||0),_unk:unk(k)})).sort((a,b)=>b.Total-a.Total);
   const f={Country:'Total',New:tRows.reduce((s,r)=>s+r.New,0),Appeal:tRows.reduce((s,r)=>s+r.Appeal,0),'Repeat/reopened':tRows.reduce((s,r)=>s+r['Repeat/reopened'],0),Total:tRows.reduce((s,r)=>s+r.Total,0)};
-  buildSimpleTable('tbl-app','Application detail',['Country','New','Appeal','Repeat/reopened','Total'],tRows,f,'asylum-applications');
+  const appDlLabels={FI:'First instance',AR:'Admin. review',FA:'Final appeal',RA:'Repeat/reopened'};
+  const appByLevel={};rows.forEach(r=>{const lv=r['Decision level'];if(!appDlLabels[lv])return;if(!appByLevel[lv])appByLevel[lv]={N:0,A:0,R:0};const at=r['Application type'];if(at==='N'||at==='A'||at==='R')appByLevel[lv][at]=(appByLevel[lv][at]||0)+n(r['Applied']);});
+  const appFootSubs=Object.entries(appDlLabels).map(([code,label])=>{const lv=appByLevel[code]||{N:0,A:0,R:0};return{Country:label,New:lv.N||0,Appeal:lv.A||0,'Repeat/reopened':lv.R||0,Total:(lv.N||0)+(lv.A||0)+(lv.R||0)};}).filter(s=>s.Total>0);
+  buildSimpleTable('tbl-app','Application detail',['Country','New','Appeal','Repeat/reopened','Total'],tRows,f,'asylum-applications',appFootSubs);
 }
 
 function renderDecisions(){
@@ -632,7 +636,7 @@ function renderDecTable(rows,years){
   const nm={};
   rows.forEach(r=>{
     const k=r['Country of Origin'];
-    if(!nm[k])nm[k]={rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{FI:{rec:0,rej:0,clo:0,oth:0,tot:0},AR:{rec:0,rej:0,clo:0,oth:0,tot:0},RA:{rec:0,rej:0,clo:0,oth:0,tot:0}},byYear:{}};
+    if(!nm[k])nm[k]={rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{FI:{rec:0,rej:0,clo:0,oth:0,tot:0},AR:{rec:0,rej:0,clo:0,oth:0,tot:0},FA:{rec:0,rej:0,clo:0,oth:0,tot:0},RA:{rec:0,rej:0,clo:0,oth:0,tot:0}},byYear:{}};
     const m=nm[k];
     const rec=n(r['dec recognized']),rej=n(r['dec rejected']),clo=n(r['dec closed']),oth=n(r['dec other']),tot=n(r['dec total']);
     m.rec+=rec;m.rej+=rej;m.clo+=clo;m.oth+=oth;m.tot+=tot;
@@ -640,7 +644,7 @@ function renderDecTable(rows,years){
     if(!m.byYear[r.Year])m.byYear[r.Year]={rec:0,tot:0};m.byYear[r.Year].rec+=rec;m.byYear[r.Year].tot+=tot;
   });
   const sorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
-  const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened'};
+  const pL={FI:'First instance',AR:'Admin. review',FA:'Final appeal',RA:'Repeat/reopened'};
   const dCol=showDecDelta?'<th class="num">Δ% (vs prev yr)</th>':'';
   let html='<div class="tbl-head"><h3>Decision detail</h3><div class="tbl-actions"><button class="btn-sm'+(showDecDelta?' on':'')+'" onclick="toggleDecDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th>'+dCol+'</tr></thead><tbody>';
@@ -657,7 +661,10 @@ function renderDecTable(rows,years){
   });
   const tots=sorted.reduce((s,[,v])=>({rec:s.rec+v.rec,rej:s.rej+v.rej,clo:s.clo+v.clo,oth:s.oth+v.oth,tot:s.tot+v.tot}),{rec:0,rej:0,clo:0,oth:0,tot:0});
   const totR=tots.tot>0?Math.round(tots.rec/tots.tot*100):0;
-  html+='<tfoot><tr><td>Total</td><td class="num">'+tots.rec.toLocaleString()+'</td><td class="num">'+tots.rej.toLocaleString()+'</td><td class="num">'+tots.clo.toLocaleString()+'</td><td class="num">'+tots.oth.toLocaleString()+'</td><td class="num">'+tots.tot.toLocaleString()+'</td><td class="num">'+totR+'%</td>'+(showDecDelta?'<td></td>':'')+'</tr></tfoot></table></div>';
+  const totByLevel={};Object.keys(pL).forEach(code=>{totByLevel[code]={rec:0,rej:0,clo:0,oth:0,tot:0};});sorted.forEach(([,v])=>{Object.keys(pL).forEach(code=>{const p=v.byProc[code];if(p){totByLevel[code].rec+=p.rec;totByLevel[code].rej+=p.rej;totByLevel[code].clo+=p.clo;totByLevel[code].oth+=p.oth;totByLevel[code].tot+=p.tot;}});});
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_total\')"><td><span class="exp-icon" id="icon-dec_total">▶</span>Total</td><td class="num">'+tots.rec.toLocaleString()+'</td><td class="num">'+tots.rej.toLocaleString()+'</td><td class="num">'+tots.clo.toLocaleString()+'</td><td class="num">'+tots.oth.toLocaleString()+'</td><td class="num">'+tots.tot.toLocaleString()+'</td><td class="num">'+totR+'%</td>'+(showDecDelta?'<td></td>':'')+'</tr>';
+  Object.entries(pL).forEach(([code,label])=>{const p=totByLevel[code];if(!p||p.tot===0)return;const pr=p.tot>0?Math.round(p.rec/p.tot*100):0;html+='<tr class="row-sub" data-parent="dec_total" style="display:none"><td>'+label+'</td><td class="num">'+p.rec.toLocaleString()+'</td><td class="num">'+p.rej.toLocaleString()+'</td><td class="num">'+p.clo.toLocaleString()+'</td><td class="num">'+p.oth.toLocaleString()+'</td><td class="num">'+p.tot.toLocaleString()+'</td><td class="num">'+pr+'%</td>'+(showDecDelta?'<td></td>':'')+'</tr>';});
+  html+='</tfoot></table></div>';
   el.innerHTML=html;
 }
 function toggleDecDelta(){showDecDelta=!showDecDelta;const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
@@ -730,7 +737,7 @@ function renderSubmissions(){
   if(unkNote2)document.getElementById('fn-sub').innerHTML='<h4>Notes</h4><p><strong>'+unkLabel+':</strong> '+unkNote2+'</p>';
 }
 
-function buildSimpleTable(cid,title,headers,rows,foot,dlName){
+function buildSimpleTable(cid,title,headers,rows,foot,dlName,footSubs){
   const el=document.getElementById(cid);if(!el)return;
   if(!rows.length){el.innerHTML='<div class="empty">No data for current filters.</div>';return;}
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
@@ -740,7 +747,16 @@ function buildSimpleTable(cid,title,headers,rows,foot,dlName){
     html+='<tr>'+headers.map(h=>{const v=r[h];const isN=typeof v==='number';let d=isN?v.toLocaleString():(v==null?'—':String(v));if(h==='Country'&&r._unk)d+='<span class="tag-unk" title="'+unkNote+'">?</span>';return'<td'+(isN?' class="num"':'')+'>'+d+'</td>';}).join('')+'</tr>';
   });
   html+='</tbody>';
-  if(foot)html+='<tfoot><tr>'+headers.map(h=>{const v=foot[h];const isN=typeof v==='number';return'<td'+(isN?' class="num"':'')+'>'+( isN?v.toLocaleString():(v||''))+'</td>';}).join('')+'</tr></tfoot>';
+  if(foot){
+    html+='<tfoot>';
+    if(footSubs&&footSubs.length){
+      html+='<tr class="row-exp" onclick="toggleSubRows(\''+cid+'_total\')">'+headers.map((h,i)=>{const v=foot[h];const isN=typeof v==='number';return'<td'+(isN?' class="num"':'')+'>'+(i===0?'<span class="exp-icon" id="icon-'+cid+'_total">▶</span>':'')+(isN?v.toLocaleString():(v||''))+'</td>';}).join('')+'</tr>';
+      footSubs.forEach(sub=>{html+='<tr class="row-sub" data-parent="'+cid+'_total" style="display:none">'+headers.map(h=>{const v=sub[h];const isN=typeof v==='number';return'<td'+(isN?' class="num"':'')+'>'+( isN?v.toLocaleString():(v||''))+'</td>';}).join('')+'</tr>';});
+    }else{
+      html+='<tr>'+headers.map(h=>{const v=foot[h];const isN=typeof v==='number';return'<td'+(isN?' class="num"':'')+'>'+( isN?v.toLocaleString():(v||''))+'</td>';}).join('')+'</tr>';
+    }
+    html+='</tfoot>';
+  }
   html+='</table></div>';
   el.innerHTML=html;
 }
