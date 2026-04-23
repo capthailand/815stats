@@ -91,6 +91,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--primary) 4%,transparent)}
 td.num{text-align:right;font-family:var(--mono);font-size:.78rem}
 tfoot td{font-weight:600;border-top:2px solid var(--border);border-bottom:none}
 tfoot td.num{font-family:var(--mono);font-size:.78rem;text-align:right}
+tfoot .row-sub td{font-weight:300;border-top:none;}
 .yr-grp{text-align:center;background:color-mix(in srgb,var(--primary) 6%,var(--surface));font-weight:600;color:var(--muted)}
 .sticky-col{position:sticky;left:0;background:var(--surface);z-index:1}
 tbody tr:hover .sticky-col{background:color-mix(in srgb,var(--primary) 4%,var(--surface))}
@@ -739,7 +740,10 @@ function renderDecTable(rows,years){
     });
     const tots=sorted.reduce((s,[,v])=>({rec:s.rec+v.rec,rej:s.rej+v.rej,clo:s.clo+v.clo,oth:s.oth+v.oth,tot:s.tot+v.tot}),{rec:0,rej:0,clo:0,oth:0,tot:0});
     const totR=tots.tot>0?Math.round(tots.rec/tots.tot*100):0;
-    html+='<tfoot><tr><td>Total</td><td class="num">'+tots.rec.toLocaleString()+'</td><td class="num">'+tots.rej.toLocaleString()+'</td><td class="num">'+tots.clo.toLocaleString()+'</td><td class="num">'+tots.oth.toLocaleString()+'</td><td class="num">'+tots.tot.toLocaleString()+'</td><td class="num">'+totR+'%</td></tr></tfoot></table></div>';
+    const totByLevel={};Object.keys(pL).forEach(code=>{totByLevel[code]={rec:0,rej:0,clo:0,oth:0,tot:0};});sorted.forEach(([,v])=>{Object.keys(pL).forEach(code=>{const p=v.byProc[code];if(p){totByLevel[code].rec+=p.rec;totByLevel[code].rej+=p.rej;totByLevel[code].clo+=p.clo;totByLevel[code].oth+=p.oth;totByLevel[code].tot+=p.tot;}});});
+    html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_total\')"><td><span class="exp-icon" id="icon-dec_total">▶</span>Total</td><td class="num">'+tots.rec.toLocaleString()+'</td><td class="num">'+tots.rej.toLocaleString()+'</td><td class="num">'+tots.clo.toLocaleString()+'</td><td class="num">'+tots.oth.toLocaleString()+'</td><td class="num">'+tots.tot.toLocaleString()+'</td><td class="num">'+totR+'%</td></tr>';
+    Object.entries(pL).forEach(([code,label])=>{const p=totByLevel[code];if(!p||p.tot===0)return;const pr=p.tot>0?Math.round(p.rec/p.tot*100):0;html+='<tr class="row-sub" data-parent="dec_total" style="display:none"><td>'+label+'</td><td class="num">'+p.rec.toLocaleString()+'</td><td class="num">'+p.rej.toLocaleString()+'</td><td class="num">'+p.clo.toLocaleString()+'</td><td class="num">'+p.oth.toLocaleString()+'</td><td class="num">'+p.tot.toLocaleString()+'</td><td class="num">'+pr+'%</td></tr>';});
+    html+='</tfoot></table></div>';
   } else {
     html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
     years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="6">'+y+'</th>';});
