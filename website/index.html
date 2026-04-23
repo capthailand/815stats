@@ -91,6 +91,7 @@ tbody tr:hover td{background:color-mix(in srgb,var(--primary) 4%,transparent)}
 td.num{text-align:right;font-family:var(--mono);font-size:.78rem}
 tfoot td{font-weight:600;border-top:2px solid var(--border);border-bottom:none}
 tfoot td.num{font-family:var(--mono);font-size:.78rem;text-align:right}
+tfoot .row-sub td{font-weight:300;border-top:none;}
 .yr-grp{text-align:center;background:color-mix(in srgb,var(--primary) 6%,var(--surface));font-weight:600;color:var(--muted)}
 .sticky-col{position:sticky;left:0;background:var(--surface);z-index:1}
 tbody tr:hover .sticky-col{background:color-mix(in srgb,var(--primary) 4%,var(--surface))}
@@ -263,9 +264,10 @@ let cfg={},raw={};
 const charts={},maps={};
 let activeTab='poc';
 const F={myanmar:'exclude',yearMin:null,yearMax:null};
-let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false,showSubDelta=false;
+let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false;
 let showAppDelta=false;
 let decView='totals',decChartBuilt=false,decChartSel=null;
+const openRows=new Set();
 let depFlowBuilt=false,depFlowSel=null;
 let subPickerBuilt=false,subChartSel=null;
 
@@ -312,6 +314,7 @@ function applyConfig(){
     const p=(org.logo_padding||0)+'px';img.style.margin=p;
   }
   if(org.name)document.getElementById('org-name').textContent=org.name;
+  if(org.subtitle!==undefined)document.getElementById('hdr-sub').textContent=org.subtitle;
   const ftrEls=(cfg.footer||{}).elements;
   let c;
   if(ftrEls&&ftrEls.length){
@@ -461,6 +464,16 @@ function toggleSubRows(key){
   const opening=rows[0]&&rows[0].style.display==='none';
   rows.forEach(r=>r.style.display=opening?'':'none');
   if(icon)icon.classList.toggle('open',opening);
+  opening?openRows.add(key):openRows.delete(key);
+}
+function restoreOpenRows(){
+  openRows.forEach(key=>{
+    const rows=document.querySelectorAll('.row-sub[data-parent="'+key+'"]');
+    if(!rows.length)return;
+    rows.forEach(r=>r.style.display='');
+    const icon=document.getElementById('icon-'+key);
+    if(icon)icon.classList.add('open');
+  });
 }
 
 function makeTileLayer(m){
@@ -582,7 +595,7 @@ function renderPocTable(rows,years){
     }
   });
   html+='</tr></tfoot></table></div>';
-  el.innerHTML=html;
+  el.innerHTML=html;restoreOpenRows();
 }
 function togglePocDelta(){showPocDelta=!showPocDelta;const rows=filter(raw.poc||[]);renderPocTable(rows,yearsIn(rows));}
 
@@ -644,8 +657,12 @@ function renderApplications(){
     });
   });
   const gFA=sorted.reduce((s,[,v])=>s+v.FA,0),gFI=sorted.reduce((s,[,v])=>s+v.FI,0),gAR=sorted.reduce((s,[,v])=>s+v.AR,0),gRA=sorted.reduce((s,[,v])=>s+v.RA,0),gTot=sorted.reduce((s,[,v])=>s+v.tot,0);
-  html+='<tfoot><tr><td>Total</td><td class="num">'+gFA.toLocaleString()+'</td><td class="num">'+gFI.toLocaleString()+'</td><td class="num">'+gAR.toLocaleString()+'</td><td class="num">'+gRA.toLocaleString()+'</td><td class="num">'+gTot.toLocaleString()+'</td></tr></tfoot></table></div>';
-  el.innerHTML=html;
+  const gByYear={};sorted.forEach(([,v])=>{Object.entries(v.byYear).forEach(([y,yv])=>{if(!gByYear[y])gByYear[y]={FA:0,FI:0,AR:0,RA:0,tot:0};gByYear[y].FA+=yv.FA;gByYear[y].FI+=yv.FI;gByYear[y].AR+=yv.AR;gByYear[y].RA+=yv.RA;gByYear[y].tot+=yv.tot;});});
+  const gYks=Object.keys(gByYear).sort();
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'app_total\')"><td><span class="exp-icon" id="icon-app_total">▶</span>Total</td><td class="num">'+gFA.toLocaleString()+'</td><td class="num">'+gFI.toLocaleString()+'</td><td class="num">'+gAR.toLocaleString()+'</td><td class="num">'+gRA.toLocaleString()+'</td><td class="num">'+gTot.toLocaleString()+'</td></tr>';
+  gYks.forEach((y,yi)=>{const yv=gByYear[y];if(showAppDelta&&yi>0){const pv=gByYear[gYks[yi-1]];const dFA=pctChange(yv.FA,pv.FA),dFI=pctChange(yv.FI,pv.FI),dAR=pctChange(yv.AR,pv.AR),dRA=pctChange(yv.RA,pv.RA),dT=pctChange(yv.tot,pv.tot);html+='<tr class="row-sub" data-parent="app_total" style="display:none"><td>'+y+'</td><td class="num"><span class="'+pctClass(dFA)+'">'+(dFA||'—')+'</span></td><td class="num"><span class="'+pctClass(dFI)+'">'+(dFI||'—')+'</span></td><td class="num"><span class="'+pctClass(dAR)+'">'+(dAR||'—')+'</span></td><td class="num"><span class="'+pctClass(dRA)+'">'+(dRA||'—')+'</span></td><td class="num"><span class="'+pctClass(dT)+'">'+(dT||'—')+'</span></td></tr>';}else{html+='<tr class="row-sub" data-parent="app_total" style="display:none"><td>'+y+'</td><td class="num">'+yv.FA.toLocaleString()+'</td><td class="num">'+yv.FI.toLocaleString()+'</td><td class="num">'+yv.AR.toLocaleString()+'</td><td class="num">'+yv.RA.toLocaleString()+'</td><td class="num">'+yv.tot.toLocaleString()+'</td></tr>';}});
+  html+='</tfoot></table></div>';
+  el.innerHTML=html;restoreOpenRows();
 }
 function toggleAppDelta(){showAppDelta=!showAppDelta;renderApplications();}
 
@@ -739,7 +756,10 @@ function renderDecTable(rows,years){
     });
     const tots=sorted.reduce((s,[,v])=>({rec:s.rec+v.rec,rej:s.rej+v.rej,clo:s.clo+v.clo,oth:s.oth+v.oth,tot:s.tot+v.tot}),{rec:0,rej:0,clo:0,oth:0,tot:0});
     const totR=tots.tot>0?Math.round(tots.rec/tots.tot*100):0;
-    html+='<tfoot><tr><td>Total</td><td class="num">'+tots.rec.toLocaleString()+'</td><td class="num">'+tots.rej.toLocaleString()+'</td><td class="num">'+tots.clo.toLocaleString()+'</td><td class="num">'+tots.oth.toLocaleString()+'</td><td class="num">'+tots.tot.toLocaleString()+'</td><td class="num">'+totR+'%</td></tr></tfoot></table></div>';
+    const totByLevel={};Object.keys(pL).forEach(code=>{totByLevel[code]={rec:0,rej:0,clo:0,oth:0,tot:0};});sorted.forEach(([,v])=>{Object.keys(pL).forEach(code=>{const p=v.byProc[code];if(p){totByLevel[code].rec+=p.rec;totByLevel[code].rej+=p.rej;totByLevel[code].clo+=p.clo;totByLevel[code].oth+=p.oth;totByLevel[code].tot+=p.tot;}});});
+    html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_total\')"><td><span class="exp-icon" id="icon-dec_total">▶</span>Total</td><td class="num">'+tots.rec.toLocaleString()+'</td><td class="num">'+tots.rej.toLocaleString()+'</td><td class="num">'+tots.clo.toLocaleString()+'</td><td class="num">'+tots.oth.toLocaleString()+'</td><td class="num">'+tots.tot.toLocaleString()+'</td><td class="num">'+totR+'%</td></tr>';
+    Object.entries(pL).forEach(([code,label])=>{const p=totByLevel[code];if(!p||p.tot===0)return;const pr=p.tot>0?Math.round(p.rec/p.tot*100):0;html+='<tr class="row-sub" data-parent="dec_total" style="display:none"><td>'+label+'</td><td class="num">'+p.rec.toLocaleString()+'</td><td class="num">'+p.rej.toLocaleString()+'</td><td class="num">'+p.clo.toLocaleString()+'</td><td class="num">'+p.oth.toLocaleString()+'</td><td class="num">'+p.tot.toLocaleString()+'</td><td class="num">'+pr+'%</td></tr>';});
+    html+='</tfoot></table></div>';
   } else {
     html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
     years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="6">'+y+'</th>';});
@@ -765,7 +785,7 @@ function renderDecTable(rows,years){
     });
     html+='</tbody></table></div>';
   }
-  el.innerHTML=html;
+  el.innerHTML=html;restoreOpenRows();
 }
 function toggleDecDelta(){showDecDelta=!showDecDelta;const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
 
@@ -883,8 +903,12 @@ function renderDepTable(rows,years){
     const dStr=yi>0?pctChange(val,gTots[yi-1]):null;
     return'<td class="num">'+val.toLocaleString()+(dStr?'<small class="inl-delta '+pctClass(dStr)+'">'+dStr+'</small>':'')+'</td>';
   }).join('');
-  html+='<tfoot><tr><td class="sticky-col">Total</td>'+footCells+'<td class="num">'+grand.toLocaleString()+'</td></tr></tfoot></table></div>';
-  el.innerHTML=html;
+  const destMap={};sorted.forEach(({dests})=>{Object.entries(dests).forEach(([d,yrs])=>{if(!destMap[d])destMap[d]={};Object.entries(yrs).forEach(([y,v])=>{destMap[d][y]=(destMap[d][y]||0)+v;});});});
+  const sortedDests=Object.entries(destMap).map(([d,yrs])=>({d,yrs,dt:Object.values(yrs).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.dt-a.dt);
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dep_total\')"><td class="sticky-col"><span class="exp-icon" id="icon-dep_total">▶</span>Total</td>'+footCells+'<td class="num">'+grand.toLocaleString()+'</td></tr>';
+  sortedDests.forEach(({d,yrs,dt})=>{html+='<tr class="row-sub" data-parent="dep_total" style="display:none"><td class="sticky-col">'+d+'</td>'+years.map(y=>'<td class="num">'+(yrs[y]?yrs[y].toLocaleString():'—')+'</td>').join('')+'<td class="num">'+dt.toLocaleString()+'</td></tr>';});
+  html+='</tfoot></table></div>';
+  el.innerHTML=html;restoreOpenRows();
 }
 
 function buildSubPicker(rows){
@@ -924,27 +948,31 @@ function renderSubmissions(){
   const sorted=Object.entries(om).map(([k,yrs])=>({k,yrs,tc:Object.values(yrs).reduce((s,v)=>s+v.cases,0),tp:Object.values(yrs).reduce((s,v)=>s+v.persons,0)})).sort((a,b)=>b.tp-a.tp);
   const el=document.getElementById('tbl-sub');if(!el)return;
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
-  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions"><button class="btn-sm'+(showSubDelta?' on':'')+'" onclick="toggleSubDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
-  html+='<div class="tbl-scroll"><table id="tbl-sub-t"><thead><tr><th>Country of origin</th><th class="num">Cases (total)</th><th class="num">Persons (total)</th></tr></thead><tbody>';
+  const gByYear={};years.forEach(y=>{gByYear[y]={cases:sorted.reduce((s,{yrs})=>s+(yrs[y]?yrs[y].cases:0),0),persons:sorted.reduce((s,{yrs})=>s+(yrs[y]?yrs[y].persons:0),0)};});
+  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions"><button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
+  html+='<div class="tbl-scroll"><table id="tbl-sub-t"><thead><tr><th>Country of origin</th><th class="num">Cases</th><th class="num">Δ% cases</th><th class="num">Persons</th><th class="num">Δ% persons</th></tr></thead><tbody>';
   sorted.forEach(({k,yrs,tc,tp})=>{
     const sk=safeKey(k);
-    html+='<tr class="row-exp" onclick="toggleSubRows(\'sub_'+sk+'\')"><td><span class="exp-icon" id="icon-sub_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk" title="'+unkNote+'">?</span>':'')+'</td><td class="num">'+tc.toLocaleString()+'</td><td class="num">'+tp.toLocaleString()+'</td></tr>';
+    const yks=Object.keys(yrs).sort().filter(y=>yrs[y]&&(yrs[y].cases||yrs[y].persons));
+    const lastY=yks[yks.length-1],prevY=yks.length>1?yks[yks.length-2]:null;
+    const dC=prevY?pctChange(yrs[lastY].cases,yrs[prevY].cases):null;
+    const dP=prevY?pctChange(yrs[lastY].persons,yrs[prevY].persons):null;
+    html+='<tr class="row-exp" onclick="toggleSubRows(\'sub_'+sk+'\')"><td><span class="exp-icon" id="icon-sub_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk" title="'+unkNote+'">?</span>':'')+'</td><td class="num">'+tc.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dC)+'">'+(dC||'—')+'</span></td><td class="num">'+tp.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dP)+'">'+(dP||'—')+'</span></td></tr>';
     years.forEach((y,yi)=>{
       const v=yrs[y];if(!v||(!v.cases&&!v.persons))return;
-      if(showSubDelta){
-        const pv=yi>0?yrs[years[yi-1]]:null;
-        const dC=pv?pctChange(v.cases,pv.cases):null,dP=pv?pctChange(v.persons,pv.persons):null;
-        html+='<tr class="row-sub" data-parent="sub_'+sk+'" style="display:none"><td>'+y+'</td>';
-        html+='<td class="num"><span class="'+pctClass(dC)+'">'+(dC||'—')+'</span></td>';
-        html+='<td class="num"><span class="'+pctClass(dP)+'">'+(dP||'—')+'</span></td></tr>';
-      } else {
-        html+='<tr class="row-sub" data-parent="sub_'+sk+'" style="display:none"><td>'+y+'</td><td class="num">'+v.cases.toLocaleString()+'</td><td class="num">'+v.persons.toLocaleString()+'</td></tr>';
-      }
+      const pv=yi>0?yrs[years[yi-1]]:null;
+      const dCy=pv&&pv.cases?pctChange(v.cases,pv.cases):null,dPy=pv&&pv.persons?pctChange(v.persons,pv.persons):null;
+      html+='<tr class="row-sub" data-parent="sub_'+sk+'" style="display:none"><td>'+y+'</td><td class="num">'+v.cases.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dCy)+'">'+(dCy||'—')+'</span></td><td class="num">'+v.persons.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dPy)+'">'+(dPy||'—')+'</span></td></tr>';
     });
   });
   const totC=sorted.reduce((s,r)=>s+r.tc,0),totP=sorted.reduce((s,r)=>s+r.tp,0);
-  html+='<tfoot><tr><td>Total</td><td class="num">'+totC.toLocaleString()+'</td><td class="num">'+totP.toLocaleString()+'</td></tr></tfoot></table></div>';
-  el.innerHTML=html;
+  const lastGY=years[years.length-1],prevGY=years.length>1?years[years.length-2]:null;
+  const dGC=prevGY?pctChange(gByYear[lastGY].cases,gByYear[prevGY].cases):null;
+  const dGP=prevGY?pctChange(gByYear[lastGY].persons,gByYear[prevGY].persons):null;
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'sub_total\')"><td><span class="exp-icon" id="icon-sub_total">▶</span>Total</td><td class="num">'+totC.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dGC)+'">'+(dGC||'—')+'</span></td><td class="num">'+totP.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dGP)+'">'+(dGP||'—')+'</span></td></tr>';
+  years.forEach((y,yi)=>{const yv=gByYear[y];const pv=yi>0?gByYear[years[yi-1]]:null;const dCy=pv&&pv.cases?pctChange(yv.cases,pv.cases):null,dPy=pv&&pv.persons?pctChange(yv.persons,pv.persons):null;html+='<tr class="row-sub" data-parent="sub_total" style="display:none"><td>'+y+'</td><td class="num">'+yv.cases.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dCy)+'">'+(dCy||'—')+'</span></td><td class="num">'+yv.persons.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dPy)+'">'+(dPy||'—')+'</span></td></tr>';});
+  html+='</tfoot></table></div>';
+  el.innerHTML=html;restoreOpenRows();
   const unkNote2=((cfg.labels||{}).unknown_origin_note||'').replace(/[\n\r]+/g,' ');
   const unkLabel=(cfg.labels||{}).unknown_origin||'Origin not disclosed';
   const subExtra=(cfg.notes||{}).submissions||'';
@@ -956,8 +984,6 @@ function renderSubmissions(){
     fnSubEl.innerHTML=fn;
   }
 }
-function toggleSubDelta(){showSubDelta=!showSubDelta;renderSubmissions();}
-
 function buildSimpleTable(cid,title,headers,rows,foot,dlName){
   const el=document.getElementById(cid);if(!el)return;
   if(!rows.length){el.innerHTML='<div class="empty">No data for current filters.</div>';return;}
