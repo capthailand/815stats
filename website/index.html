@@ -645,7 +645,11 @@ function renderApplications(){
     });
   });
   const gFA=sorted.reduce((s,[,v])=>s+v.FA,0),gFI=sorted.reduce((s,[,v])=>s+v.FI,0),gAR=sorted.reduce((s,[,v])=>s+v.AR,0),gRA=sorted.reduce((s,[,v])=>s+v.RA,0),gTot=sorted.reduce((s,[,v])=>s+v.tot,0);
-  html+='<tfoot><tr><td>Total</td><td class="num">'+gFA.toLocaleString()+'</td><td class="num">'+gFI.toLocaleString()+'</td><td class="num">'+gAR.toLocaleString()+'</td><td class="num">'+gRA.toLocaleString()+'</td><td class="num">'+gTot.toLocaleString()+'</td></tr></tfoot></table></div>';
+  const gByYear={};sorted.forEach(([,v])=>{Object.entries(v.byYear).forEach(([y,yv])=>{if(!gByYear[y])gByYear[y]={FA:0,FI:0,AR:0,RA:0,tot:0};gByYear[y].FA+=yv.FA;gByYear[y].FI+=yv.FI;gByYear[y].AR+=yv.AR;gByYear[y].RA+=yv.RA;gByYear[y].tot+=yv.tot;});});
+  const gYks=Object.keys(gByYear).sort();
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'app_total\')"><td><span class="exp-icon" id="icon-app_total">▶</span>Total</td><td class="num">'+gFA.toLocaleString()+'</td><td class="num">'+gFI.toLocaleString()+'</td><td class="num">'+gAR.toLocaleString()+'</td><td class="num">'+gRA.toLocaleString()+'</td><td class="num">'+gTot.toLocaleString()+'</td></tr>';
+  gYks.forEach((y,yi)=>{const yv=gByYear[y];if(showAppDelta&&yi>0){const pv=gByYear[gYks[yi-1]];const dFA=pctChange(yv.FA,pv.FA),dFI=pctChange(yv.FI,pv.FI),dAR=pctChange(yv.AR,pv.AR),dRA=pctChange(yv.RA,pv.RA),dT=pctChange(yv.tot,pv.tot);html+='<tr class="row-sub" data-parent="app_total" style="display:none"><td>'+y+'</td><td class="num"><span class="'+pctClass(dFA)+'">'+(dFA||'—')+'</span></td><td class="num"><span class="'+pctClass(dFI)+'">'+(dFI||'—')+'</span></td><td class="num"><span class="'+pctClass(dAR)+'">'+(dAR||'—')+'</span></td><td class="num"><span class="'+pctClass(dRA)+'">'+(dRA||'—')+'</span></td><td class="num"><span class="'+pctClass(dT)+'">'+(dT||'—')+'</span></td></tr>';}else{html+='<tr class="row-sub" data-parent="app_total" style="display:none"><td>'+y+'</td><td class="num">'+yv.FA.toLocaleString()+'</td><td class="num">'+yv.FI.toLocaleString()+'</td><td class="num">'+yv.AR.toLocaleString()+'</td><td class="num">'+yv.RA.toLocaleString()+'</td><td class="num">'+yv.tot.toLocaleString()+'</td></tr>';}});
+  html+='</tfoot></table></div>';
   el.innerHTML=html;
 }
 function toggleAppDelta(){showAppDelta=!showAppDelta;renderApplications();}
