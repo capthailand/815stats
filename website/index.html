@@ -891,7 +891,11 @@ function renderDepTable(rows,years){
     const dStr=yi>0?pctChange(val,gTots[yi-1]):null;
     return'<td class="num">'+val.toLocaleString()+(dStr?'<small class="inl-delta '+pctClass(dStr)+'">'+dStr+'</small>':'')+'</td>';
   }).join('');
-  html+='<tfoot><tr><td class="sticky-col">Total</td>'+footCells+'<td class="num">'+grand.toLocaleString()+'</td></tr></tfoot></table></div>';
+  const destMap={};sorted.forEach(({dests})=>{Object.entries(dests).forEach(([d,yrs])=>{if(!destMap[d])destMap[d]={};Object.entries(yrs).forEach(([y,v])=>{destMap[d][y]=(destMap[d][y]||0)+v;});});});
+  const sortedDests=Object.entries(destMap).map(([d,yrs])=>({d,yrs,dt:Object.values(yrs).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.dt-a.dt);
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dep_total\')"><td class="sticky-col"><span class="exp-icon" id="icon-dep_total">▶</span>Total</td>'+footCells+'<td class="num">'+grand.toLocaleString()+'</td></tr>';
+  sortedDests.forEach(({d,yrs,dt})=>{html+='<tr class="row-sub" data-parent="dep_total" style="display:none"><td class="sticky-col">'+d+'</td>'+years.map(y=>'<td class="num">'+(yrs[y]?yrs[y].toLocaleString():'—')+'</td>').join('')+'<td class="num">'+dt.toLocaleString()+'</td></tr>';});
+  html+='</tfoot></table></div>';
   el.innerHTML=html;
 }
 
