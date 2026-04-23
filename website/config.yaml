@@ -16,7 +16,7 @@ organisation:
   name: "Thailand Refugee Statistics Dashboard"
 
   # Short subtitle shown below the title in the header
-  subtitle: "2025 data are current until 30 June 2025."
+  subtitle: "Last updated: 23 April 2025. 2025 data are current until 30 June 2025."
 
   # Path to your logo, relative to index.html
   # Place your logo file in the assets/ folder
