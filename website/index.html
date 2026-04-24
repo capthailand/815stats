@@ -268,6 +268,7 @@ let showAppDelta=false;
 let decView='totals',decChartBuilt=false,decChartSel=null;
 let depFlowBuilt=false,depFlowSel=null;
 let subPickerBuilt=false,subChartSel=null;
+let tblSort={poc:'tot-desc',app:'tot-desc',dec:'tot-desc',dep:'tot-desc',sub:'tot-desc'};
 
 async function init(){
   try{
@@ -463,6 +464,26 @@ function toggleSubRows(key){
   if(icon)icon.classList.toggle('open',opening);
 }
 
+function sortTable(arr,getKey,getTot,order){
+  if(order==='tot-asc')return arr.slice().sort((a,b)=>getTot(a)-getTot(b));
+  if(order==='az')return arr.slice().sort((a,b)=>dispOrigin(getKey(a)).localeCompare(dispOrigin(getKey(b))));
+  if(order==='za')return arr.slice().sort((a,b)=>dispOrigin(getKey(b)).localeCompare(dispOrigin(getKey(a))));
+  return arr;
+}
+function sortSelect(id){
+  const v=tblSort[id];
+  const opts=[['tot-desc','Totals high to low'],['tot-asc','Totals low to high'],['az','A-Z'],['za','Z-A']];
+  return '<select onchange="setTblSort(\''+id+'\',this.value)" style="font-size:.72rem;padding:.2rem .45rem">'+opts.map(([val,lbl])=>'<option value="'+val+'"'+(v===val?' selected':'')+'>'+lbl+'</option>').join('')+'</select>';
+}
+function setTblSort(id,val){
+  tblSort[id]=val;
+  if(id==='poc'){const rows=filter(raw.poc||[]);renderPocTable(rows,yearsIn(rows));}
+  else if(id==='app')renderApplications();
+  else if(id==='dec'){const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
+  else if(id==='dep'){const rows=filter(raw.departures||[]);renderDepTable(rows,yearsIn(rows));}
+  else if(id==='sub')renderSubmissions();
+}
+
 function makeTileLayer(m){
   const dark=document.documentElement.getAttribute('data-theme')==='dark';
   const url=dark?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png':'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
@@ -531,9 +552,10 @@ function renderPocTable(rows,years){
     if(!natMap[k][r.Year])natMap[k][r.Year]={ref:0,asy:0};
     natMap[k][r.Year].ref+=n(r['Refugees']);natMap[k][r.Year].asy+=n(r['Asylum-seekers']);
   });
-  const sorted=Object.entries(natMap).map(([k,yrs])=>({k,yrs,tot:Object.values(yrs).reduce((s,v)=>s+v.ref+v.asy,0)})).sort((a,b)=>b.tot-a.tot);
+  const _pocUnsorted=Object.entries(natMap).map(([k,yrs])=>({k,yrs,tot:Object.values(yrs).reduce((s,v)=>s+v.ref+v.asy,0)})).sort((a,b)=>b.tot-a.tot);
+  const sorted=sortTable(_pocUnsorted,d=>d.k,d=>d.tot,tblSort.poc);
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
-  let html='<div class="tbl-head"><h3>Population</h3><div class="tbl-actions"><button class="btn-sm'+(showPocDelta?' on':'')+'" onclick="togglePocDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-poc\',\'population-figures\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Population</h3><div class="tbl-actions">'+sortSelect('poc')+'<button class="btn-sm'+(showPocDelta?' on':'')+'" onclick="togglePocDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-poc\',\'population-figures\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-poc-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
   years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="3">'+y+'</th>';});
   html+='</tr><tr>';
@@ -624,9 +646,10 @@ function renderApplications(){
     if(DL[dl]!==undefined)nm[k].byYear[y][dl]+=n(r['Applied']);
     nm[k].byYear[y].tot+=n(r['Applied']);
   });
-  const sorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const _appUnsorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const sorted=sortTable(_appUnsorted,d=>d[0],d=>d[1].tot,tblSort.app);
   const el=document.getElementById('tbl-app');if(!el)return;
-  let html='<div class="tbl-head"><h3>Application details</h3><div class="tbl-actions"><button class="btn-sm'+(showAppDelta?' on':'')+'" onclick="toggleAppDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-app\',\'asylum-applications\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Application details</h3><div class="tbl-actions">'+sortSelect('app')+'<button class="btn-sm'+(showAppDelta?' on':'')+'" onclick="toggleAppDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-app\',\'asylum-applications\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-app-t"><thead><tr><th>Country</th><th class="num">FA</th><th class="num">FI</th><th class="num">AR</th><th class="num">RA</th><th class="num">Total</th></tr></thead><tbody>';
   sorted.forEach(([k,v])=>{
     const sk=safeKey(k);
@@ -721,11 +744,12 @@ function renderDecTable(rows,years){
     if(!m.byYear[r.Year])m.byYear[r.Year]={rec:0,rej:0,clo:0,oth:0,tot:0};
     m.byYear[r.Year].rec+=rec;m.byYear[r.Year].rej+=rej;m.byYear[r.Year].clo+=clo;m.byYear[r.Year].oth+=oth;m.byYear[r.Year].tot+=tot;
   });
-  const sorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const _decUnsorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const sorted=sortTable(_decUnsorted,d=>d[0],d=>d[1].tot,tblSort.dec);
   const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened',FA:'First inst. & appeal'};
   const viewBtns='<div class="seg" style="margin-right:.5rem"><button class="seg-btn'+(decView==='totals'?' active':'')+'" data-decview="totals" onclick="setDecView(\'totals\')">Totals</button><button class="seg-btn'+(decView==='peryear'?' active':'')+'" data-decview="peryear" onclick="setDecView(\'peryear\')">Per year</button></div>';
   const deltaBtn=decView==='peryear'?'<button class="btn-sm'+(showDecDelta?' on':'')+'" onclick="toggleDecDelta()">Δ% change</button>':'';
-  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
   if(decView==='totals'){
     html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th></tr></thead><tbody>';
     sorted.forEach(([k,v])=>{
@@ -860,10 +884,11 @@ function renderDepTable(rows,years){
     if(!om[o])om[o]={};if(!om[o][d])om[o][d]={};
     om[o][d][r.Year]=(om[o][d][r.Year]||0)+n(r['Total']);
   });
-  const sorted=Object.entries(om).map(([o,dests])=>({o,dests,tot:Object.values(dests).flatMap(d=>Object.values(d)).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.tot-a.tot);
+  const _depUnsorted=Object.entries(om).map(([o,dests])=>({o,dests,tot:Object.values(dests).flatMap(d=>Object.values(d)).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.tot-a.tot);
+  const sorted=sortTable(_depUnsorted,d=>d.o,d=>d.tot,tblSort.dep);
   const gTots=years.map(y=>rows.reduce((s,r)=>s+(r.Year===y?n(r['Total']):0),0));
   const grand=rows.reduce((s,r)=>s+n(r['Total']),0);
-  let html='<div class="tbl-head"><h3>Departures details</h3><div class="tbl-actions"><button class="btn-sm" onclick="dlCSV(\'tbl-dep\',\'resettlement-departures\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Departures details</h3><div class="tbl-actions">'+sortSelect('dep')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dep\',\'resettlement-departures\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-dep-t"><thead><tr><th class="sticky-col" style="min-width:14rem">Country of origin</th>'+years.map(y=>'<th class="num">'+y+'</th>').join('')+'<th class="num">Total</th></tr></thead><tbody>';
   sorted.forEach(({o,dests,tot})=>{
     const sk=safeKey(o);
@@ -921,10 +946,11 @@ function renderSubmissions(){
   _renderSubChart(rows,years);
   const om={};
   rows.forEach(r=>{const k=r['Country of Origin'];if(!om[k])om[k]={};if(!om[k][r.Year])om[k][r.Year]={cases:0,persons:0};om[k][r.Year].cases+=n(r['Cases']);om[k][r.Year].persons+=n(r['Persons']);});
-  const sorted=Object.entries(om).map(([k,yrs])=>({k,yrs,tc:Object.values(yrs).reduce((s,v)=>s+v.cases,0),tp:Object.values(yrs).reduce((s,v)=>s+v.persons,0)})).sort((a,b)=>b.tp-a.tp);
+  const _subUnsorted=Object.entries(om).map(([k,yrs])=>({k,yrs,tc:Object.values(yrs).reduce((s,v)=>s+v.cases,0),tp:Object.values(yrs).reduce((s,v)=>s+v.persons,0)})).sort((a,b)=>b.tp-a.tp);
+  const sorted=sortTable(_subUnsorted,d=>d.k,d=>d.tp,tblSort.sub);
   const el=document.getElementById('tbl-sub');if(!el)return;
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
-  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions"><button class="btn-sm'+(showSubDelta?' on':'')+'" onclick="toggleSubDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions">'+sortSelect('sub')+'<button class="btn-sm'+(showSubDelta?' on':'')+'" onclick="toggleSubDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-sub-t"><thead><tr><th>Country of origin</th><th class="num">Cases (total)</th><th class="num">Persons (total)</th></tr></thead><tbody>';
   sorted.forEach(({k,yrs,tc,tp})=>{
     const sk=safeKey(k);
