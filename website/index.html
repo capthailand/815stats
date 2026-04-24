@@ -87,6 +87,7 @@ table{width:100%;border-collapse:collapse;font-size:.82rem}
 th{padding:.55rem .9rem;text-align:left;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap;background:var(--surface)}
 th.num{text-align:right}
 td{padding:.55rem .9rem;border-bottom:1px solid var(--border);vertical-align:middle}
+#tbl-dep td{vertical-align:top}
 tbody tr:hover td{background:color-mix(in srgb,var(--primary) 4%,transparent)}
 td.num{text-align:right;font-family:var(--mono);font-size:.78rem}
 tfoot td{font-weight:600;border-top:2px solid var(--border);border-bottom:none}
@@ -214,6 +215,7 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="accent-bar"></div>
   </div>
   <div id="dec-chart-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div>
+  <div id="dec-level-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div>
   <div class="g2">
     <div class="card"><p class="card-title">Outcomes by year</p><div class="chart-wrap"><canvas id="c-dec-year"></canvas></div></div>
     <div class="card"><p class="card-title">Recognition rate by year (%)</p><div class="chart-wrap"><canvas id="c-dec-rate"></canvas></div></div>
@@ -272,7 +274,7 @@ let activeTab='poc';
 const F={myanmar:'exclude',yearMin:null,yearMax:null};
 let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false;
 let showAppDelta=false;
-let decView='totals',decChartBuilt=false,decChartSel=null,decExclClosed=false;
+let decView='totals',decChartBuilt=false,decChartSel=null,decLevelSel=null,decExclClosed=false;
 const openRows=new Set();
 let depFlowBuilt=false,depFlowSel=null;
 let subPickerBuilt=false,subChartSel=null;
@@ -712,7 +714,7 @@ function buildDecChartPicker(rows){
   const byNat={};rows.forEach(r=>{const k=r['Country of Origin'];byNat[k]=(byNat[k]||0)+n(r['dec total']);});
   const sorted=Object.entries(byNat).sort((a,b)=>b[1]-a[1]);
   wrap.innerHTML='<button class="nat-picker-btn" id="dec-picker-btn" onclick="toggleDecPicker()">Filter chart countries ▾</button><div class="nat-picker-list" id="dec-picker-list"><div class="nat-picker-actions"><button class="nat-act-btn" onclick="setAllDecChart(true)">Select all</button><button class="nat-act-btn" onclick="setAllDecChart(false)">Clear</button></div>'+
-    sorted.map(([k,v])=>'<label class="nat-item"><input type="checkbox" value="'+k.replace(/"/g,'&quot;')+'" checked onchange="onDecChartChange()">'+dispOrigin(k)+'<span class="nat-count">'+v.toLocaleString()+'</span></label>').join('')+'</div>';
+    sorted.map(([k])=>'<label class="nat-item"><input type="checkbox" value="'+k.replace(/"/g,'&quot;')+'" checked onchange="onDecChartChange()">'+dispOrigin(k)+'</label>').join('')+'</div>';
   document.addEventListener('click',function(e){
     const l=document.getElementById('dec-picker-list'),b=document.getElementById('dec-picker-btn');
     if(l&&l.classList.contains('open')&&!l.contains(e.target)&&e.target!==b){l.classList.remove('open');if(b)b.textContent='Filter chart countries ▾';}
@@ -729,8 +731,32 @@ function onDecChartChange(){
   const rows=filter(raw.decisions||[]),years=yearsIn(rows);
   _renderDecCharts(rows,years);
 }
+function buildDecLevelPicker(rows){
+  const wrap=document.getElementById('dec-level-picker-wrap');if(!wrap)return;
+  const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened',FA:'First inst. & appeal'};
+  const existing=new Set(rows.map(r=>r['Dec level']).filter(Boolean));
+  const available=Object.entries(pL).filter(([code])=>existing.has(code));
+  wrap.innerHTML='<button class="nat-picker-btn" id="dec-level-btn" onclick="toggleDecLevelPicker()">Filter decision levels ▾</button><div class="nat-picker-list" id="dec-level-list"><div class="nat-picker-actions"><button class="nat-act-btn" onclick="setAllDecLevel(true)">Select all</button><button class="nat-act-btn" onclick="setAllDecLevel(false)">Clear</button></div>'+
+    available.map(([code,label])=>'<label class="nat-item"><input type="checkbox" value="'+code+'" checked onchange="onDecLevelChange()">'+label+'</label>').join('')+'</div>';
+  document.addEventListener('click',function(e){
+    const l=document.getElementById('dec-level-list'),b=document.getElementById('dec-level-btn');
+    if(l&&l.classList.contains('open')&&!l.contains(e.target)&&e.target!==b){l.classList.remove('open');if(b)b.textContent='Filter decision levels ▾';}
+  });
+}
+function toggleDecLevelPicker(){
+  const l=document.getElementById('dec-level-list'),b=document.getElementById('dec-level-btn');
+  if(!l)return;const open=l.classList.toggle('open');if(b)b.textContent=open?'Filter decision levels ▴':'Filter decision levels ▾';
+}
+function setAllDecLevel(checked){document.querySelectorAll('#dec-level-list input').forEach(el=>el.checked=checked);onDecLevelChange();}
+function onDecLevelChange(){
+  const sel=[...document.querySelectorAll('#dec-level-list input:checked')].map(el=>el.value);
+  decLevelSel=sel.length?sel:null;
+  const rows=filter(raw.decisions||[]),years=yearsIn(rows);
+  _renderDecCharts(rows,years);
+}
 function _renderDecCharts(rows,years){
-  const chartRows=decChartSel?rows.filter(r=>decChartSel.includes(r['Country of Origin'])):rows;
+  let chartRows=decChartSel?rows.filter(r=>decChartSel.includes(r['Country of Origin'])):rows;
+  if(decLevelSel)chartRows=chartRows.filter(r=>decLevelSel.includes(r['Dec level']));
   const byYear=years.map(y=>{
     const yr=chartRows.filter(r=>r.Year===y);
     const rec=yr.reduce((s,r)=>s+n(r['Dec recognized']),0);
@@ -745,13 +771,13 @@ function _renderDecCharts(rows,years){
     {label:'Rejected',stack:'a',backgroundColor:CC[3],data:byYear.map(d=>d.rej)},
     {label:'Closed',stack:'a',backgroundColor:CC[9],data:byYear.map(d=>d.clo)},
     {label:'Other',stack:'a',backgroundColor:CC[1],data:byYear.map(d=>d.oth)}
-  ]},{scales:{x:{stacked:true},y:{stacked:true}}});
+  ]},{scales:{x:{stacked:true},y:{stacked:true}},plugins:{tooltip:{callbacks:{title:ctx=>ctx[0].label+' — total '+byYear[ctx[0].dataIndex].tot.toLocaleString()+' decisions',label:ctx=>{const v=ctx.parsed.y??ctx.raw??0;return' '+(ctx.dataset.label||'')+': '+Number(v??0).toLocaleString();}}}}});
   if(decChartSel&&decChartSel.length){
-    const byNatYear={};
-    decChartSel.forEach(k=>{byNatYear[k]=years.map(y=>{const yr=rows.filter(r=>r.Year===y&&r['Country of Origin']===k);const rec=yr.reduce((s,r)=>s+n(r['Dec recognized']),0),tot=yr.reduce((s,r)=>s+n(r['dec total']),0);return tot>0?Math.round(rec/tot*100):0;});});
-    mkChart('c-dec-rate','line',{labels:years,datasets:decChartSel.map((k,i)=>({label:dispOrigin(k),data:byNatYear[k],borderColor:CC[i%CC.length],backgroundColor:CC[i%CC.length]+'22',fill:false,tension:.35,pointRadius:4}))},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.y+'%'}}}});
+    const byNatYear={},totByCountry={};
+    decChartSel.forEach(k=>{const kRows=chartRows.filter(r=>r['Country of Origin']===k);totByCountry[k]=kRows.reduce((s,r)=>s+n(r['dec total']),0);byNatYear[k]=years.map(y=>{const yr=kRows.filter(r=>r.Year===y);const rec=yr.reduce((s,r)=>s+n(r['Dec recognized']),0),tot=yr.reduce((s,r)=>s+n(r['dec total']),0);return tot>0?Math.round(rec/tot*100):0;});});
+    mkChart('c-dec-rate','line',{labels:years,datasets:decChartSel.map((k,i)=>({label:dispOrigin(k),data:byNatYear[k],borderColor:CC[i%CC.length],backgroundColor:CC[i%CC.length]+'22',fill:false,tension:.35,pointRadius:4}))},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{label:ctx=>' '+dispOrigin(decChartSel[ctx.datasetIndex])+' — total '+totByCountry[decChartSel[ctx.datasetIndex]].toLocaleString()+' decisions: '+ctx.parsed.y+'%'}}}});
   } else {
-    mkChart('c-dec-rate','line',{labels:years,datasets:[{label:'Recognition rate (%)',data:byYear.map(d=>d.rate),borderColor:CC[0],backgroundColor:CC[0]+'22',fill:true,tension:.35,pointRadius:5,pointBackgroundColor:CC[0]}]},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.y+'%'}}}});
+    mkChart('c-dec-rate','line',{labels:years,datasets:[{label:'Recognition rate (%)',data:byYear.map(d=>d.rate),borderColor:CC[0],backgroundColor:CC[0]+'22',fill:true,tension:.35,pointRadius:5,pointBackgroundColor:CC[0]}]},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{title:ctx=>ctx[0].label+' — total '+byYear[ctx[0].dataIndex].tot.toLocaleString()+' decisions',label:ctx=>' '+ctx.parsed.y+'%'}}}});
   }
 }
 function setDecView(v){
@@ -761,7 +787,7 @@ function setDecView(v){
 }
 function renderDecisions(){
   const rows=filter(raw.decisions||[]),years=yearsIn(rows);
-  if(!decChartBuilt){buildDecChartPicker(rows);decChartBuilt=true;}
+  if(!decChartBuilt){buildDecChartPicker(rows);buildDecLevelPicker(rows);decChartBuilt=true;}
   _renderDecCharts(rows,years);
   renderDecTable(rows,years);
 }
