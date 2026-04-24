@@ -128,6 +128,20 @@ notes:
 
 
 # ----------------------------------------------------------------
+# WELCOME POPUP
+# ----------------------------------------------------------------
+# Shown once when the page loads. Remove this section (or delete
+# both title and body) to disable the popup.
+# Body text supports HTML (links, <strong>, <p>, etc.).
+#
+# popup:
+#   title: "Welcome"
+#   body: >
+#     Add your welcome message here. You can use
+#     <strong>bold text</strong> and <a href="#">links</a>.
+
+
+# ----------------------------------------------------------------
 # DATA FILES
 # ----------------------------------------------------------------
 # Paths to CSV files, relative to index.html
