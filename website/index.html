@@ -833,7 +833,14 @@ function renderDecTable(rows,years){
           const sc=yi%2===0?' col-stripe':'';
           const lv=(v.byYear[y]&&v.byYear[y].byProc&&v.byYear[y].byProc[code])||{rec:0,rej:0,clo:0,oth:0,tot:0};
           const lr=lv.tot>0?Math.round(lv.rec/lv.tot*100):0;
-          html+='<td class="num'+sc+'">'+(lv.rec?lv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.rej?lv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.clo?lv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.oth?lv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.tot?lv.tot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.tot?lr+'%':'—')+'</td>';
+          if(showDecDelta&&yi>0){
+            const pl=(v.byYear[years[yi-1]]&&v.byYear[years[yi-1]].byProc&&v.byYear[years[yi-1]].byProc[code])||{rec:0,rej:0,clo:0,oth:0,tot:0};
+            const plr=pl.tot>0?Math.round(pl.rec/pl.tot*100):0;
+            const dRec=pctChange(lv.rec,pl.rec),dRej=pctChange(lv.rej,pl.rej),dClo=pctChange(lv.clo,pl.clo),dOth=pctChange(lv.oth,pl.oth),dTot=pctChange(lv.tot,pl.tot),dRate=pctChange(lr,plr);
+            html+='<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
+          } else {
+            html+='<td class="num'+sc+'">'+(lv.rec?lv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.rej?lv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.clo?lv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.oth?lv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.tot?lv.tot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.tot?lr+'%':'—')+'</td>';
+          }
         });
         html+='</tr>';
       });
