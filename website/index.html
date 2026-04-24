@@ -1114,29 +1114,24 @@ document.addEventListener('DOMContentLoaded',init);
 
 function popOutChart(id,title){
   if(_chartModalOv)return;
-  const canvas=document.getElementById(id);if(!canvas)return;
-  const wrap=canvas.closest('.chart-wrap');if(!wrap)return;
+  const src=charts[id];if(!src)return;
   const ov=document.createElement('div');ov.className='chart-modal-overlay';
   const modal=document.createElement('div');modal.className='chart-modal';
   modal.innerHTML='<div class="chart-modal-header"><span class="chart-modal-title">'+title+'</span><button class="chart-modal-close" onclick="closeChartModal()">✕ Close</button></div>';
   const body=document.createElement('div');body.style.cssText='position:relative;height:72vh';
-  modal.appendChild(body);ov.appendChild(modal);document.body.appendChild(ov);
-  const origParent=wrap.parentNode,origNext=wrap.nextSibling,origStyle=wrap.getAttribute('style');
-  ov._orig={parent:origParent,next:origNext,style:origStyle,wrap};
-  wrap.style.cssText='position:relative;height:100%';
-  body.appendChild(wrap);
-  requestAnimationFrame(()=>{if(charts[id])charts[id].resize();});
+  const cv=document.createElement('canvas');
+  body.appendChild(cv);modal.appendChild(body);ov.appendChild(modal);document.body.appendChild(ov);
+  let safeData;
+  try{safeData=JSON.parse(JSON.stringify(src.config.data));}catch(e){safeData=src.config.data;}
+  const modalChart=new Chart(cv,{type:src.config.type,data:safeData,options:src.config.options});
+  ov._modalChart=modalChart;
   ov.addEventListener('click',e=>{if(e.target===ov)closeChartModal();});
   document.addEventListener('keydown',_chartModalEsc);
   _chartModalOv=ov;
 }
 function closeChartModal(){
   if(!_chartModalOv)return;
-  const {parent,next,style,wrap}=_chartModalOv._orig;
-  if(style!==null)wrap.setAttribute('style',style);else wrap.removeAttribute('style');
-  if(next)parent.insertBefore(wrap,next);else parent.appendChild(wrap);
-  const cv=wrap.querySelector('canvas');
-  requestAnimationFrame(()=>{if(cv&&charts[cv.id])charts[cv.id].resize();});
+  if(_chartModalOv._modalChart)_chartModalOv._modalChart.destroy();
   _chartModalOv.remove();_chartModalOv=null;
   document.removeEventListener('keydown',_chartModalEsc);
 }
