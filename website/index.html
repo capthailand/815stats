@@ -61,7 +61,15 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem}
 .g1{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-bottom:1.25rem}
 @media(max-width:760px){.g2{grid-template-columns:1fr}}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;box-shadow:var(--sh)}
-.card-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.9rem}
+.card-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.9rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.chart-expand-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:.1rem .15rem;line-height:1;flex-shrink:0;opacity:.45;transition:opacity .15s}
+.chart-expand-btn:hover{opacity:1}
+.chart-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;display:flex;align-items:center;justify-content:center}
+.chart-modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 12px 40px rgba(0,0,0,.4);padding:1.25rem;width:92vw;max-width:1400px}
+.chart-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.chart-modal-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.chart-modal-close{background:none;border:1px solid var(--border);cursor:pointer;color:var(--muted);font-size:.75rem;padding:.25rem .65rem;border-radius:var(--r);font-family:var(--font)}
+.chart-modal-close:hover{border-color:var(--primary);color:var(--text)}
 .chart-wrap{position:relative;height:270px}
 .map-wrap{height:480px;border-radius:4px;overflow:hidden}
 .sankey-wrap{min-height:200px;overflow:visible}
@@ -112,7 +120,26 @@ tbody tr:hover .sticky-col{background:color-mix(in srgb,var(--primary) 4%,var(--
 footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25rem 1.5rem;margin-top:1.5rem}
 .ftr{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--muted)}
 .empty{padding:2.5rem;text-align:center;color:var(--muted);font-size:.85rem}
-@media(max-width:600px){.hdr{padding:.6rem 1rem}main{padding:1rem}.tab-btn{padding:.7rem .8rem;font-size:.78rem}}
+@media(max-width:600px){
+  header{position:static}
+  .hdr{flex-wrap:wrap;align-items:center;gap:.5rem .75rem;padding:.75rem 1rem}
+  .logo-wrap{order:0}
+  #theme-btn{order:1;margin-left:auto}
+  .hdr-text{order:2;width:100%;flex:none;margin-top:.1rem}
+  .hdr-text h1{white-space:normal;overflow:visible;text-overflow:clip}
+  main{padding:1rem}
+  .tab-btn{padding:.7rem .8rem;font-size:.78rem}
+}
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1rem}
+.popup-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 12px 40px rgba(0,0,0,.35);max-width:560px;width:100%;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column}
+.popup-head{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem .85rem;border-bottom:1px solid var(--border)}
+.popup-head h2{font-size:.95rem;font-weight:600;color:var(--text);margin:0}
+.popup-close-x{background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.1rem;line-height:1;padding:.15rem .3rem;border-radius:3px}
+.popup-close-x:hover{color:var(--text)}
+.popup-body{padding:1rem 1.25rem;font-size:.875rem;line-height:1.65;color:var(--text);flex:1}
+.popup-foot{padding:.5rem 1.25rem 1.1rem;display:flex;justify-content:flex-end}
+.popup-close-btn{background:var(--accent);border:none;color:#333;padding:.45rem 1.35rem;border-radius:var(--r);cursor:pointer;font-size:.85rem;font-weight:600;font-family:var(--font);transition:filter .12s}
+.popup-close-btn:hover{filter:brightness(.9)}
 .col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!important}
 .yr-grp.col-stripe{background:color-mix(in srgb,var(--primary) 3%,var(--surface))!important}
 tbody tr:hover td.col-stripe{background:color-mix(in srgb,var(--primary) 4%,transparent)!important}
@@ -149,9 +176,9 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="fl">
       <span class="fl-label">Myanmar</span>
       <div class="seg">
-        <button class="seg-btn active" data-mmr="exclude" onclick="setMyanmar('exclude')">Exclude</button>
-        <button class="seg-btn" data-mmr="only" onclick="setMyanmar('only')">Only</button>
-        <button class="seg-btn" data-mmr="all" onclick="setMyanmar('all')">All</button>
+        <button class="seg-btn active" data-mmr="exclude" onclick="setMyanmar('exclude')">Excluded</button>
+        <button class="seg-btn" data-mmr="all" onclick="setMyanmar('all')">Included</button>
+        <button class="seg-btn" data-mmr="only" onclick="setMyanmar('only')">Myanmar only</button>
       </div>
     </div>
   </div>
@@ -181,9 +208,9 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="accent-bar"></div>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">By year</p><div class="chart-wrap"><canvas id="c-poc-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By year</span><button class="chart-expand-btn" onclick="popOutChart('c-poc-year','By year')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-poc-year"></canvas></div></div>
     <div class="card">
-      <p class="card-title">Trends by nationality</p>
+      <p class="card-title"><span>Trends by nationality</span><button class="chart-expand-btn" onclick="popOutChart('c-poc-trend','Trends by nationality')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p>
       <div class="nat-picker-wrap">
         <button class="nat-picker-btn" id="nat-picker-btn" onclick="toggleNatPicker()">Select countries ▾</button>
         <div class="nat-picker-list" id="nat-picker-list"></div>
@@ -202,8 +229,8 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="accent-bar"></div>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">By year and type</p><div class="chart-wrap"><canvas id="c-app-year"></canvas></div></div>
-    <div class="card"><p class="card-title">By nationality (total over chosen period)</p><div class="chart-wrap" style="height:320px"><canvas id="c-app-nat"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By year and type</span><button class="chart-expand-btn" onclick="popOutChart('c-app-year','By year and type')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-app-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By nationality (total over chosen period)</span><button class="chart-expand-btn" onclick="popOutChart('c-app-nat','By nationality (total over chosen period)')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap" style="height:320px"><canvas id="c-app-nat"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-app"></div>
 </section>
@@ -214,11 +241,14 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <p>Outcomes of asylum procedures in Thailand. Click a country row to see procedure-level detail.</p>
     <div class="accent-bar"></div>
   </div>
-  <div id="dec-chart-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div>
-  <div id="dec-level-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div>
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;margin-bottom:.75rem">
+    <div id="dec-chart-picker-wrap" class="nat-picker-wrap" style="margin-bottom:0"></div>
+    <div id="dec-level-picker-wrap" class="nat-picker-wrap" style="margin-bottom:0"></div>
+    <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;cursor:pointer"><input type="checkbox" id="dec-excl-closed-cb" checked onchange="onDecExclClosedCb()" style="cursor:pointer;accent-color:var(--primary)">Include closed and "other" decisions when calculating totals and recognition rates</label>
+  </div>
   <div class="g2">
-    <div class="card"><p class="card-title">Outcomes by year</p><div class="chart-wrap"><canvas id="c-dec-year"></canvas></div></div>
-    <div class="card"><p class="card-title">Recognition rate by year (%)</p><div class="chart-wrap"><canvas id="c-dec-rate"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Outcomes by year</span><button class="chart-expand-btn" onclick="popOutChart('c-dec-year','Outcomes by year')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dec-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Recognition rate by year (%)</span><button class="chart-expand-btn" onclick="popOutChart('c-dec-rate','Recognition rate by year (%)')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dec-rate"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-dec"></div>
 </section>
@@ -230,11 +260,11 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="accent-bar"></div>
   </div>
   <div class="g1">
-    <div class="card"><p class="card-title">Origin → destination flow</p><div id="dep-flow-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap" style="height:380px"><canvas id="c-dep-flow"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Origin → destination flow</span><button class="chart-expand-btn" onclick="popOutChart('c-dep-flow','Origin → destination flow')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div id="dep-flow-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap" style="height:380px"><canvas id="c-dep-flow"></canvas></div></div>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">By year and origin</p><div class="chart-wrap"><canvas id="c-dep-year"></canvas></div></div>
-    <div class="card"><p class="card-title">By destination country and origin across chosen period</p><div class="chart-wrap"><canvas id="c-dep-dest"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By year and origin</span><button class="chart-expand-btn" onclick="popOutChart('c-dep-year','By year and origin')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dep-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By destination country and origin across chosen period</span><button class="chart-expand-btn" onclick="popOutChart('c-dep-dest','By destination country and origin across chosen period')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dep-dest"></canvas></div></div>
   </div>
   <div class="g1">
     <div class="card"><p class="card-title">Destination map — bubble size proportional to volume</p><div class="map-wrap" id="map-dep"></div></div>
@@ -250,7 +280,7 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="accent-bar"></div>
   </div>
   <div class="g1">
-    <div class="card"><p class="card-title">Annual submissions by origin</p><div id="sub-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap"><canvas id="c-sub-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Annual submissions by origin</span><button class="chart-expand-btn" onclick="popOutChart('c-sub-year','Annual submissions by origin')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div id="sub-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap"><canvas id="c-sub-year"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-sub"></div>
   <div class="footnotes" id="fn-sub"></div>
@@ -279,12 +309,14 @@ const openRows=new Set();
 let depFlowBuilt=false,depFlowSel=null;
 let subPickerBuilt=false,subChartSel=null;
 let tblSort={poc:'tot-desc',app:'tot-desc',dec:'tot-desc',dep:'tot-desc',sub:'tot-desc'};
+let _chartModalOv=null;
 
 // §INIT
 async function init(){
   try{
     cfg=await loadConfig();
     applyConfig();
+    showPopup();
     await loadData();
     buildYearSelectors();
     renderAll();
@@ -336,6 +368,20 @@ function applyConfig(){
     if(cit.methodology_url)c+=' · <a href="'+cit.methodology_url+'" target="_blank" rel="noopener">Methodology</a>';
   }
   document.getElementById('footer-cite').innerHTML=c;
+}
+
+function showPopup(){
+  const p=cfg.popup;if(!p||(!p.title&&!p.body))return;
+  const ov=document.createElement('div');ov.className='popup-overlay';
+  ov.innerHTML='<div class="popup-box" role="dialog" aria-modal="true">'
+    +'<div class="popup-head"><h2>'+(p.title||'')+'</h2>'
+    +'<button class="popup-close-x" onclick="this.closest(\'.popup-overlay\').remove()" aria-label="Close">✕</button></div>'
+    +'<div class="popup-body">'+(p.body||'')+'</div>'
+    +'<div class="popup-foot"><button class="popup-close-btn" onclick="this.closest(\'.popup-overlay\').remove()">Close</button></div>'
+    +'</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener('click',e=>{if(e.target===ov)ov.remove();});
+  ov.addEventListener('keydown',e=>{if(e.key==='Escape')ov.remove();});
 }
 
 async function loadData(){
@@ -586,7 +632,7 @@ function renderPocTable(rows,years){
   const _pocUnsorted=Object.entries(natMap).map(([k,yrs])=>({k,yrs,tot:Object.values(yrs).reduce((s,v)=>s+v.ref+v.asy,0)})).sort((a,b)=>b.tot-a.tot);
   const sorted=sortTable(_pocUnsorted,d=>d.k,d=>d.tot,tblSort.poc);
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
-  let html='<div class="tbl-head"><h3>Population</h3><div class="tbl-actions">'+sortSelect('poc')+'<button class="btn-sm'+(showPocDelta?' on':'')+'" onclick="togglePocDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-poc\',\'population-figures\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Population</h3><div class="tbl-actions"><button class="btn-sm'+(showPocDelta?' on':'')+'" onclick="togglePocDelta()">Δ% change</button>'+sortSelect('poc')+'<button class="btn-sm" onclick="dlCSV(\'tbl-poc\',\'population-figures\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-poc-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
   years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="3">'+y+'</th>';});
   html+='</tr><tr>';
@@ -681,7 +727,7 @@ function renderApplications(){
   const _appUnsorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
   const sorted=sortTable(_appUnsorted,d=>d[0],d=>d[1].tot,tblSort.app);
   const el=document.getElementById('tbl-app');if(!el)return;
-  let html='<div class="tbl-head"><h3>Application details</h3><div class="tbl-actions">'+sortSelect('app')+'<button class="btn-sm'+(showAppDelta?' on':'')+'" onclick="toggleAppDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-app\',\'asylum-applications\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Application details</h3><div class="tbl-actions"><button class="btn-sm'+(showAppDelta?' on':'')+'" onclick="toggleAppDelta()">Δ% change</button>'+sortSelect('app')+'<button class="btn-sm" onclick="dlCSV(\'tbl-app\',\'asylum-applications\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-app-t"><thead><tr><th>Country</th><th class="num">FA</th><th class="num">FI</th><th class="num">AR</th><th class="num">RA</th><th class="num">Total</th></tr></thead><tbody>';
   sorted.forEach(([k,v])=>{
     const sk=safeKey(k);
@@ -764,20 +810,21 @@ function _renderDecCharts(rows,years){
     const clo=yr.reduce((s,r)=>s+n(r['dec closed']),0);
     const oth=yr.reduce((s,r)=>s+n(r['dec other']),0);
     const tot=yr.reduce((s,r)=>s+n(r['dec total']),0);
-    return{rec,rej,clo,oth,tot,rate:tot>0?Math.round(rec/tot*100):0};
+    const effTot=decExclClosed?rec+rej:tot;
+    return{rec,rej,clo,oth,tot,effTot,rate:effTot>0?Math.round(rec/effTot*100):0};
   });
   mkChart('c-dec-year','bar',{labels:years,datasets:[
     {label:'Recognised',stack:'a',backgroundColor:CC[2],data:byYear.map(d=>d.rec)},
     {label:'Rejected',stack:'a',backgroundColor:CC[3],data:byYear.map(d=>d.rej)},
     {label:'Closed',stack:'a',backgroundColor:CC[9],data:byYear.map(d=>d.clo)},
     {label:'Other',stack:'a',backgroundColor:CC[1],data:byYear.map(d=>d.oth)}
-  ]},{scales:{x:{stacked:true},y:{stacked:true}},plugins:{tooltip:{callbacks:{title:ctx=>ctx[0].label+' — total '+byYear[ctx[0].dataIndex].tot.toLocaleString()+' decisions',label:ctx=>{const v=ctx.parsed.y??ctx.raw??0;return' '+(ctx.dataset.label||'')+': '+Number(v??0).toLocaleString();}}}}});
+  ]},{scales:{x:{stacked:true},y:{stacked:true}},plugins:{tooltip:{callbacks:{title:ctx=>ctx[0].label+' — total '+byYear[ctx[0].dataIndex].effTot.toLocaleString()+' decisions',label:ctx=>{const v=ctx.parsed.y??ctx.raw??0;return' '+(ctx.dataset.label||'')+': '+Number(v??0).toLocaleString();}}}}});
   if(decChartSel&&decChartSel.length){
     const byNatYear={},totByCountry={};
-    decChartSel.forEach(k=>{const kRows=chartRows.filter(r=>r['Country of Origin']===k);totByCountry[k]=kRows.reduce((s,r)=>s+n(r['dec total']),0);byNatYear[k]=years.map(y=>{const yr=kRows.filter(r=>r.Year===y);const rec=yr.reduce((s,r)=>s+n(r['Dec recognized']),0),tot=yr.reduce((s,r)=>s+n(r['dec total']),0);return tot>0?Math.round(rec/tot*100):0;});});
+    decChartSel.forEach(k=>{const kRows=chartRows.filter(r=>r['Country of Origin']===k);const kRec=kRows.reduce((s,r)=>s+n(r['Dec recognized']),0),kRej=kRows.reduce((s,r)=>s+n(r['dec rejected']),0),kTot=kRows.reduce((s,r)=>s+n(r['dec total']),0);totByCountry[k]=decExclClosed?kRec+kRej:kTot;byNatYear[k]=years.map(y=>{const yr=kRows.filter(r=>r.Year===y);const rec=yr.reduce((s,r)=>s+n(r['Dec recognized']),0),rej=yr.reduce((s,r)=>s+n(r['dec rejected']),0),tot=yr.reduce((s,r)=>s+n(r['dec total']),0);const et=decExclClosed?rec+rej:tot;return et>0?Math.round(rec/et*100):0;});});
     mkChart('c-dec-rate','line',{labels:years,datasets:decChartSel.map((k,i)=>({label:dispOrigin(k),data:byNatYear[k],borderColor:CC[i%CC.length],backgroundColor:CC[i%CC.length]+'22',fill:false,tension:.35,pointRadius:4}))},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{label:ctx=>' '+dispOrigin(decChartSel[ctx.datasetIndex])+' — total '+totByCountry[decChartSel[ctx.datasetIndex]].toLocaleString()+' decisions: '+ctx.parsed.y+'%'}}}});
   } else {
-    mkChart('c-dec-rate','line',{labels:years,datasets:[{label:'Recognition rate (%)',data:byYear.map(d=>d.rate),borderColor:CC[0],backgroundColor:CC[0]+'22',fill:true,tension:.35,pointRadius:5,pointBackgroundColor:CC[0]}]},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{title:ctx=>ctx[0].label+' — total '+byYear[ctx[0].dataIndex].tot.toLocaleString()+' decisions',label:ctx=>' '+ctx.parsed.y+'%'}}}});
+    mkChart('c-dec-rate','line',{labels:years,datasets:[{label:'Recognition rate (%)',data:byYear.map(d=>d.rate),borderColor:CC[0],backgroundColor:CC[0]+'22',fill:true,tension:.35,pointRadius:5,pointBackgroundColor:CC[0]}]},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{title:ctx=>ctx[0].label+' — total '+byYear[ctx[0].dataIndex].effTot.toLocaleString()+' decisions',label:ctx=>' '+ctx.parsed.y+'%'}}}});
   }
 }
 function setDecView(v){
@@ -813,8 +860,7 @@ function renderDecTable(rows,years){
   const eR=v=>{const t=eT(v);return t>0?Math.round(v.rec/t*100):0;};
   const viewBtns='<div class="seg" style="margin-right:.5rem"><button class="seg-btn'+(decView==='totals'?' active':'')+'" data-decview="totals" onclick="setDecView(\'totals\')">Totals</button><button class="seg-btn'+(decView==='peryear'?' active':'')+'" data-decview="peryear" onclick="setDecView(\'peryear\')">Per year</button></div>';
   const deltaBtn=decView==='peryear'?'<button class="btn-sm'+(showDecDelta?' on':'')+'" onclick="toggleDecDelta()">Δ% change</button>':'';
-  const exclSel='<select onchange="setDecExclClosed(this.value)" style="font-size:.72rem;padding:.2rem .45rem"><option value="include"'+(decExclClosed?'':' selected')+'>Include closed and "other" in figures</option><option value="exclude"'+(decExclClosed?' selected':'')+'>Exclude closed and "other" from figures</option></select>';
-  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+exclSel+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
   if(decView==='totals'){
     const th=decExclClosed?'<th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Total</th><th class="num">Rate%</th>':'<th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th>';
     const tCell=v=>{const t=eT(v),r=eR(v);return decExclClosed?'<td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+t.toLocaleString()+'</td><td class="num">'+r+'%</td>':'<td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+v.clo.toLocaleString()+'</td><td class="num">'+v.oth.toLocaleString()+'</td><td class="num">'+t.toLocaleString()+'</td><td class="num">'+r+'%</td>';};
@@ -881,7 +927,7 @@ function renderDecTable(rows,years){
   el.innerHTML=html;restoreOpenRows();
 }
 function toggleDecDelta(){showDecDelta=!showDecDelta;const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
-function setDecExclClosed(val){decExclClosed=(val==='exclude');const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
+function onDecExclClosedCb(){const cb=document.getElementById('dec-excl-closed-cb');decExclClosed=!cb.checked;const rows=filter(raw.decisions||[]),years=yearsIn(rows);_renderDecCharts(rows,years);renderDecTable(rows,years);}
 
 // §DEPARTURES
 function buildDepFlowPicker(rows){
@@ -1099,6 +1145,31 @@ function buildSimpleTable(cid,title,headers,rows,foot,dlName){
 }
 
 document.addEventListener('DOMContentLoaded',init);
+
+function popOutChart(id,title){
+  if(_chartModalOv)return;
+  const src=charts[id];if(!src)return;
+  const ov=document.createElement('div');ov.className='chart-modal-overlay';
+  const modal=document.createElement('div');modal.className='chart-modal';
+  modal.innerHTML='<div class="chart-modal-header"><span class="chart-modal-title">'+title+'</span><button class="chart-modal-close" onclick="closeChartModal()">✕ Close</button></div>';
+  const body=document.createElement('div');body.style.cssText='position:relative;height:72vh';
+  const cv=document.createElement('canvas');
+  body.appendChild(cv);modal.appendChild(body);ov.appendChild(modal);document.body.appendChild(ov);
+  let safeData;
+  try{safeData=JSON.parse(JSON.stringify(src.config.data));}catch(e){safeData=src.config.data;}
+  const modalChart=new Chart(cv,{type:src.config.type,data:safeData,options:src.config.options});
+  ov._modalChart=modalChart;
+  ov.addEventListener('click',e=>{if(e.target===ov)closeChartModal();});
+  document.addEventListener('keydown',_chartModalEsc);
+  _chartModalOv=ov;
+}
+function closeChartModal(){
+  if(!_chartModalOv)return;
+  if(_chartModalOv._modalChart)_chartModalOv._modalChart.destroy();
+  _chartModalOv.remove();_chartModalOv=null;
+  document.removeEventListener('keydown',_chartModalEsc);
+}
+function _chartModalEsc(e){if(e.key==='Escape')closeChartModal();}
 </script>
 </body>
 </html>
