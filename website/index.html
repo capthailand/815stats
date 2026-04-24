@@ -803,6 +803,20 @@ function renderDecTable(rows,years){
     Object.entries(pL).forEach(([code,label])=>{const p=totByLevel[code];if(!p||p.tot===0)return;const pr=p.tot>0?Math.round(p.rec/p.tot*100):0;html+='<tr class="row-sub" data-parent="dec_total" style="display:none"><td>'+label+'</td><td class="num">'+p.rec.toLocaleString()+'</td><td class="num">'+p.rej.toLocaleString()+'</td><td class="num">'+p.clo.toLocaleString()+'</td><td class="num">'+p.oth.toLocaleString()+'</td><td class="num">'+p.tot.toLocaleString()+'</td><td class="num">'+pr+'%</td></tr>';});
     html+='</tfoot></table></div>';
   } else {
+    // helpers scoped to peryear block
+    const pyGet=(v,y)=>v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0};
+    const pyGetL=(v,y,code)=>(v.byYear[y]&&v.byYear[y].byProc&&v.byYear[y].byProc[code])||{rec:0,rej:0,clo:0,oth:0,tot:0};
+    const pySum=y=>sorted.reduce((a,[,v])=>{const r=v.byYear[y]||{};return{rec:a.rec+(r.rec||0),rej:a.rej+(r.rej||0),clo:a.clo+(r.clo||0),oth:a.oth+(r.oth||0),tot:a.tot+(r.tot||0)};},{rec:0,rej:0,clo:0,oth:0,tot:0});
+    const pySumL=(y,code)=>sorted.reduce((a,[,v])=>{const p=pyGetL(v,y,code);return{rec:a.rec+p.rec,rej:a.rej+p.rej,clo:a.clo+p.clo,oth:a.oth+p.oth,tot:a.tot+p.tot};},{rec:0,rej:0,clo:0,oth:0,tot:0});
+    const pyCell=(sc,cv,pv)=>{
+      const rate=cv.tot>0?Math.round(cv.rec/cv.tot*100):0;
+      if(pv&&showDecDelta){
+        const pr=pv.tot>0?Math.round(pv.rec/pv.tot*100):0;
+        const dRec=pctChange(cv.rec,pv.rec),dRej=pctChange(cv.rej,pv.rej),dClo=pctChange(cv.clo,pv.clo),dOth=pctChange(cv.oth,pv.oth),dTot=pctChange(cv.tot,pv.tot),dRate=pctChange(rate,pr);
+        return'<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
+      }
+      return'<td class="num'+sc+'">'+(cv.rec?cv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.rej?cv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.clo?cv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.oth?cv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.tot?cv.tot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.tot?rate+'%':'—')+'</td>';
+    };
     html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
     years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="6">'+y+'</th>';});
     html+='</tr><tr>';
@@ -811,52 +825,25 @@ function renderDecTable(rows,years){
     sorted.forEach(([k,v])=>{
       const sk=safeKey(k);
       html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_py_'+sk+'\')"><td class="sticky-col"><span class="exp-icon" id="icon-dec_py_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>';
-      years.forEach((y,yi)=>{
-        const sc=yi%2===0?' col-stripe':'';
-        const yv=v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0};
-        const rate=yv.tot>0?Math.round(yv.rec/yv.tot*100):0;
-        if(showDecDelta&&yi>0){
-          const py=v.byYear[years[yi-1]]||{rec:0,rej:0,clo:0,oth:0,tot:0};
-          const pRate=py.tot>0?Math.round(py.rec/py.tot*100):0;
-          const dRec=pctChange(yv.rec,py.rec),dRej=pctChange(yv.rej,py.rej),dClo=pctChange(yv.clo,py.clo),dOth=pctChange(yv.oth,py.oth),dTot=pctChange(yv.tot,py.tot),dRate=pctChange(rate,pRate);
-          html+='<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
-        } else {
-          html+='<td class="num'+sc+'">'+(yv.rec?yv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(yv.rej?yv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(yv.clo?yv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(yv.oth?yv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(yv.tot?yv.tot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+rate+'%</td>';
-        }
-      });
+      years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pyGet(v,y),yi>0?pyGet(v,years[yi-1]):null);});
       html+='</tr>';
       Object.entries(pL).forEach(([code,label])=>{
-        const hasData=years.some(y=>{const yv=v.byYear[y];return yv&&yv.byProc&&yv.byProc[code]&&yv.byProc[code].tot>0;});
-        if(!hasData)return;
+        const hasData=years.some(y=>pyGetL(v,y,code).tot>0);if(!hasData)return;
         html+='<tr class="row-sub" data-parent="dec_py_'+sk+'" style="display:none"><td class="sticky-col">'+label+'</td>';
-        years.forEach((y,yi)=>{
-          const sc=yi%2===0?' col-stripe':'';
-          const lv=(v.byYear[y]&&v.byYear[y].byProc&&v.byYear[y].byProc[code])||{rec:0,rej:0,clo:0,oth:0,tot:0};
-          const lr=lv.tot>0?Math.round(lv.rec/lv.tot*100):0;
-          if(showDecDelta&&yi>0){
-            const pl=(v.byYear[years[yi-1]]&&v.byYear[years[yi-1]].byProc&&v.byYear[years[yi-1]].byProc[code])||{rec:0,rej:0,clo:0,oth:0,tot:0};
-            const plr=pl.tot>0?Math.round(pl.rec/pl.tot*100):0;
-            const dRec=pctChange(lv.rec,pl.rec),dRej=pctChange(lv.rej,pl.rej),dClo=pctChange(lv.clo,pl.clo),dOth=pctChange(lv.oth,pl.oth),dTot=pctChange(lv.tot,pl.tot),dRate=pctChange(lr,plr);
-            html+='<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
-          } else {
-            html+='<td class="num'+sc+'">'+(lv.rec?lv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.rej?lv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.clo?lv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.oth?lv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.tot?lv.tot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.tot?lr+'%':'—')+'</td>';
-          }
-        });
+        years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pyGetL(v,y,code),yi>0?pyGetL(v,years[yi-1],code):null);});
         html+='</tr>';
       });
     });
-    html+='</tbody><tfoot><tr><td class="sticky-col">Total</td>';
-    years.forEach((y,yi)=>{
-      const sc=yi%2===0?' col-stripe':'';
-      const cRec=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).rec||0),0);
-      const cRej=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).rej||0),0);
-      const cClo=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).clo||0),0);
-      const cOth=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).oth||0),0);
-      const cTot=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).tot||0),0);
-      const cRate=cTot>0?Math.round(cRec/cTot*100):0;
-      html+='<td class="num'+sc+'">'+(cRec?cRec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cRej?cRej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cClo?cClo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cOth?cOth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cTot?cTot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+cRate+'%</td>';
+    html+='</tbody><tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_py_total\')"><td class="sticky-col"><span class="exp-icon" id="icon-dec_py_total">▶</span>Total</td>';
+    years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pySum(y),yi>0?pySum(years[yi-1]):null);});
+    html+='</tr>';
+    Object.entries(pL).forEach(([code,label])=>{
+      const hasData=years.some(y=>pySumL(y,code).tot>0);if(!hasData)return;
+      html+='<tr class="row-sub" data-parent="dec_py_total" style="display:none"><td class="sticky-col">'+label+'</td>';
+      years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pySumL(y,code),yi>0?pySumL(years[yi-1],code):null);});
+      html+='</tr>';
     });
-    html+='</tr></tfoot></table></div>';
+    html+='</tfoot></table></div>';
   }
   el.innerHTML=html;restoreOpenRows();
 }
