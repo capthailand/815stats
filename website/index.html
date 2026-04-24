@@ -272,7 +272,7 @@ let activeTab='poc';
 const F={myanmar:'exclude',yearMin:null,yearMax:null};
 let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false;
 let showAppDelta=false;
-let decView='totals',decChartBuilt=false,decChartSel=null;
+let decView='totals',decChartBuilt=false,decChartSel=null,decExclClosed=false;
 const openRows=new Set();
 let depFlowBuilt=false,depFlowSel=null;
 let subPickerBuilt=false,subChartSel=null;
@@ -782,45 +782,52 @@ function renderDecTable(rows,years){
   const _decUnsorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
   const sorted=sortTable(_decUnsorted,d=>d[0],d=>d[1].tot,tblSort.dec);
   const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened',FA:'First inst. & appeal'};
+  // excl helpers — used by both views
+  const eT=v=>decExclClosed?v.rec+v.rej:v.tot;
+  const eR=v=>{const t=eT(v);return t>0?Math.round(v.rec/t*100):0;};
   const viewBtns='<div class="seg" style="margin-right:.5rem"><button class="seg-btn'+(decView==='totals'?' active':'')+'" data-decview="totals" onclick="setDecView(\'totals\')">Totals</button><button class="seg-btn'+(decView==='peryear'?' active':'')+'" data-decview="peryear" onclick="setDecView(\'peryear\')">Per year</button></div>';
   const deltaBtn=decView==='peryear'?'<button class="btn-sm'+(showDecDelta?' on':'')+'" onclick="toggleDecDelta()">Δ% change</button>':'';
-  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
+  const exclSel='<select onchange="setDecExclClosed(this.value)" style="font-size:.72rem;padding:.2rem .45rem"><option value="include"'+(decExclClosed?'':' selected')+'>Include closed and "other" in figures</option><option value="exclude"'+(decExclClosed?' selected':'')+'>Exclude closed and "other" from figures</option></select>';
+  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+exclSel+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
   if(decView==='totals'){
-    html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th></tr></thead><tbody>';
+    const th=decExclClosed?'<th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Total</th><th class="num">Rate%</th>':'<th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th>';
+    const tCell=v=>{const t=eT(v),r=eR(v);return decExclClosed?'<td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+t.toLocaleString()+'</td><td class="num">'+r+'%</td>':'<td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+v.clo.toLocaleString()+'</td><td class="num">'+v.oth.toLocaleString()+'</td><td class="num">'+t.toLocaleString()+'</td><td class="num">'+r+'%</td>';};
+    html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr>'+th+'</tr></thead><tbody>';
     sorted.forEach(([k,v])=>{
-      const rate=v.tot>0?Math.round(v.rec/v.tot*100):0,sk=safeKey(k);
-      html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_'+sk+'\')"><td><span class="exp-icon" id="icon-dec_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td><td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+v.clo.toLocaleString()+'</td><td class="num">'+v.oth.toLocaleString()+'</td><td class="num">'+v.tot.toLocaleString()+'</td><td class="num">'+rate+'%</td></tr>';
+      const sk=safeKey(k);
+      html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_'+sk+'\')"><td><span class="exp-icon" id="icon-dec_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>'+tCell(v)+'</tr>';
       Object.entries(pL).forEach(([code,label])=>{
         const p=v.byProc[code];if(!p||p.tot===0)return;
-        const pr=p.tot>0?Math.round(p.rec/p.tot*100):0;
-        html+='<tr class="row-sub" data-parent="dec_'+sk+'" style="display:none"><td>'+label+'</td><td class="num">'+p.rec.toLocaleString()+'</td><td class="num">'+p.rej.toLocaleString()+'</td><td class="num">'+p.clo.toLocaleString()+'</td><td class="num">'+p.oth.toLocaleString()+'</td><td class="num">'+p.tot.toLocaleString()+'</td><td class="num">'+pr+'%</td></tr>';
+        html+='<tr class="row-sub" data-parent="dec_'+sk+'" style="display:none"><td>'+label+'</td>'+tCell(p)+'</tr>';
       });
     });
     const tots=sorted.reduce((s,[,v])=>({rec:s.rec+v.rec,rej:s.rej+v.rej,clo:s.clo+v.clo,oth:s.oth+v.oth,tot:s.tot+v.tot}),{rec:0,rej:0,clo:0,oth:0,tot:0});
-    const totR=tots.tot>0?Math.round(tots.rec/tots.tot*100):0;
     const totByLevel={};Object.keys(pL).forEach(code=>{totByLevel[code]={rec:0,rej:0,clo:0,oth:0,tot:0};});sorted.forEach(([,v])=>{Object.keys(pL).forEach(code=>{const p=v.byProc[code];if(p){totByLevel[code].rec+=p.rec;totByLevel[code].rej+=p.rej;totByLevel[code].clo+=p.clo;totByLevel[code].oth+=p.oth;totByLevel[code].tot+=p.tot;}});});
-    html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_total\')"><td><span class="exp-icon" id="icon-dec_total">▶</span>Total</td><td class="num">'+tots.rec.toLocaleString()+'</td><td class="num">'+tots.rej.toLocaleString()+'</td><td class="num">'+tots.clo.toLocaleString()+'</td><td class="num">'+tots.oth.toLocaleString()+'</td><td class="num">'+tots.tot.toLocaleString()+'</td><td class="num">'+totR+'%</td></tr>';
-    Object.entries(pL).forEach(([code,label])=>{const p=totByLevel[code];if(!p||p.tot===0)return;const pr=p.tot>0?Math.round(p.rec/p.tot*100):0;html+='<tr class="row-sub" data-parent="dec_total" style="display:none"><td>'+label+'</td><td class="num">'+p.rec.toLocaleString()+'</td><td class="num">'+p.rej.toLocaleString()+'</td><td class="num">'+p.clo.toLocaleString()+'</td><td class="num">'+p.oth.toLocaleString()+'</td><td class="num">'+p.tot.toLocaleString()+'</td><td class="num">'+pr+'%</td></tr>';});
+    html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_total\')"><td><span class="exp-icon" id="icon-dec_total">▶</span>Total</td>'+tCell(tots)+'</tr>';
+    Object.entries(pL).forEach(([code,label])=>{const p=totByLevel[code];if(!p||p.tot===0)return;html+='<tr class="row-sub" data-parent="dec_total" style="display:none"><td>'+label+'</td>'+tCell(p)+'</tr>';});
     html+='</tfoot></table></div>';
   } else {
-    // helpers scoped to peryear block
+    const colspan=decExclClosed?4:6;
     const pyGet=(v,y)=>v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0};
     const pyGetL=(v,y,code)=>(v.byYear[y]&&v.byYear[y].byProc&&v.byYear[y].byProc[code])||{rec:0,rej:0,clo:0,oth:0,tot:0};
     const pySum=y=>sorted.reduce((a,[,v])=>{const r=v.byYear[y]||{};return{rec:a.rec+(r.rec||0),rej:a.rej+(r.rej||0),clo:a.clo+(r.clo||0),oth:a.oth+(r.oth||0),tot:a.tot+(r.tot||0)};},{rec:0,rej:0,clo:0,oth:0,tot:0});
     const pySumL=(y,code)=>sorted.reduce((a,[,v])=>{const p=pyGetL(v,y,code);return{rec:a.rec+p.rec,rej:a.rej+p.rej,clo:a.clo+p.clo,oth:a.oth+p.oth,tot:a.tot+p.tot};},{rec:0,rej:0,clo:0,oth:0,tot:0});
     const pyCell=(sc,cv,pv)=>{
-      const rate=cv.tot>0?Math.round(cv.rec/cv.tot*100):0;
+      const t=eT(cv),rate=eR(cv);
       if(pv&&showDecDelta){
-        const pr=pv.tot>0?Math.round(pv.rec/pv.tot*100):0;
-        const dRec=pctChange(cv.rec,pv.rec),dRej=pctChange(cv.rej,pv.rej),dClo=pctChange(cv.clo,pv.clo),dOth=pctChange(cv.oth,pv.oth),dTot=pctChange(cv.tot,pv.tot),dRate=pctChange(rate,pr);
+        const pt=eT(pv),pr=eR(pv);
+        const dRec=pctChange(cv.rec,pv.rec),dRej=pctChange(cv.rej,pv.rej),dTot=pctChange(t,pt),dRate=pctChange(rate,pr);
+        if(decExclClosed)return'<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
+        const dClo=pctChange(cv.clo,pv.clo),dOth=pctChange(cv.oth,pv.oth);
         return'<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
       }
-      return'<td class="num'+sc+'">'+(cv.rec?cv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.rej?cv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.clo?cv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.oth?cv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.tot?cv.tot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.tot?rate+'%':'—')+'</td>';
+      if(decExclClosed)return'<td class="num'+sc+'">'+(cv.rec?cv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.rej?cv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?t.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?rate+'%':'—')+'</td>';
+      return'<td class="num'+sc+'">'+(cv.rec?cv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.rej?cv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.clo?cv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.oth?cv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?t.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?rate+'%':'—')+'</td>';
     };
     html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
-    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="6">'+y+'</th>';});
+    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="'+colspan+'">'+y+'</th>';});
     html+='</tr><tr>';
-    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="num'+sc+'">Rec</th><th class="num'+sc+'">Rej</th><th class="num'+sc+'">Clo</th><th class="num'+sc+'">Oth</th><th class="num'+sc+'">Tot</th><th class="num'+sc+'">Rate%</th>';});
+    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+=decExclClosed?'<th class="num'+sc+'">Rec</th><th class="num'+sc+'">Rej</th><th class="num'+sc+'">Tot</th><th class="num'+sc+'">Rate%</th>':'<th class="num'+sc+'">Rec</th><th class="num'+sc+'">Rej</th><th class="num'+sc+'">Clo</th><th class="num'+sc+'">Oth</th><th class="num'+sc+'">Tot</th><th class="num'+sc+'">Rate%</th>';});
     html+='</tr></thead><tbody>';
     sorted.forEach(([k,v])=>{
       const sk=safeKey(k);
@@ -848,6 +855,7 @@ function renderDecTable(rows,years){
   el.innerHTML=html;restoreOpenRows();
 }
 function toggleDecDelta(){showDecDelta=!showDecDelta;const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
+function setDecExclClosed(val){decExclClosed=(val==='exclude');const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
 
 // §DEPARTURES
 function buildDepFlowPicker(rows){
