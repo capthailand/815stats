@@ -61,7 +61,15 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem}
 .g1{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-bottom:1.25rem}
 @media(max-width:760px){.g2{grid-template-columns:1fr}}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;box-shadow:var(--sh)}
-.card-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.9rem}
+.card-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.9rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.chart-expand-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:.1rem .15rem;line-height:1;flex-shrink:0;opacity:.45;transition:opacity .15s}
+.chart-expand-btn:hover{opacity:1}
+.chart-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;display:flex;align-items:center;justify-content:center}
+.chart-modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 12px 40px rgba(0,0,0,.4);padding:1.25rem;width:92vw;max-width:1400px}
+.chart-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.chart-modal-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.chart-modal-close{background:none;border:1px solid var(--border);cursor:pointer;color:var(--muted);font-size:.75rem;padding:.25rem .65rem;border-radius:var(--r);font-family:var(--font)}
+.chart-modal-close:hover{border-color:var(--primary);color:var(--text)}
 .chart-wrap{position:relative;height:270px}
 .map-wrap{height:480px;border-radius:4px;overflow:hidden}
 .sankey-wrap{min-height:200px;overflow:visible}
@@ -181,9 +189,9 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="accent-bar"></div>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">By year</p><div class="chart-wrap"><canvas id="c-poc-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By year</span><button class="chart-expand-btn" onclick="popOutChart('c-poc-year','By year')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-poc-year"></canvas></div></div>
     <div class="card">
-      <p class="card-title">Trends by nationality</p>
+      <p class="card-title"><span>Trends by nationality</span><button class="chart-expand-btn" onclick="popOutChart('c-poc-trend','Trends by nationality')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p>
       <div class="nat-picker-wrap">
         <button class="nat-picker-btn" id="nat-picker-btn" onclick="toggleNatPicker()">Select countries ▾</button>
         <div class="nat-picker-list" id="nat-picker-list"></div>
@@ -202,8 +210,8 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="accent-bar"></div>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">By year and type</p><div class="chart-wrap"><canvas id="c-app-year"></canvas></div></div>
-    <div class="card"><p class="card-title">By nationality (total over chosen period)</p><div class="chart-wrap" style="height:320px"><canvas id="c-app-nat"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By year and type</span><button class="chart-expand-btn" onclick="popOutChart('c-app-year','By year and type')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-app-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By nationality (total over chosen period)</span><button class="chart-expand-btn" onclick="popOutChart('c-app-nat','By nationality (total over chosen period)')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap" style="height:320px"><canvas id="c-app-nat"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-app"></div>
 </section>
@@ -220,8 +228,8 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;cursor:pointer"><input type="checkbox" id="dec-excl-closed-cb" checked onchange="onDecExclClosedCb()" style="cursor:pointer;accent-color:var(--primary)">Include closed and "other" decisions when calculating totals and recognition rates</label>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">Outcomes by year</p><div class="chart-wrap"><canvas id="c-dec-year"></canvas></div></div>
-    <div class="card"><p class="card-title">Recognition rate by year (%)</p><div class="chart-wrap"><canvas id="c-dec-rate"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Outcomes by year</span><button class="chart-expand-btn" onclick="popOutChart('c-dec-year','Outcomes by year')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dec-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Recognition rate by year (%)</span><button class="chart-expand-btn" onclick="popOutChart('c-dec-rate','Recognition rate by year (%)')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dec-rate"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-dec"></div>
 </section>
@@ -233,11 +241,11 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="accent-bar"></div>
   </div>
   <div class="g1">
-    <div class="card"><p class="card-title">Origin → destination flow</p><div id="dep-flow-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap" style="height:380px"><canvas id="c-dep-flow"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Origin → destination flow</span><button class="chart-expand-btn" onclick="popOutChart('c-dep-flow','Origin → destination flow')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div id="dep-flow-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap" style="height:380px"><canvas id="c-dep-flow"></canvas></div></div>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">By year and origin</p><div class="chart-wrap"><canvas id="c-dep-year"></canvas></div></div>
-    <div class="card"><p class="card-title">By destination country and origin across chosen period</p><div class="chart-wrap"><canvas id="c-dep-dest"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By year and origin</span><button class="chart-expand-btn" onclick="popOutChart('c-dep-year','By year and origin')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dep-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By destination country and origin across chosen period</span><button class="chart-expand-btn" onclick="popOutChart('c-dep-dest','By destination country and origin across chosen period')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dep-dest"></canvas></div></div>
   </div>
   <div class="g1">
     <div class="card"><p class="card-title">Destination map — bubble size proportional to volume</p><div class="map-wrap" id="map-dep"></div></div>
@@ -253,7 +261,7 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="accent-bar"></div>
   </div>
   <div class="g1">
-    <div class="card"><p class="card-title">Annual submissions by origin</p><div id="sub-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap"><canvas id="c-sub-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Annual submissions by origin</span><button class="chart-expand-btn" onclick="popOutChart('c-sub-year','Annual submissions by origin')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div id="sub-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap"><canvas id="c-sub-year"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-sub"></div>
   <div class="footnotes" id="fn-sub"></div>
@@ -282,6 +290,7 @@ const openRows=new Set();
 let depFlowBuilt=false,depFlowSel=null;
 let subPickerBuilt=false,subChartSel=null;
 let tblSort={poc:'tot-desc',app:'tot-desc',dec:'tot-desc',dep:'tot-desc',sub:'tot-desc'};
+let _chartModalOv=null;
 
 // §INIT
 async function init(){
@@ -1102,6 +1111,36 @@ function buildSimpleTable(cid,title,headers,rows,foot,dlName){
 }
 
 document.addEventListener('DOMContentLoaded',init);
+
+function popOutChart(id,title){
+  if(_chartModalOv)return;
+  const canvas=document.getElementById(id);if(!canvas)return;
+  const wrap=canvas.closest('.chart-wrap');if(!wrap)return;
+  const ov=document.createElement('div');ov.className='chart-modal-overlay';
+  const modal=document.createElement('div');modal.className='chart-modal';
+  modal.innerHTML='<div class="chart-modal-header"><span class="chart-modal-title">'+title+'</span><button class="chart-modal-close" onclick="closeChartModal()">✕ Close</button></div>';
+  const body=document.createElement('div');body.style.cssText='position:relative;height:72vh';
+  modal.appendChild(body);ov.appendChild(modal);document.body.appendChild(ov);
+  const origParent=wrap.parentNode,origNext=wrap.nextSibling,origStyle=wrap.getAttribute('style');
+  ov._orig={parent:origParent,next:origNext,style:origStyle,wrap};
+  wrap.style.cssText='position:relative;height:100%';
+  body.appendChild(wrap);
+  requestAnimationFrame(()=>{if(charts[id])charts[id].resize();});
+  ov.addEventListener('click',e=>{if(e.target===ov)closeChartModal();});
+  document.addEventListener('keydown',_chartModalEsc);
+  _chartModalOv=ov;
+}
+function closeChartModal(){
+  if(!_chartModalOv)return;
+  const {parent,next,style,wrap}=_chartModalOv._orig;
+  if(style!==null)wrap.setAttribute('style',style);else wrap.removeAttribute('style');
+  if(next)parent.insertBefore(wrap,next);else parent.appendChild(wrap);
+  const cv=wrap.querySelector('canvas');
+  requestAnimationFrame(()=>{if(cv&&charts[cv.id])charts[cv.id].resize();});
+  _chartModalOv.remove();_chartModalOv=null;
+  document.removeEventListener('keydown',_chartModalEsc);
+}
+function _chartModalEsc(e){if(e.key==='Escape')closeChartModal();}
 </script>
 </body>
 </html>
