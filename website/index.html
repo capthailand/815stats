@@ -120,7 +120,26 @@ tbody tr:hover .sticky-col{background:color-mix(in srgb,var(--primary) 4%,var(--
 footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25rem 1.5rem;margin-top:1.5rem}
 .ftr{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--muted)}
 .empty{padding:2.5rem;text-align:center;color:var(--muted);font-size:.85rem}
-@media(max-width:600px){.hdr{padding:.6rem 1rem}main{padding:1rem}.tab-btn{padding:.7rem .8rem;font-size:.78rem}}
+@media(max-width:600px){
+  header{position:static}
+  .hdr{flex-wrap:wrap;align-items:center;gap:.5rem .75rem;padding:.75rem 1rem}
+  .logo-wrap{order:0}
+  #theme-btn{order:1;margin-left:auto}
+  .hdr-text{order:2;width:100%;flex:none;margin-top:.1rem}
+  .hdr-text h1{white-space:normal;overflow:visible;text-overflow:clip}
+  main{padding:1rem}
+  .tab-btn{padding:.7rem .8rem;font-size:.78rem}
+}
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1rem}
+.popup-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 12px 40px rgba(0,0,0,.35);max-width:560px;width:100%;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column}
+.popup-head{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem .85rem;border-bottom:1px solid var(--border)}
+.popup-head h2{font-size:.95rem;font-weight:600;color:var(--text);margin:0}
+.popup-close-x{background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.1rem;line-height:1;padding:.15rem .3rem;border-radius:3px}
+.popup-close-x:hover{color:var(--text)}
+.popup-body{padding:1rem 1.25rem;font-size:.875rem;line-height:1.65;color:var(--text);flex:1}
+.popup-foot{padding:.5rem 1.25rem 1.1rem;display:flex;justify-content:flex-end}
+.popup-close-btn{background:var(--accent);border:none;color:#333;padding:.45rem 1.35rem;border-radius:var(--r);cursor:pointer;font-size:.85rem;font-weight:600;font-family:var(--font);transition:filter .12s}
+.popup-close-btn:hover{filter:brightness(.9)}
 .col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!important}
 .yr-grp.col-stripe{background:color-mix(in srgb,var(--primary) 3%,var(--surface))!important}
 tbody tr:hover td.col-stripe{background:color-mix(in srgb,var(--primary) 4%,transparent)!important}
@@ -297,6 +316,7 @@ async function init(){
   try{
     cfg=await loadConfig();
     applyConfig();
+    showPopup();
     await loadData();
     buildYearSelectors();
     renderAll();
@@ -348,6 +368,20 @@ function applyConfig(){
     if(cit.methodology_url)c+=' · <a href="'+cit.methodology_url+'" target="_blank" rel="noopener">Methodology</a>';
   }
   document.getElementById('footer-cite').innerHTML=c;
+}
+
+function showPopup(){
+  const p=cfg.popup;if(!p||(!p.title&&!p.body))return;
+  const ov=document.createElement('div');ov.className='popup-overlay';
+  ov.innerHTML='<div class="popup-box" role="dialog" aria-modal="true">'
+    +'<div class="popup-head"><h2>'+(p.title||'')+'</h2>'
+    +'<button class="popup-close-x" onclick="this.closest(\'.popup-overlay\').remove()" aria-label="Close">✕</button></div>'
+    +'<div class="popup-body">'+(p.body||'')+'</div>'
+    +'<div class="popup-foot"><button class="popup-close-btn" onclick="this.closest(\'.popup-overlay\').remove()">Close</button></div>'
+    +'</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener('click',e=>{if(e.target===ov)ov.remove();});
+  ov.addEventListener('keydown',e=>{if(e.key==='Escape')ov.remove();});
 }
 
 async function loadData(){
