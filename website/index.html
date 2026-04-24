@@ -272,7 +272,7 @@ let activeTab='poc';
 const F={myanmar:'exclude',yearMin:null,yearMax:null};
 let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false;
 let showAppDelta=false;
-let decView='totals',decChartBuilt=false,decChartSel=null;
+let decView='totals',decChartBuilt=false,decChartSel=null,decPeryearLevel='all';
 const openRows=new Set();
 let depFlowBuilt=false,depFlowSel=null;
 let subPickerBuilt=false,subChartSel=null;
@@ -759,6 +759,7 @@ function setDecView(v){
   document.querySelectorAll('.seg-btn[data-decview]').forEach(b=>b.classList.toggle('active',b.dataset.decview===v));
   const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));
 }
+function setDecPeryearLevel(val){decPeryearLevel=val;const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
 function renderDecisions(){
   const rows=filter(raw.decisions||[]),years=yearsIn(rows);
   if(!decChartBuilt){buildDecChartPicker(rows);decChartBuilt=true;}
@@ -776,15 +777,16 @@ function renderDecTable(rows,years){
     const rec=n(r['Dec recognized']),rej=n(r['dec rejected']),clo=n(r['dec closed']),oth=n(r['dec other']),tot=n(r['dec total']);
     m.rec+=rec;m.rej+=rej;m.clo+=clo;m.oth+=oth;m.tot+=tot;
     const dl=r['Dec level'];if(m.byProc[dl]){m.byProc[dl].rec+=rec;m.byProc[dl].rej+=rej;m.byProc[dl].clo+=clo;m.byProc[dl].oth+=oth;m.byProc[dl].tot+=tot;}
-    if(!m.byYear[r.Year])m.byYear[r.Year]={rec:0,rej:0,clo:0,oth:0,tot:0};
-    m.byYear[r.Year].rec+=rec;m.byYear[r.Year].rej+=rej;m.byYear[r.Year].clo+=clo;m.byYear[r.Year].oth+=oth;m.byYear[r.Year].tot+=tot;
+    if(!m.byYear[r.Year])m.byYear[r.Year]={rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{FI:{rec:0,rej:0,clo:0,oth:0,tot:0},AR:{rec:0,rej:0,clo:0,oth:0,tot:0},RA:{rec:0,rej:0,clo:0,oth:0,tot:0},FA:{rec:0,rej:0,clo:0,oth:0,tot:0}}};
+    const yp=m.byYear[r.Year];yp.rec+=rec;yp.rej+=rej;yp.clo+=clo;yp.oth+=oth;yp.tot+=tot;if(yp.byProc[dl]){yp.byProc[dl].rec+=rec;yp.byProc[dl].rej+=rej;yp.byProc[dl].clo+=clo;yp.byProc[dl].oth+=oth;yp.byProc[dl].tot+=tot;}
   });
   const _decUnsorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
   const sorted=sortTable(_decUnsorted,d=>d[0],d=>d[1].tot,tblSort.dec);
   const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened',FA:'First inst. & appeal'};
   const viewBtns='<div class="seg" style="margin-right:.5rem"><button class="seg-btn'+(decView==='totals'?' active':'')+'" data-decview="totals" onclick="setDecView(\'totals\')">Totals</button><button class="seg-btn'+(decView==='peryear'?' active':'')+'" data-decview="peryear" onclick="setDecView(\'peryear\')">Per year</button></div>';
   const deltaBtn=decView==='peryear'?'<button class="btn-sm'+(showDecDelta?' on':'')+'" onclick="toggleDecDelta()">Δ% change</button>':'';
-  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
+  const levelSel=decView==='peryear'?'<select onchange="setDecPeryearLevel(this.value)" style="font-size:.72rem;padding:.2rem .45rem"><option value="all"'+(decPeryearLevel==='all'?' selected':'')+'>All levels</option>'+Object.entries(pL).map(([c,l])=>'<option value="'+c+'"'+(decPeryearLevel===c?' selected':'')+'>'+l+'</option>').join('')+'</select>':'';
+  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+levelSel+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
   if(decView==='totals'){
     html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th></tr></thead><tbody>';
     sorted.forEach(([k,v])=>{
@@ -812,10 +814,12 @@ function renderDecTable(rows,years){
       html+='<tr><td class="sticky-col">'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>';
       years.forEach((y,yi)=>{
         const sc=yi%2===0?' col-stripe':'';
-        const yv=v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0};
+        const _yv=v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{}};
+        const yv=decPeryearLevel==='all'?_yv:(_yv.byProc[decPeryearLevel]||{rec:0,rej:0,clo:0,oth:0,tot:0});
         const rate=yv.tot>0?Math.round(yv.rec/yv.tot*100):0;
         if(showDecDelta&&yi>0){
-          const py=v.byYear[years[yi-1]]||{rec:0,rej:0,clo:0,oth:0,tot:0};
+          const _py=v.byYear[years[yi-1]]||{rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{}};
+          const py=decPeryearLevel==='all'?_py:(_py.byProc[decPeryearLevel]||{rec:0,rej:0,clo:0,oth:0,tot:0});
           const pRate=py.tot>0?Math.round(py.rec/py.tot*100):0;
           const dRec=pctChange(yv.rec,py.rec),dRej=pctChange(yv.rej,py.rej),dClo=pctChange(yv.clo,py.clo),dOth=pctChange(yv.oth,py.oth),dTot=pctChange(yv.tot,py.tot),dRate=pctChange(rate,pRate);
           html+='<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
