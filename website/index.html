@@ -272,7 +272,7 @@ let activeTab='poc';
 const F={myanmar:'exclude',yearMin:null,yearMax:null};
 let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false;
 let showAppDelta=false;
-let decView='totals',decChartBuilt=false,decChartSel=null,decPeryearLevel='all';
+let decView='totals',decChartBuilt=false,decChartSel=null;
 const openRows=new Set();
 let depFlowBuilt=false,depFlowSel=null;
 let subPickerBuilt=false,subChartSel=null;
@@ -759,7 +759,6 @@ function setDecView(v){
   document.querySelectorAll('.seg-btn[data-decview]').forEach(b=>b.classList.toggle('active',b.dataset.decview===v));
   const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));
 }
-function setDecPeryearLevel(val){decPeryearLevel=val;const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
 function renderDecisions(){
   const rows=filter(raw.decisions||[]),years=yearsIn(rows);
   if(!decChartBuilt){buildDecChartPicker(rows);decChartBuilt=true;}
@@ -785,8 +784,7 @@ function renderDecTable(rows,years){
   const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened',FA:'First inst. & appeal'};
   const viewBtns='<div class="seg" style="margin-right:.5rem"><button class="seg-btn'+(decView==='totals'?' active':'')+'" data-decview="totals" onclick="setDecView(\'totals\')">Totals</button><button class="seg-btn'+(decView==='peryear'?' active':'')+'" data-decview="peryear" onclick="setDecView(\'peryear\')">Per year</button></div>';
   const deltaBtn=decView==='peryear'?'<button class="btn-sm'+(showDecDelta?' on':'')+'" onclick="toggleDecDelta()">Δ% change</button>':'';
-  const levelSel=decView==='peryear'?'<select onchange="setDecPeryearLevel(this.value)" style="font-size:.72rem;padding:.2rem .45rem"><option value="all"'+(decPeryearLevel==='all'?' selected':'')+'>All levels</option>'+Object.entries(pL).map(([c,l])=>'<option value="'+c+'"'+(decPeryearLevel===c?' selected':'')+'>'+l+'</option>').join('')+'</select>':'';
-  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+levelSel+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
   if(decView==='totals'){
     html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th></tr></thead><tbody>';
     sorted.forEach(([k,v])=>{
@@ -811,15 +809,14 @@ function renderDecTable(rows,years){
     years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="num'+sc+'">Rec</th><th class="num'+sc+'">Rej</th><th class="num'+sc+'">Clo</th><th class="num'+sc+'">Oth</th><th class="num'+sc+'">Tot</th><th class="num'+sc+'">Rate%</th>';});
     html+='</tr></thead><tbody>';
     sorted.forEach(([k,v])=>{
-      html+='<tr><td class="sticky-col">'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>';
+      const sk=safeKey(k);
+      html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_py_'+sk+'\')"><td class="sticky-col"><span class="exp-icon" id="icon-dec_py_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>';
       years.forEach((y,yi)=>{
         const sc=yi%2===0?' col-stripe':'';
-        const _yv=v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{}};
-        const yv=decPeryearLevel==='all'?_yv:(_yv.byProc[decPeryearLevel]||{rec:0,rej:0,clo:0,oth:0,tot:0});
+        const yv=v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0};
         const rate=yv.tot>0?Math.round(yv.rec/yv.tot*100):0;
         if(showDecDelta&&yi>0){
-          const _py=v.byYear[years[yi-1]]||{rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{}};
-          const py=decPeryearLevel==='all'?_py:(_py.byProc[decPeryearLevel]||{rec:0,rej:0,clo:0,oth:0,tot:0});
+          const py=v.byYear[years[yi-1]]||{rec:0,rej:0,clo:0,oth:0,tot:0};
           const pRate=py.tot>0?Math.round(py.rec/py.tot*100):0;
           const dRec=pctChange(yv.rec,py.rec),dRej=pctChange(yv.rej,py.rej),dClo=pctChange(yv.clo,py.clo),dOth=pctChange(yv.oth,py.oth),dTot=pctChange(yv.tot,py.tot),dRate=pctChange(rate,pRate);
           html+='<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
@@ -828,8 +825,31 @@ function renderDecTable(rows,years){
         }
       });
       html+='</tr>';
+      Object.entries(pL).forEach(([code,label])=>{
+        const hasData=years.some(y=>{const yv=v.byYear[y];return yv&&yv.byProc&&yv.byProc[code]&&yv.byProc[code].tot>0;});
+        if(!hasData)return;
+        html+='<tr class="row-sub" data-parent="dec_py_'+sk+'" style="display:none"><td class="sticky-col">'+label+'</td>';
+        years.forEach((y,yi)=>{
+          const sc=yi%2===0?' col-stripe':'';
+          const lv=(v.byYear[y]&&v.byYear[y].byProc&&v.byYear[y].byProc[code])||{rec:0,rej:0,clo:0,oth:0,tot:0};
+          const lr=lv.tot>0?Math.round(lv.rec/lv.tot*100):0;
+          html+='<td class="num'+sc+'">'+(lv.rec?lv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.rej?lv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.clo?lv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.oth?lv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.tot?lv.tot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(lv.tot?lr+'%':'—')+'</td>';
+        });
+        html+='</tr>';
+      });
     });
-    html+='</tbody></table></div>';
+    html+='</tbody><tfoot><tr><td class="sticky-col">Total</td>';
+    years.forEach((y,yi)=>{
+      const sc=yi%2===0?' col-stripe':'';
+      const cRec=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).rec||0),0);
+      const cRej=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).rej||0),0);
+      const cClo=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).clo||0),0);
+      const cOth=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).oth||0),0);
+      const cTot=sorted.reduce((s,[,v])=>s+((v.byYear[y]||{}).tot||0),0);
+      const cRate=cTot>0?Math.round(cRec/cTot*100):0;
+      html+='<td class="num'+sc+'">'+(cRec?cRec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cRej?cRej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cClo?cClo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cOth?cOth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cTot?cTot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+cRate+'%</td>';
+    });
+    html+='</tr></tfoot></table></div>';
   }
   el.innerHTML=html;restoreOpenRows();
 }
