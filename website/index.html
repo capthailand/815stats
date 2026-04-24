@@ -124,6 +124,7 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
 
 <div id="loading"><div class="spinner"></div><p>Loading data…</p></div>
 
+<!-- §HEADER -->
 <header>
   <div class="hdr">
     <div class="logo-wrap"><img id="site-logo" alt=""></div>
@@ -135,6 +136,7 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
   </div>
 </header>
 
+<!-- §FILTERS BAR -->
 <div class="filters-bar">
   <div class="filters-inner">
     <div class="fl">
@@ -157,6 +159,7 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
   Showing Myanmar only — persons from Myanmar are subject to a separate national protection regime under Thai law and are not processed under UNHCR mandate procedures.
 </div>
 
+<!-- §TAB NAV -->
 <nav class="tab-nav">
   <div class="tab-nav-inner">
     <button class="tab-btn active" data-tab="poc" onclick="setTab('poc')">Population</button>
@@ -167,6 +170,7 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
   </div>
 </nav>
 
+<!-- §MAIN PANELS -->
 <main>
 
 <section class="tab-panel active" id="tab-poc">
@@ -252,11 +256,13 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
 
 </main>
 
+<!-- §FOOTER -->
 <footer><div class="ftr"><span id="footer-cite"></span><span id="footer-range"></span></div></footer>
 
 <script>
 'use strict';
 
+// §CONSTANTS & STATE
 const CC=['#6b77c7','#e0a835','#5ba888','#c97878','#9580cc','#5aaac4','#cc8850','#88b840','#c07090','#7090a8','#a09060','#60b0a0','#b07a5a','#5080b0','#a85080'];
 const DEST_COORDS={AUS:[-25.27,133.77],CAN:[56.13,-106.35],USA:[37.09,-95.71],NZL:[-40.90,174.89],GBR:[55.38,-3.44],NOR:[60.47,8.47],FIN:[61.92,25.75],NLD:[52.13,5.29],SWE:[60.13,18.64],JPN:[36.20,138.25],KOR:[35.91,127.77]};
 
@@ -266,11 +272,13 @@ let activeTab='poc';
 const F={myanmar:'exclude',yearMin:null,yearMax:null};
 let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false;
 let showAppDelta=false;
-let decView='totals',decChartBuilt=false,decChartSel=null;
+let decView='totals',decChartBuilt=false,decChartSel=null,decExclClosed=false;
 const openRows=new Set();
 let depFlowBuilt=false,depFlowSel=null;
 let subPickerBuilt=false,subChartSel=null;
+let tblSort={poc:'tot-desc',app:'tot-desc',dec:'tot-desc',dep:'tot-desc',sub:'tot-desc'};
 
+// §INIT
 async function init(){
   try{
     cfg=await loadConfig();
@@ -349,6 +357,7 @@ async function loadData(){
   if(yrs.length)document.getElementById('footer-range').textContent='Data: '+yrs[0]+'–'+yrs[yrs.length-1];
 }
 
+// §FILTERS & UTILS
 function filter(rows){
   return rows.filter(r=>{
     const iso=r['Country of Origin ISO']||'';
@@ -373,6 +382,7 @@ function pctChange(cur,prev){if(!prev)return null;const v=(cur-prev)/prev*100;re
 function pctClass(s){if(!s)return'';return s.startsWith('+')?'delta up':'delta dn';}
 function safeKey(s){return(s||'').replace(/[^a-zA-Z0-9]/g,'_');}
 
+// §UI CONTROLS
 function buildYearSelectors(){
   const years=allYears();if(!years.length)return;
   F.yearMin=parseInt(years[0]);F.yearMax=parseInt(years[years.length-1]);
@@ -407,6 +417,7 @@ function toggleTheme(){
   renderAll();
 }
 
+// §POC NAT PICKER
 function buildNatPicker(rows){
   const byNat={};
   rows.forEach(r=>{const k=r['Country of Origin'];byNat[k]=(byNat[k]||0)+n(r['Refugees'])+n(r['Asylum-seekers']);});
@@ -426,6 +437,7 @@ document.addEventListener('click',e=>{
   if(l&&l.classList.contains('open')&&!l.contains(e.target)&&e.target!==b){l.classList.remove('open');b.textContent='Select countries ▾';}
 });
 
+// §CHART HELPERS
 function td(){
   const dark=document.documentElement.getAttribute('data-theme')==='dark';
   return{grid:dark?'rgba(255,255,255,.07)':'rgba(0,0,0,.06)',tick:dark?'#8892a4':'#64748b',tipBg:dark?'#191c2a':'#fff',tipTx:dark?'#e8eaf0':'#1a1a2e',tipBd:dark?'#2a2f45':'#e2e8f0'};
@@ -451,6 +463,7 @@ function mkChart(id,type,data,extra){
   charts[id]=new Chart(el,{type,data,options:opts});
 }
 
+// §TABLE HELPERS
 function dlCSV(tId,name){
   const t=document.getElementById(tId+'-t');if(!t)return;
   const rows=[...t.querySelectorAll('tr')].map(tr=>[...tr.querySelectorAll('th,td')].map(c=>{const cl=c.cloneNode(true);cl.querySelectorAll('.tag-unk,.exp-icon,.delta').forEach(s=>s.remove());return'"'+cl.textContent.trim().replace(/"/g,'""')+'"';}).join(','));
@@ -476,6 +489,28 @@ function restoreOpenRows(){
   });
 }
 
+// §SORT HELPERS
+function sortTable(arr,getKey,getTot,order){
+  if(order==='tot-asc')return arr.slice().sort((a,b)=>getTot(a)-getTot(b));
+  if(order==='az')return arr.slice().sort((a,b)=>dispOrigin(getKey(a)).localeCompare(dispOrigin(getKey(b))));
+  if(order==='za')return arr.slice().sort((a,b)=>dispOrigin(getKey(b)).localeCompare(dispOrigin(getKey(a))));
+  return arr;
+}
+function sortSelect(id){
+  const v=tblSort[id];
+  const opts=[['tot-desc','Totals high to low'],['tot-asc','Totals low to high'],['az','A-Z'],['za','Z-A']];
+  return '<select onchange="setTblSort(\''+id+'\',this.value)" style="font-size:.72rem;padding:.2rem .45rem">'+opts.map(([val,lbl])=>'<option value="'+val+'"'+(v===val?' selected':'')+'>'+lbl+'</option>').join('')+'</select>';
+}
+function setTblSort(id,val){
+  tblSort[id]=val;
+  if(id==='poc'){const rows=filter(raw.poc||[]);renderPocTable(rows,yearsIn(rows));}
+  else if(id==='app')renderApplications();
+  else if(id==='dec'){const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
+  else if(id==='dep'){const rows=filter(raw.departures||[]);renderDepTable(rows,yearsIn(rows));}
+  else if(id==='sub')renderSubmissions();
+}
+
+// §MAP HELPERS
 function makeTileLayer(m){
   const dark=document.documentElement.getAttribute('data-theme')==='dark';
   const url=dark?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png':'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
@@ -498,6 +533,7 @@ function renderMap(divId,destData){
 }
 
 
+// §RENDER DISPATCH
 function renderAll(){
   if(activeTab==='poc')renderPOC();
   if(activeTab==='applications')renderApplications();
@@ -506,6 +542,7 @@ function renderAll(){
   if(activeTab==='submissions')renderSubmissions();
 }
 
+// §POC
 function renderPOC(){
   const rows=filter(raw.poc||[]),years=yearsIn(rows);
   mkChart('c-poc-year','bar',{labels:years,datasets:[
@@ -544,9 +581,10 @@ function renderPocTable(rows,years){
     if(!natMap[k][r.Year])natMap[k][r.Year]={ref:0,asy:0};
     natMap[k][r.Year].ref+=n(r['Refugees']);natMap[k][r.Year].asy+=n(r['Asylum-seekers']);
   });
-  const sorted=Object.entries(natMap).map(([k,yrs])=>({k,yrs,tot:Object.values(yrs).reduce((s,v)=>s+v.ref+v.asy,0)})).sort((a,b)=>b.tot-a.tot);
+  const _pocUnsorted=Object.entries(natMap).map(([k,yrs])=>({k,yrs,tot:Object.values(yrs).reduce((s,v)=>s+v.ref+v.asy,0)})).sort((a,b)=>b.tot-a.tot);
+  const sorted=sortTable(_pocUnsorted,d=>d.k,d=>d.tot,tblSort.poc);
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
-  let html='<div class="tbl-head"><h3>Population</h3><div class="tbl-actions"><button class="btn-sm'+(showPocDelta?' on':'')+'" onclick="togglePocDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-poc\',\'population-figures\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Population</h3><div class="tbl-actions">'+sortSelect('poc')+'<button class="btn-sm'+(showPocDelta?' on':'')+'" onclick="togglePocDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-poc\',\'population-figures\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-poc-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
   years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="3">'+y+'</th>';});
   html+='</tr><tr>';
@@ -599,6 +637,7 @@ function renderPocTable(rows,years){
 }
 function togglePocDelta(){showPocDelta=!showPocDelta;const rows=filter(raw.poc||[]);renderPocTable(rows,yearsIn(rows));}
 
+// §APPLICATIONS
 function renderApplications(){
   const rows=filter(raw.applications||[]),years=yearsIn(rows);
   mkChart('c-app-year','bar',{labels:years,datasets:[
@@ -637,9 +676,10 @@ function renderApplications(){
     if(DL[dl]!==undefined)nm[k].byYear[y][dl]+=n(r['Applied']);
     nm[k].byYear[y].tot+=n(r['Applied']);
   });
-  const sorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const _appUnsorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const sorted=sortTable(_appUnsorted,d=>d[0],d=>d[1].tot,tblSort.app);
   const el=document.getElementById('tbl-app');if(!el)return;
-  let html='<div class="tbl-head"><h3>Application details</h3><div class="tbl-actions"><button class="btn-sm'+(showAppDelta?' on':'')+'" onclick="toggleAppDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-app\',\'asylum-applications\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Application details</h3><div class="tbl-actions">'+sortSelect('app')+'<button class="btn-sm'+(showAppDelta?' on':'')+'" onclick="toggleAppDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-app\',\'asylum-applications\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-app-t"><thead><tr><th>Country</th><th class="num">FA</th><th class="num">FI</th><th class="num">AR</th><th class="num">RA</th><th class="num">Total</th></tr></thead><tbody>';
   sorted.forEach(([k,v])=>{
     const sk=safeKey(k);
@@ -666,6 +706,7 @@ function renderApplications(){
 }
 function toggleAppDelta(){showAppDelta=!showAppDelta;renderApplications();}
 
+// §DECISIONS
 function buildDecChartPicker(rows){
   const wrap=document.getElementById('dec-chart-picker-wrap');if(!wrap)return;
   const byNat={};rows.forEach(r=>{const k=r['Country of Origin'];byNat[k]=(byNat[k]||0)+n(r['dec total']);});
@@ -735,60 +776,88 @@ function renderDecTable(rows,years){
     const rec=n(r['Dec recognized']),rej=n(r['dec rejected']),clo=n(r['dec closed']),oth=n(r['dec other']),tot=n(r['dec total']);
     m.rec+=rec;m.rej+=rej;m.clo+=clo;m.oth+=oth;m.tot+=tot;
     const dl=r['Dec level'];if(m.byProc[dl]){m.byProc[dl].rec+=rec;m.byProc[dl].rej+=rej;m.byProc[dl].clo+=clo;m.byProc[dl].oth+=oth;m.byProc[dl].tot+=tot;}
-    if(!m.byYear[r.Year])m.byYear[r.Year]={rec:0,rej:0,clo:0,oth:0,tot:0};
-    m.byYear[r.Year].rec+=rec;m.byYear[r.Year].rej+=rej;m.byYear[r.Year].clo+=clo;m.byYear[r.Year].oth+=oth;m.byYear[r.Year].tot+=tot;
+    if(!m.byYear[r.Year])m.byYear[r.Year]={rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{FI:{rec:0,rej:0,clo:0,oth:0,tot:0},AR:{rec:0,rej:0,clo:0,oth:0,tot:0},RA:{rec:0,rej:0,clo:0,oth:0,tot:0},FA:{rec:0,rej:0,clo:0,oth:0,tot:0}}};
+    const yp=m.byYear[r.Year];yp.rec+=rec;yp.rej+=rej;yp.clo+=clo;yp.oth+=oth;yp.tot+=tot;if(yp.byProc[dl]){yp.byProc[dl].rec+=rec;yp.byProc[dl].rej+=rej;yp.byProc[dl].clo+=clo;yp.byProc[dl].oth+=oth;yp.byProc[dl].tot+=tot;}
   });
-  const sorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const _decUnsorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const sorted=sortTable(_decUnsorted,d=>d[0],d=>d[1].tot,tblSort.dec);
   const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened',FA:'First inst. & appeal'};
+  // excl helpers — used by both views
+  const eT=v=>decExclClosed?v.rec+v.rej:v.tot;
+  const eR=v=>{const t=eT(v);return t>0?Math.round(v.rec/t*100):0;};
   const viewBtns='<div class="seg" style="margin-right:.5rem"><button class="seg-btn'+(decView==='totals'?' active':'')+'" data-decview="totals" onclick="setDecView(\'totals\')">Totals</button><button class="seg-btn'+(decView==='peryear'?' active':'')+'" data-decview="peryear" onclick="setDecView(\'peryear\')">Per year</button></div>';
   const deltaBtn=decView==='peryear'?'<button class="btn-sm'+(showDecDelta?' on':'')+'" onclick="toggleDecDelta()">Δ% change</button>':'';
-  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
+  const exclSel='<select onchange="setDecExclClosed(this.value)" style="font-size:.72rem;padding:.2rem .45rem"><option value="include"'+(decExclClosed?'':' selected')+'>Include closed and "other" in figures</option><option value="exclude"'+(decExclClosed?' selected':'')+'>Exclude closed and "other" from figures</option></select>';
+  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+exclSel+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
   if(decView==='totals'){
-    html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th></tr></thead><tbody>';
+    const th=decExclClosed?'<th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Total</th><th class="num">Rate%</th>':'<th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th>';
+    const tCell=v=>{const t=eT(v),r=eR(v);return decExclClosed?'<td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+t.toLocaleString()+'</td><td class="num">'+r+'%</td>':'<td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+v.clo.toLocaleString()+'</td><td class="num">'+v.oth.toLocaleString()+'</td><td class="num">'+t.toLocaleString()+'</td><td class="num">'+r+'%</td>';};
+    html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr>'+th+'</tr></thead><tbody>';
     sorted.forEach(([k,v])=>{
-      const rate=v.tot>0?Math.round(v.rec/v.tot*100):0,sk=safeKey(k);
-      html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_'+sk+'\')"><td><span class="exp-icon" id="icon-dec_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td><td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+v.clo.toLocaleString()+'</td><td class="num">'+v.oth.toLocaleString()+'</td><td class="num">'+v.tot.toLocaleString()+'</td><td class="num">'+rate+'%</td></tr>';
+      const sk=safeKey(k);
+      html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_'+sk+'\')"><td><span class="exp-icon" id="icon-dec_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>'+tCell(v)+'</tr>';
       Object.entries(pL).forEach(([code,label])=>{
         const p=v.byProc[code];if(!p||p.tot===0)return;
-        const pr=p.tot>0?Math.round(p.rec/p.tot*100):0;
-        html+='<tr class="row-sub" data-parent="dec_'+sk+'" style="display:none"><td>'+label+'</td><td class="num">'+p.rec.toLocaleString()+'</td><td class="num">'+p.rej.toLocaleString()+'</td><td class="num">'+p.clo.toLocaleString()+'</td><td class="num">'+p.oth.toLocaleString()+'</td><td class="num">'+p.tot.toLocaleString()+'</td><td class="num">'+pr+'%</td></tr>';
+        html+='<tr class="row-sub" data-parent="dec_'+sk+'" style="display:none"><td>'+label+'</td>'+tCell(p)+'</tr>';
       });
     });
     const tots=sorted.reduce((s,[,v])=>({rec:s.rec+v.rec,rej:s.rej+v.rej,clo:s.clo+v.clo,oth:s.oth+v.oth,tot:s.tot+v.tot}),{rec:0,rej:0,clo:0,oth:0,tot:0});
-    const totR=tots.tot>0?Math.round(tots.rec/tots.tot*100):0;
     const totByLevel={};Object.keys(pL).forEach(code=>{totByLevel[code]={rec:0,rej:0,clo:0,oth:0,tot:0};});sorted.forEach(([,v])=>{Object.keys(pL).forEach(code=>{const p=v.byProc[code];if(p){totByLevel[code].rec+=p.rec;totByLevel[code].rej+=p.rej;totByLevel[code].clo+=p.clo;totByLevel[code].oth+=p.oth;totByLevel[code].tot+=p.tot;}});});
-    html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_total\')"><td><span class="exp-icon" id="icon-dec_total">▶</span>Total</td><td class="num">'+tots.rec.toLocaleString()+'</td><td class="num">'+tots.rej.toLocaleString()+'</td><td class="num">'+tots.clo.toLocaleString()+'</td><td class="num">'+tots.oth.toLocaleString()+'</td><td class="num">'+tots.tot.toLocaleString()+'</td><td class="num">'+totR+'%</td></tr>';
-    Object.entries(pL).forEach(([code,label])=>{const p=totByLevel[code];if(!p||p.tot===0)return;const pr=p.tot>0?Math.round(p.rec/p.tot*100):0;html+='<tr class="row-sub" data-parent="dec_total" style="display:none"><td>'+label+'</td><td class="num">'+p.rec.toLocaleString()+'</td><td class="num">'+p.rej.toLocaleString()+'</td><td class="num">'+p.clo.toLocaleString()+'</td><td class="num">'+p.oth.toLocaleString()+'</td><td class="num">'+p.tot.toLocaleString()+'</td><td class="num">'+pr+'%</td></tr>';});
+    html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_total\')"><td><span class="exp-icon" id="icon-dec_total">▶</span>Total</td>'+tCell(tots)+'</tr>';
+    Object.entries(pL).forEach(([code,label])=>{const p=totByLevel[code];if(!p||p.tot===0)return;html+='<tr class="row-sub" data-parent="dec_total" style="display:none"><td>'+label+'</td>'+tCell(p)+'</tr>';});
     html+='</tfoot></table></div>';
   } else {
+    const colspan=decExclClosed?4:6;
+    const pyGet=(v,y)=>v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0};
+    const pyGetL=(v,y,code)=>(v.byYear[y]&&v.byYear[y].byProc&&v.byYear[y].byProc[code])||{rec:0,rej:0,clo:0,oth:0,tot:0};
+    const pySum=y=>sorted.reduce((a,[,v])=>{const r=v.byYear[y]||{};return{rec:a.rec+(r.rec||0),rej:a.rej+(r.rej||0),clo:a.clo+(r.clo||0),oth:a.oth+(r.oth||0),tot:a.tot+(r.tot||0)};},{rec:0,rej:0,clo:0,oth:0,tot:0});
+    const pySumL=(y,code)=>sorted.reduce((a,[,v])=>{const p=pyGetL(v,y,code);return{rec:a.rec+p.rec,rej:a.rej+p.rej,clo:a.clo+p.clo,oth:a.oth+p.oth,tot:a.tot+p.tot};},{rec:0,rej:0,clo:0,oth:0,tot:0});
+    const pyCell=(sc,cv,pv)=>{
+      const t=eT(cv),rate=eR(cv);
+      if(pv&&showDecDelta){
+        const pt=eT(pv),pr=eR(pv);
+        const dRec=pctChange(cv.rec,pv.rec),dRej=pctChange(cv.rej,pv.rej),dTot=pctChange(t,pt),dRate=pctChange(rate,pr);
+        if(decExclClosed)return'<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
+        const dClo=pctChange(cv.clo,pv.clo),dOth=pctChange(cv.oth,pv.oth);
+        return'<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
+      }
+      if(decExclClosed)return'<td class="num'+sc+'">'+(cv.rec?cv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.rej?cv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?t.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?rate+'%':'—')+'</td>';
+      return'<td class="num'+sc+'">'+(cv.rec?cv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.rej?cv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.clo?cv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.oth?cv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?t.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?rate+'%':'—')+'</td>';
+    };
     html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
-    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="6">'+y+'</th>';});
+    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="'+colspan+'">'+y+'</th>';});
     html+='</tr><tr>';
-    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="num'+sc+'">Rec</th><th class="num'+sc+'">Rej</th><th class="num'+sc+'">Clo</th><th class="num'+sc+'">Oth</th><th class="num'+sc+'">Tot</th><th class="num'+sc+'">Rate%</th>';});
+    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+=decExclClosed?'<th class="num'+sc+'">Rec</th><th class="num'+sc+'">Rej</th><th class="num'+sc+'">Tot</th><th class="num'+sc+'">Rate%</th>':'<th class="num'+sc+'">Rec</th><th class="num'+sc+'">Rej</th><th class="num'+sc+'">Clo</th><th class="num'+sc+'">Oth</th><th class="num'+sc+'">Tot</th><th class="num'+sc+'">Rate%</th>';});
     html+='</tr></thead><tbody>';
     sorted.forEach(([k,v])=>{
-      html+='<tr><td class="sticky-col">'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>';
-      years.forEach((y,yi)=>{
-        const sc=yi%2===0?' col-stripe':'';
-        const yv=v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0};
-        const rate=yv.tot>0?Math.round(yv.rec/yv.tot*100):0;
-        if(showDecDelta&&yi>0){
-          const py=v.byYear[years[yi-1]]||{rec:0,rej:0,clo:0,oth:0,tot:0};
-          const pRate=py.tot>0?Math.round(py.rec/py.tot*100):0;
-          const dRec=pctChange(yv.rec,py.rec),dRej=pctChange(yv.rej,py.rej),dClo=pctChange(yv.clo,py.clo),dOth=pctChange(yv.oth,py.oth),dTot=pctChange(yv.tot,py.tot),dRate=pctChange(rate,pRate);
-          html+='<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
-        } else {
-          html+='<td class="num'+sc+'">'+(yv.rec?yv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(yv.rej?yv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(yv.clo?yv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(yv.oth?yv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(yv.tot?yv.tot.toLocaleString():'—')+'</td><td class="num'+sc+'">'+rate+'%</td>';
-        }
+      const sk=safeKey(k);
+      html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_py_'+sk+'\')"><td class="sticky-col"><span class="exp-icon" id="icon-dec_py_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>';
+      years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pyGet(v,y),yi>0?pyGet(v,years[yi-1]):null);});
+      html+='</tr>';
+      Object.entries(pL).forEach(([code,label])=>{
+        const hasData=years.some(y=>pyGetL(v,y,code).tot>0);if(!hasData)return;
+        html+='<tr class="row-sub" data-parent="dec_py_'+sk+'" style="display:none"><td class="sticky-col">'+label+'</td>';
+        years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pyGetL(v,y,code),yi>0?pyGetL(v,years[yi-1],code):null);});
+        html+='</tr>';
       });
+    });
+    html+='</tbody><tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_py_total\')"><td class="sticky-col"><span class="exp-icon" id="icon-dec_py_total">▶</span>Total</td>';
+    years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pySum(y),yi>0?pySum(years[yi-1]):null);});
+    html+='</tr>';
+    Object.entries(pL).forEach(([code,label])=>{
+      const hasData=years.some(y=>pySumL(y,code).tot>0);if(!hasData)return;
+      html+='<tr class="row-sub" data-parent="dec_py_total" style="display:none"><td class="sticky-col">'+label+'</td>';
+      years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pySumL(y,code),yi>0?pySumL(years[yi-1],code):null);});
       html+='</tr>';
     });
-    html+='</tbody></table></div>';
+    html+='</tfoot></table></div>';
   }
   el.innerHTML=html;restoreOpenRows();
 }
 function toggleDecDelta(){showDecDelta=!showDecDelta;const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
+function setDecExclClosed(val){decExclClosed=(val==='exclude');const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
 
+// §DEPARTURES
 function buildDepFlowPicker(rows){
   const wrap=document.getElementById('dep-flow-picker-wrap');if(!wrap)return;
   const byOT={};rows.forEach(r=>{const k=dispOrigin(r['Country of Origin']);byOT[k]=(byOT[k]||0)+n(r['Total']);});
@@ -880,10 +949,11 @@ function renderDepTable(rows,years){
     if(!om[o])om[o]={};if(!om[o][d])om[o][d]={};
     om[o][d][r.Year]=(om[o][d][r.Year]||0)+n(r['Total']);
   });
-  const sorted=Object.entries(om).map(([o,dests])=>({o,dests,tot:Object.values(dests).flatMap(d=>Object.values(d)).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.tot-a.tot);
+  const _depUnsorted=Object.entries(om).map(([o,dests])=>({o,dests,tot:Object.values(dests).flatMap(d=>Object.values(d)).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.tot-a.tot);
+  const sorted=sortTable(_depUnsorted,d=>d.o,d=>d.tot,tblSort.dep);
   const gTots=years.map(y=>rows.reduce((s,r)=>s+(r.Year===y?n(r['Total']):0),0));
   const grand=rows.reduce((s,r)=>s+n(r['Total']),0);
-  let html='<div class="tbl-head"><h3>Departures details</h3><div class="tbl-actions"><button class="btn-sm" onclick="dlCSV(\'tbl-dep\',\'resettlement-departures\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Departures details</h3><div class="tbl-actions">'+sortSelect('dep')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dep\',\'resettlement-departures\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-dep-t"><thead><tr><th class="sticky-col" style="min-width:14rem">Country of origin</th>'+years.map(y=>'<th class="num">'+y+'</th>').join('')+'<th class="num">Total</th></tr></thead><tbody>';
   sorted.forEach(({o,dests,tot})=>{
     const sk=safeKey(o);
@@ -911,6 +981,7 @@ function renderDepTable(rows,years){
   el.innerHTML=html;restoreOpenRows();
 }
 
+// §SUBMISSIONS
 function buildSubPicker(rows){
   const wrap=document.getElementById('sub-picker-wrap');if(!wrap)return;
   const byOT={};rows.forEach(r=>{const k=dispOrigin(r['Country of Origin']);byOT[k]=(byOT[k]||0)+n(r['Persons']);});
@@ -945,11 +1016,12 @@ function renderSubmissions(){
   _renderSubChart(rows,years);
   const om={};
   rows.forEach(r=>{const k=r['Country of Origin'];if(!om[k])om[k]={};if(!om[k][r.Year])om[k][r.Year]={cases:0,persons:0};om[k][r.Year].cases+=n(r['Cases']);om[k][r.Year].persons+=n(r['Persons']);});
-  const sorted=Object.entries(om).map(([k,yrs])=>({k,yrs,tc:Object.values(yrs).reduce((s,v)=>s+v.cases,0),tp:Object.values(yrs).reduce((s,v)=>s+v.persons,0)})).sort((a,b)=>b.tp-a.tp);
+  const _subUnsorted=Object.entries(om).map(([k,yrs])=>({k,yrs,tc:Object.values(yrs).reduce((s,v)=>s+v.cases,0),tp:Object.values(yrs).reduce((s,v)=>s+v.persons,0)})).sort((a,b)=>b.tp-a.tp);
+  const sorted=sortTable(_subUnsorted,d=>d.k,d=>d.tp,tblSort.sub);
   const el=document.getElementById('tbl-sub');if(!el)return;
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
   const gByYear={};years.forEach(y=>{gByYear[y]={cases:sorted.reduce((s,{yrs})=>s+(yrs[y]?yrs[y].cases:0),0),persons:sorted.reduce((s,{yrs})=>s+(yrs[y]?yrs[y].persons:0),0)};});
-  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions"><button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
+  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions">'+sortSelect('sub')+'<button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
   html+='<div class="tbl-scroll"><table id="tbl-sub-t"><thead><tr><th>Country of origin</th><th class="num">Cases</th><th class="num">Δ% cases</th><th class="num">Persons</th><th class="num">Δ% persons</th></tr></thead><tbody>';
   sorted.forEach(({k,yrs,tc,tp})=>{
     const sk=safeKey(k);
@@ -984,6 +1056,7 @@ function renderSubmissions(){
     fnSubEl.innerHTML=fn;
   }
 }
+// §GENERIC TABLE
 function buildSimpleTable(cid,title,headers,rows,foot,dlName){
   const el=document.getElementById(cid);if(!el)return;
   if(!rows.length){el.innerHTML='<div class="empty">No data for current filters.</div>';return;}
