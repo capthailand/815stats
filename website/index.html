@@ -233,6 +233,7 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="card"><p class="card-title"><span>By nationality (total over chosen period)</span><button class="chart-expand-btn" onclick="popOutChart('c-app-nat','By nationality (total over chosen period)')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap" style="height:320px"><canvas id="c-app-nat"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-app"></div>
+  <div class="footnotes" id="fn-app"></div>
 </section>
 
 <section class="tab-panel" id="tab-decisions">
@@ -251,6 +252,7 @@ tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!im
     <div class="card"><p class="card-title"><span>Recognition rate by year (%)</span><button class="chart-expand-btn" onclick="popOutChart('c-dec-rate','Recognition rate by year (%)')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dec-rate"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-dec"></div>
+  <div class="footnotes" id="fn-dec"></div>
 </section>
 
 <section class="tab-panel" id="tab-departures">
@@ -370,13 +372,24 @@ function applyConfig(){
   document.getElementById('footer-cite').innerHTML=c;
 }
 
+function mdToHtml(md){
+  if(!md)return'';
+  return md.split(/\n{2,}/).map(p=>{
+    let s=p.trim();
+    s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    s=s.replace(/\*(.+?)\*/g,'<em>$1</em>');
+    s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+    s=s.replace(/\n/g,'<br>');
+    return'<p>'+s+'</p>';
+  }).join('');
+}
 function showPopup(){
   const p=cfg.popup;if(!p||(!p.title&&!p.body))return;
   const ov=document.createElement('div');ov.className='popup-overlay';
   ov.innerHTML='<div class="popup-box" role="dialog" aria-modal="true">'
     +'<div class="popup-head"><h2>'+(p.title||'')+'</h2>'
     +'<button class="popup-close-x" onclick="this.closest(\'.popup-overlay\').remove()" aria-label="Close">✕</button></div>'
-    +'<div class="popup-body">'+(p.body||'')+'</div>'
+    +'<div class="popup-body">'+mdToHtml(p.body||'')+'</div>'
     +'<div class="popup-foot"><button class="popup-close-btn" onclick="this.closest(\'.popup-overlay\').remove()">Close</button></div>'
     +'</div>';
   document.body.appendChild(ov);
@@ -751,6 +764,9 @@ function renderApplications(){
   gYks.forEach((y,yi)=>{const yv=gByYear[y];if(showAppDelta&&yi>0){const pv=gByYear[gYks[yi-1]];const dFA=pctChange(yv.FA,pv.FA),dFI=pctChange(yv.FI,pv.FI),dAR=pctChange(yv.AR,pv.AR),dRA=pctChange(yv.RA,pv.RA),dT=pctChange(yv.tot,pv.tot);html+='<tr class="row-sub" data-parent="app_total" style="display:none"><td>'+y+'</td><td class="num"><span class="'+pctClass(dFA)+'">'+(dFA||'—')+'</span></td><td class="num"><span class="'+pctClass(dFI)+'">'+(dFI||'—')+'</span></td><td class="num"><span class="'+pctClass(dAR)+'">'+(dAR||'—')+'</span></td><td class="num"><span class="'+pctClass(dRA)+'">'+(dRA||'—')+'</span></td><td class="num"><span class="'+pctClass(dT)+'">'+(dT||'—')+'</span></td></tr>';}else{html+='<tr class="row-sub" data-parent="app_total" style="display:none"><td>'+y+'</td><td class="num">'+yv.FA.toLocaleString()+'</td><td class="num">'+yv.FI.toLocaleString()+'</td><td class="num">'+yv.AR.toLocaleString()+'</td><td class="num">'+yv.RA.toLocaleString()+'</td><td class="num">'+yv.tot.toLocaleString()+'</td></tr>';}});
   html+='</tfoot></table></div>';
   el.innerHTML=html;restoreOpenRows();
+  const appExtra=(cfg.notes||{}).applications||'';
+  const fnApp=document.getElementById('fn-app');
+  if(fnApp)fnApp.innerHTML=appExtra?'<h4>Notes</h4><p>'+appExtra+'</p>':'';
 }
 function toggleAppDelta(){showAppDelta=!showAppDelta;renderApplications();}
 
@@ -837,6 +853,9 @@ function renderDecisions(){
   if(!decChartBuilt){buildDecChartPicker(rows);buildDecLevelPicker(rows);decChartBuilt=true;}
   _renderDecCharts(rows,years);
   renderDecTable(rows,years);
+  const decExtra=(cfg.notes||{}).decisions||'';
+  const fnDec=document.getElementById('fn-dec');
+  if(fnDec)fnDec.innerHTML=decExtra?'<h4>Notes</h4><p>'+decExtra+'</p>':'';
 }
 
 function renderDecTable(rows,years){

@@ -110,6 +110,8 @@ labels:
 # Leave a key blank (or omit it) to show no extra note for that section.
 notes:
   poc: ""           # Refugees & asylum-seekers footnote
+  applications: ""  # Asylum applications footnote
+  decisions: ""     # Asylum decisions footnote
   departures: "Figures include only refugee resettled with the assistance of UNHCR. Refugees resettled through private sponsorship or national solutions outside the UNHCR resettlement framework are not captured in this dataset."    # Resettlement departures footnote
   submissions: ""   # Resettlement submissions footnote
 
@@ -132,16 +134,16 @@ notes:
 # ----------------------------------------------------------------
 # Shown once when the page loads. Remove this section (or delete
 # both title and body) to disable the popup.
-# Body text supports HTML (links, <strong>, <p>, etc.).
+# Body text supports Markdown (bold, italic, links, paragraphs).
 #
 popup:
   title: "Welcome"
-  body: >
+  body: |
     The **Thailand Refugee Statistics Dashboard** is a visulisation tool developed by the **Center for Asylum Protection**. It uses the *Forced Displacement* (population, asylum applications, asylum decisions) and *Solutions* (UNHCR-assisted refugee resettlement submissions and - departures) datasets.
     Please see UNHCR's (Methodology)[https://www.unhcr.org/refugee-statistics/methodology] for more information about the datasets, definitions, and structure.
 
     For questions or feedback, please contact (Kristian Benestad)[mailto:kristian.benestad@pspfoundation.org].
-    
+
 
 # ----------------------------------------------------------------
 # DATA FILES
