@@ -110,6 +110,8 @@ labels:
 # Leave a key blank (or omit it) to show no extra note for that section.
 notes:
   poc: ""           # Refugees & asylum-seekers footnote
+  applications: ""  # Asylum applications footnote
+  decisions: ""     # Asylum decisions footnote
   departures: ""    # Resettlement departures footnote
   submissions: ""   # Resettlement submissions footnote
 
@@ -132,13 +134,15 @@ notes:
 # ----------------------------------------------------------------
 # Shown once when the page loads. Remove this section (or delete
 # both title and body) to disable the popup.
-# Body text supports HTML (links, <strong>, <p>, etc.).
+# Body text supports Markdown (bold, italic, links, paragraphs).
 #
 # popup:
 #   title: "Welcome"
-#   body: >
-#     Add your welcome message here. You can use
-#     <strong>bold text</strong> and <a href="#">links</a>.
+#   body: |
+#     Add your welcome message here. You can use **bold**, *italic*,
+#     and [links](https://example.com).
+#
+#     Blank lines create new paragraphs.
 
 
 # ----------------------------------------------------------------
