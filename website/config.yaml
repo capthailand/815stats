@@ -110,7 +110,7 @@ labels:
 # Leave a key blank (or omit it) to show no extra note for that section.
 notes:
   poc: ""           # Refugees & asylum-seekers footnote
-  applications: "**Abbreviations:** *FA* - first instance and appeal (combined category for the years 2001-2004 for all countrys, plus 2006-2013 for Myanmar; *FI* - first instance; AR - administrative review (appeal); RA - repeat applications. "  # Asylum applications footnote
+  applications: "<em>Abbreviations:</em> <strong>FA</strong> - first instance and appeal (combined category for the years 2001-2004 for all countrys, plus 2006-2013 for Myanmar; <strong>FI</strong> - first instance; <strong>AR</strong> - administrative review (appeal); <strong>RA</strong> - repeat applications. "  # Asylum applications footnote
   decisions: "By default, decisions include cases that are coded as `Closed` or `Other`. Untick the box above the charts to only see figures for cases on which UNHCR made a substantive decision."     # Asylum decisions footnote
   departures: "Figures include only refugee resettled with the assistance of UNHCR. Refugees resettled through private sponsorship or national solutions outside the UNHCR resettlement framework are not captured in this dataset."    # Resettlement departures footnote
   submissions: "These figure only includes cases submitted by UNHCR to a potential resettlement country."   # Resettlement submissions footnote
