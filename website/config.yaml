@@ -70,7 +70,7 @@ colours:
 citation:
   source_name: "UNHCR Refugee Data Finder"
   source_url: "https://www.unhcr.org/refugee-statistics/"
-  processed_by: "Kristian Benestad (Center for Asylum Protection"
+  processed_by: "Kristian Benestad (Center for Asylum Protection)"
   methodology_url: "https://www.unhcr.org/refugee-statistics/methodology/"
 
   # Shown as a footnote on the Refugees & Asylum-Seekers section
@@ -112,7 +112,7 @@ notes:
   poc: ""           # Refugees & asylum-seekers footnote
   applications: ""  # Asylum applications footnote
   decisions: ""     # Asylum decisions footnote
-  departures: ""    # Resettlement departures footnote
+  departures: "Figures include only refugee resettled with the assistance of UNHCR. Refugees resettled through private sponsorship or national solutions outside the UNHCR resettlement framework are not captured in this dataset."    # Resettlement departures footnote
   submissions: ""   # Resettlement submissions footnote
 
 
@@ -136,13 +136,13 @@ notes:
 # both title and body) to disable the popup.
 # Body text supports Markdown (bold, italic, links, paragraphs).
 #
-# popup:
-#   title: "Welcome"
-#   body: |
-#     Add your welcome message here. You can use **bold**, *italic*,
-#     and [links](https://example.com).
-#
-#     Blank lines create new paragraphs.
+popup:
+  title: "Welcome"
+  body: |
+    The **Thailand Refugee Statistics Dashboard** is a visulisation tool developed by the **Center for Asylum Protection**. It uses the *Forced Displacement* (population, asylum applications, asylum decisions) and *Solutions* (UNHCR-assisted refugee resettlement submissions and - departures) datasets.
+    Please see UNHCR's (Methodology)[https://www.unhcr.org/refugee-statistics/methodology] for more information about the datasets, definitions, and structure.
+
+    For questions or feedback, please contact (Kristian Benestad)[mailto:kristian.benestad@pspfoundation.org].
 
 
 # ----------------------------------------------------------------
