@@ -702,10 +702,10 @@ function togglePocDelta(){showPocDelta=!showPocDelta;const rows=filter(raw.poc||
 function renderApplications(){
   const rows=filter(raw.applications||[]),years=yearsIn(rows);
   mkChart('c-app-year','bar',{labels:years,datasets:[
-    {label:'New',stack:'a',backgroundColor:CC[0],data:years.map(y=>rows.filter(r=>r.Year===y&&r['Application type']==='N').reduce((s,r)=>s+n(r['Applied']),0))},
-    {label:'Appeal',stack:'a',backgroundColor:CC[1],data:years.map(y=>rows.filter(r=>r.Year===y&&r['Application type']==='A').reduce((s,r)=>s+n(r['Applied']),0))},
-    {label:'Repeat/reopened',stack:'a',backgroundColor:CC[2],data:years.map(y=>rows.filter(r=>r.Year===y&&r['Application type']==='R').reduce((s,r)=>s+n(r['Applied']),0))},
-    {label:'Various/Other',stack:'a',backgroundColor:CC[3],data:years.map(y=>rows.filter(r=>r.Year===y&&(r['Application type']==='V'||r['Application type']==='U')).reduce((s,r)=>s+n(r['Applied']),0))}
+    {label:'First inst. & appeal',stack:'a',backgroundColor:CC[0],data:years.map(y=>rows.filter(r=>r.Year===y&&r['Decision level']==='FA').reduce((s,r)=>s+n(r['Applied']),0))},
+    {label:'First instance',stack:'a',backgroundColor:CC[1],data:years.map(y=>rows.filter(r=>r.Year===y&&r['Decision level']==='FI').reduce((s,r)=>s+n(r['Applied']),0))},
+    {label:'Appeal',stack:'a',backgroundColor:CC[2],data:years.map(y=>rows.filter(r=>r.Year===y&&r['Decision level']==='AR').reduce((s,r)=>s+n(r['Applied']),0))},
+    {label:'Repeat/reopened',stack:'a',backgroundColor:CC[3],data:years.map(y=>rows.filter(r=>r.Year===y&&r['Decision level']==='RA').reduce((s,r)=>s+n(r['Applied']),0))}
   ]},{scales:{x:{stacked:true},y:{stacked:true}}});
 
   const DL={FA:'First inst. & appeal',FI:'First instance',AR:'Appeal',RA:'Repeat/reopened'};
