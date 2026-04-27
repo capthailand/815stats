@@ -109,11 +109,11 @@ labels:
 # Optional extra text appended to each section's footnote area.
 # Leave a key blank (or omit it) to show no extra note for that section.
 notes:
-  poc: ""           # Refugees & asylum-seekers footnote
-  applications: ""  # Asylum applications footnote
-  decisions: ""     # Asylum decisions footnote
+  poc: "Note-POC"           # Refugees & asylum-seekers footnote
+  applications: "Note-APPS"  # Asylum applications footnote
+  decisions: "Note_DEC"     # Asylum decisions footnote
   departures: "Figures include only refugee resettled with the assistance of UNHCR. Refugees resettled through private sponsorship or national solutions outside the UNHCR resettlement framework are not captured in this dataset."    # Resettlement departures footnote
-  submissions: ""   # Resettlement submissions footnote
+  submissions: "Note_SUBS"   # Resettlement submissions footnote
 
 
 # ----------------------------------------------------------------
