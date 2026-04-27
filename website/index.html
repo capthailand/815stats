@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <style>
-:root{--primary:#29307d;--accent:#f9ad18;--bg:#fff;--surface:#f4f6fb;--border:#e2e8f0;--text:#1a1a2e;--muted:#64748b;--font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;--r:6px;--sh:0 1px 3px rgba(0,0,0,.08);--sh-md:0 4px 12px rgba(0,0,0,.10)}
+:root{--primary:#29307d;--accent:#f9ad18;--bg:#fff;--surface:#f4f6fb;--border:#e2e8f0;--text:#1a1a2e;--muted:#64748b;--font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;--r:6px;--sh:0 1px 3px rgba(0,0,0,.08);--sh-md:0 4px 12px rgba(0,0,0,.10);--header-bg:var(--primary);--header-title-color:#fff;--header-subtitle-color:rgba(255,255,255,.6)}
 [data-theme="dark"]{--bg:#0f1117;--surface:#191c2a;--border:#2a2f45;--text:#e8eaf0;--muted:#8892a4;--sh:0 1px 3px rgba(0,0,0,.4);--sh-md:0 4px 12px rgba(0,0,0,.5)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);font-weight:300;background:var(--bg);color:var(--text);line-height:1.65;transition:background .2s,color .2s}
@@ -22,14 +22,14 @@ a{color:var(--primary)}[data-theme="dark"] a{color:#7b8cde}
 #loading.hidden{display:none}
 .spinner{width:32px;height:32px;border:3px solid rgba(255,255,255,.25);border-top-color:var(--accent);border-radius:50%;animation:spin .75s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-header{background:var(--primary);position:sticky;top:0;z-index:200;box-shadow:var(--sh-md)}
+header{background:var(--header-bg);position:sticky;top:0;z-index:200;box-shadow:var(--sh-md)}
 .hdr{max-width:1280px;margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;gap:1rem}
 .logo-wrap{flex-shrink:0;line-height:0}
 #site-logo{display:none;height:auto}
 .hdr-text{flex:1;min-width:0}
-.hdr-text h1{font-size:1.05rem;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hdr-text p{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:.1rem}
-#theme-btn{flex-shrink:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.35rem .85rem;border-radius:var(--r);cursor:pointer;font-size:.8rem;font-family:var(--font);white-space:nowrap;transition:background .15s}
+.hdr-text h1{font-size:1.05rem;font-weight:600;color:var(--header-title-color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-text p{font-size:.75rem;color:var(--header-subtitle-color);margin-top:.1rem}
+#theme-btn{flex-shrink:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:var(--header-title-color);padding:.35rem .85rem;border-radius:var(--r);cursor:pointer;font-size:.8rem;font-family:var(--font);white-space:nowrap;transition:background .15s}
 #theme-btn:hover{background:rgba(255,255,255,.22)}
 .filters-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:.6rem 1.5rem}
 .filters-inner{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center}
@@ -61,9 +61,17 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem}
 .g1{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-bottom:1.25rem}
 @media(max-width:760px){.g2{grid-template-columns:1fr}}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;box-shadow:var(--sh)}
-.card-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.9rem}
+.card-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.9rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.chart-expand-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:.1rem .15rem;line-height:1;flex-shrink:0;opacity:.45;transition:opacity .15s}
+.chart-expand-btn:hover{opacity:1}
+.chart-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;display:flex;align-items:center;justify-content:center}
+.chart-modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 12px 40px rgba(0,0,0,.4);padding:1.25rem;width:92vw;max-width:1400px}
+.chart-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.chart-modal-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.chart-modal-close{background:none;border:1px solid var(--border);cursor:pointer;color:var(--muted);font-size:.75rem;padding:.25rem .65rem;border-radius:var(--r);font-family:var(--font)}
+.chart-modal-close:hover{border-color:var(--primary);color:var(--text)}
 .chart-wrap{position:relative;height:270px}
-.map-wrap{height:320px;border-radius:4px;overflow:hidden}
+.map-wrap{height:480px;border-radius:4px;overflow:hidden}
 .sankey-wrap{min-height:200px;overflow:visible}
 .nat-picker-wrap{position:relative;margin-bottom:.75rem}
 .nat-picker-btn{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:.3rem .75rem;font-size:.78rem;color:var(--text);cursor:pointer;font-family:var(--font)}
@@ -87,10 +95,12 @@ table{width:100%;border-collapse:collapse;font-size:.82rem}
 th{padding:.55rem .9rem;text-align:left;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap;background:var(--surface)}
 th.num{text-align:right}
 td{padding:.55rem .9rem;border-bottom:1px solid var(--border);vertical-align:middle}
+#tbl-dep td{vertical-align:top}
 tbody tr:hover td{background:color-mix(in srgb,var(--primary) 4%,transparent)}
 td.num{text-align:right;font-family:var(--mono);font-size:.78rem}
 tfoot td{font-weight:600;border-top:2px solid var(--border);border-bottom:none}
 tfoot td.num{font-family:var(--mono);font-size:.78rem;text-align:right}
+tfoot .row-sub td{font-weight:300;border-top:none;}
 .yr-grp{text-align:center;background:color-mix(in srgb,var(--primary) 6%,var(--surface));font-weight:600;color:var(--muted)}
 .sticky-col{position:sticky;left:0;background:var(--surface);z-index:1}
 tbody tr:hover .sticky-col{background:color-mix(in srgb,var(--primary) 4%,var(--surface))}
@@ -110,13 +120,39 @@ tbody tr:hover .sticky-col{background:color-mix(in srgb,var(--primary) 4%,var(--
 footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25rem 1.5rem;margin-top:1.5rem}
 .ftr{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:space-between;align-items:center;font-size:.76rem;color:var(--muted)}
 .empty{padding:2.5rem;text-align:center;color:var(--muted);font-size:.85rem}
-@media(max-width:600px){.hdr{padding:.6rem 1rem}main{padding:1rem}.tab-btn{padding:.7rem .8rem;font-size:.78rem}}
+@media(max-width:600px){
+  header{position:static}
+  .hdr{flex-wrap:wrap;align-items:center;gap:.5rem .75rem;padding:.75rem 1rem}
+  .logo-wrap{order:0}
+  #theme-btn{order:1;margin-left:auto}
+  .hdr-text{order:2;width:100%;flex:none;margin-top:.1rem}
+  .hdr-text h1{white-space:normal;overflow:visible;text-overflow:clip}
+  main{padding:1rem}
+  .tab-btn{padding:.7rem .8rem;font-size:.78rem}
+}
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1rem}
+.popup-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 12px 40px rgba(0,0,0,.35);max-width:560px;width:100%;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column}
+.popup-head{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.25rem .85rem;border-bottom:1px solid var(--border)}
+.popup-head h2{font-size:.95rem;font-weight:600;color:var(--text);margin:0}
+.popup-close-x{background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.1rem;line-height:1;padding:.15rem .3rem;border-radius:3px}
+.popup-close-x:hover{color:var(--text)}
+.popup-body{padding:1rem 1.25rem;font-size:.875rem;line-height:1.65;color:var(--text);flex:1}
+.popup-foot{padding:.5rem 1.25rem 1.1rem;display:flex;justify-content:flex-end}
+.popup-close-btn{background:var(--accent);border:none;color:#333;padding:.45rem 1.35rem;border-radius:var(--r);cursor:pointer;font-size:.85rem;font-weight:600;font-family:var(--font);transition:filter .12s}
+.popup-close-btn:hover{filter:brightness(.9)}
+.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!important}
+.yr-grp.col-stripe{background:color-mix(in srgb,var(--primary) 3%,var(--surface))!important}
+tbody tr:hover td.col-stripe{background:color-mix(in srgb,var(--primary) 4%,transparent)!important}
+tfoot td.col-stripe{background:color-mix(in srgb,var(--primary) 2%,var(--bg))!important}
+.inl-delta{display:block;font-size:.72rem;font-family:var(--mono);margin-top:.1rem;color:var(--muted)}
+.inl-delta.up{color:#5ba888}.inl-delta.dn{color:#c97878}
   </style>
 </head>
 <body>
 
 <div id="loading"><div class="spinner"></div><p>Loading data…</p></div>
 
+<!-- §HEADER -->
 <header>
   <div class="hdr">
     <div class="logo-wrap"><img id="site-logo" alt=""></div>
@@ -128,6 +164,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25
   </div>
 </header>
 
+<!-- §FILTERS BAR -->
 <div class="filters-bar">
   <div class="filters-inner">
     <div class="fl">
@@ -139,9 +176,9 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25
     <div class="fl">
       <span class="fl-label">Myanmar</span>
       <div class="seg">
-        <button class="seg-btn active" data-mmr="exclude" onclick="setMyanmar('exclude')">Exclude</button>
-        <button class="seg-btn" data-mmr="only" onclick="setMyanmar('only')">Only</button>
-        <button class="seg-btn" data-mmr="all" onclick="setMyanmar('all')">All</button>
+        <button class="seg-btn active" data-mmr="exclude" onclick="setMyanmar('exclude')">Excluded</button>
+        <button class="seg-btn" data-mmr="all" onclick="setMyanmar('all')">Included</button>
+        <button class="seg-btn" data-mmr="only" onclick="setMyanmar('only')">Myanmar only</button>
       </div>
     </div>
   </div>
@@ -150,28 +187,30 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25
   Showing Myanmar only — persons from Myanmar are subject to a separate national protection regime under Thai law and are not processed under UNHCR mandate procedures.
 </div>
 
+<!-- §TAB NAV -->
 <nav class="tab-nav">
   <div class="tab-nav-inner">
-    <button class="tab-btn active" data-tab="poc" onclick="setTab('poc')">Refugees &amp; asylum-seekers</button>
+    <button class="tab-btn active" data-tab="poc" onclick="setTab('poc')">Population</button>
     <button class="tab-btn" data-tab="applications" onclick="setTab('applications')">Asylum applications</button>
     <button class="tab-btn" data-tab="decisions" onclick="setTab('decisions')">Asylum decisions</button>
-    <button class="tab-btn" data-tab="departures" onclick="setTab('departures')">Resettlement departures</button>
     <button class="tab-btn" data-tab="submissions" onclick="setTab('submissions')">Resettlement submissions</button>
+    <button class="tab-btn" data-tab="departures" onclick="setTab('departures')">Resettlement departures</button>
   </div>
 </nav>
 
+<!-- §MAIN PANELS -->
 <main>
 
 <section class="tab-panel active" id="tab-poc">
   <div class="sec-head">
-    <h2>Refugees &amp; asylum-seekers</h2>
+    <h2>Population</h2>
     <p>Persons of concern in Thailand by year and nationality. Stateless persons and Myanmar nationals are excluded by default.</p>
     <div class="accent-bar"></div>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">By year</p><div class="chart-wrap"><canvas id="c-poc-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By year</span><button class="chart-expand-btn" onclick="popOutChart('c-poc-year','By year')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-poc-year"></canvas></div></div>
     <div class="card">
-      <p class="card-title">Trends by nationality</p>
+      <p class="card-title"><span>Trends by nationality</span><button class="chart-expand-btn" onclick="popOutChart('c-poc-trend','Trends by nationality')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p>
       <div class="nat-picker-wrap">
         <button class="nat-picker-btn" id="nat-picker-btn" onclick="toggleNatPicker()">Select countries ▾</button>
         <div class="nat-picker-list" id="nat-picker-list"></div>
@@ -190,10 +229,11 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25
     <div class="accent-bar"></div>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">By year and type</p><div class="chart-wrap"><canvas id="c-app-year"></canvas></div></div>
-    <div class="card"><p class="card-title">By nationality (total)</p><div class="chart-wrap"><canvas id="c-app-nat"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By year and type</span><button class="chart-expand-btn" onclick="popOutChart('c-app-year','By year and type')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-app-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By nationality (total over chosen period)</span><button class="chart-expand-btn" onclick="popOutChart('c-app-nat','By nationality (total over chosen period)')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap" style="height:320px"><canvas id="c-app-nat"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-app"></div>
+  <div class="footnotes" id="fn-app"></div>
 </section>
 
 <section class="tab-panel" id="tab-decisions">
@@ -202,11 +242,17 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25
     <p>Outcomes of asylum procedures in Thailand. Click a country row to see procedure-level detail.</p>
     <div class="accent-bar"></div>
   </div>
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;margin-bottom:.75rem">
+    <div id="dec-chart-picker-wrap" class="nat-picker-wrap" style="margin-bottom:0"></div>
+    <div id="dec-level-picker-wrap" class="nat-picker-wrap" style="margin-bottom:0"></div>
+    <label style="display:flex;align-items:center;gap:.4rem;font-size:.8rem;cursor:pointer"><input type="checkbox" id="dec-excl-closed-cb" checked onchange="onDecExclClosedCb()" style="cursor:pointer;accent-color:var(--primary)">Include closed and "other" decisions when calculating totals and recognition rates</label>
+  </div>
   <div class="g2">
-    <div class="card"><p class="card-title">Outcomes by year</p><div class="chart-wrap"><canvas id="c-dec-year"></canvas></div></div>
-    <div class="card"><p class="card-title">Recognition rate by year (%)</p><div class="chart-wrap"><canvas id="c-dec-rate"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Outcomes by year</span><button class="chart-expand-btn" onclick="popOutChart('c-dec-year','Outcomes by year')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dec-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Recognition rate by year (%)</span><button class="chart-expand-btn" onclick="popOutChart('c-dec-rate','Recognition rate by year (%)')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dec-rate"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-dec"></div>
+  <div class="footnotes" id="fn-dec"></div>
 </section>
 
 <section class="tab-panel" id="tab-departures">
@@ -216,11 +262,11 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25
     <div class="accent-bar"></div>
   </div>
   <div class="g1">
-    <div class="card"><p class="card-title">Origin → destination flow</p><div class="sankey-wrap" id="sankey-dep"></div></div>
+    <div class="card"><p class="card-title"><span>Origin → destination flow</span><button class="chart-expand-btn" onclick="popOutChart('c-dep-flow','Origin → destination flow')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div id="dep-flow-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap" style="height:380px"><canvas id="c-dep-flow"></canvas></div></div>
   </div>
   <div class="g2">
-    <div class="card"><p class="card-title">By year and origin</p><div class="chart-wrap"><canvas id="c-dep-year"></canvas></div></div>
-    <div class="card"><p class="card-title">By destination country</p><div class="chart-wrap"><canvas id="c-dep-dest"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By year and origin</span><button class="chart-expand-btn" onclick="popOutChart('c-dep-year','By year and origin')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dep-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>By destination country and origin across chosen period</span><button class="chart-expand-btn" onclick="popOutChart('c-dep-dest','By destination country and origin across chosen period')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div class="chart-wrap"><canvas id="c-dep-dest"></canvas></div></div>
   </div>
   <div class="g1">
     <div class="card"><p class="card-title">Destination map — bubble size proportional to volume</p><div class="map-wrap" id="map-dep"></div></div>
@@ -236,7 +282,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25
     <div class="accent-bar"></div>
   </div>
   <div class="g1">
-    <div class="card"><p class="card-title">Annual submissions by origin</p><div class="chart-wrap"><canvas id="c-sub-year"></canvas></div></div>
+    <div class="card"><p class="card-title"><span>Annual submissions by origin</span><button class="chart-expand-btn" onclick="popOutChart('c-sub-year','Annual submissions by origin')" title="Expand chart"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 1h2.5v2.5M3.5 9H1V6.5M9 1L5.5 4.5M1 9l3.5-3.5"/></svg></button></p><div id="sub-picker-wrap" class="nat-picker-wrap" style="margin-bottom:.75rem"></div><div class="chart-wrap"><canvas id="c-sub-year"></canvas></div></div>
   </div>
   <div class="tbl-card" id="tbl-sub"></div>
   <div class="footnotes" id="fn-sub"></div>
@@ -244,11 +290,13 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:1.25
 
 </main>
 
+<!-- §FOOTER -->
 <footer><div class="ftr"><span id="footer-cite"></span><span id="footer-range"></span></div></footer>
 
 <script>
 'use strict';
 
+// §CONSTANTS & STATE
 const CC=['#6b77c7','#e0a835','#5ba888','#c97878','#9580cc','#5aaac4','#cc8850','#88b840','#c07090','#7090a8','#a09060','#60b0a0','#b07a5a','#5080b0','#a85080'];
 const DEST_COORDS={AUS:[-25.27,133.77],CAN:[56.13,-106.35],USA:[37.09,-95.71],NZL:[-40.90,174.89],GBR:[55.38,-3.44],NOR:[60.47,8.47],FIN:[61.92,25.75],NLD:[52.13,5.29],SWE:[60.13,18.64],JPN:[36.20,138.25],KOR:[35.91,127.77]};
 
@@ -256,12 +304,21 @@ let cfg={},raw={};
 const charts={},maps={};
 let activeTab='poc';
 const F={myanmar:'exclude',yearMin:null,yearMax:null};
-let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false;
+let pocPickerBuilt=false,showPocDelta=false,showDecDelta=false,showDepDelta=false;
+let showAppDelta=false;
+let decView='totals',decChartBuilt=false,decChartSel=null,decLevelSel=null,decExclClosed=false;
+const openRows=new Set();
+let depFlowBuilt=false,depFlowSel=null;
+let subPickerBuilt=false,subChartSel=null;
+let tblSort={poc:'tot-desc',app:'tot-desc',dec:'tot-desc',dep:'tot-desc',sub:'tot-desc'};
+let _chartModalOv=null;
 
+// §INIT
 async function init(){
   try{
     cfg=await loadConfig();
     applyConfig();
+    showPopup();
     await loadData();
     buildYearSelectors();
     renderAll();
@@ -281,6 +338,11 @@ function applyConfig(){
   const org=cfg.organisation||{},col=cfg.colours||{},fnt=cfg.fonts||{},cit=cfg.citation||{};
   if(col.primary)document.documentElement.style.setProperty('--primary',col.primary);
   if(col.accent)document.documentElement.style.setProperty('--accent',col.accent);
+  function hc(v){if(!v)return null;const m={primary:'var(--primary)',accent:'var(--accent)',white:'#ffffff',black:'#000000',mutedlight:'rgba(255,255,255,.6)',muteddark:'var(--muted)'};return m[v]!==undefined?m[v]:v;}
+  const hBg=hc(col.header_background),hTi=hc(col.header_title),hSu=hc(col.header_subtitle);
+  if(hBg)document.documentElement.style.setProperty('--header-bg',hBg);
+  if(hTi)document.documentElement.style.setProperty('--header-title-color',hTi);
+  if(hSu)document.documentElement.style.setProperty('--header-subtitle-color',hSu);
   if(fnt.body||fnt.mono){
     const bs=(fnt.body||'IBM Plex Sans').toLowerCase().replace(/\s+/g,'-');
     const ms=(fnt.mono||'IBM Plex Mono').toLowerCase().replace(/\s+/g,'-');
@@ -296,11 +358,43 @@ function applyConfig(){
     const p=(org.logo_padding||0)+'px';img.style.margin=p;
   }
   if(org.name)document.getElementById('org-name').textContent=org.name;
-  let c='Source: ';
-  c+=cit.source_url?'<a href="'+cit.source_url+'" target="_blank" rel="noopener">'+(cit.source_name||'UNHCR')+'</a>':(cit.source_name||'UNHCR');
-  if(cit.processed_by)c+=' · Processed by '+cit.processed_by;
-  if(cit.methodology_url)c+=' · <a href="'+cit.methodology_url+'" target="_blank" rel="noopener">Methodology</a>';
+  if(org.subtitle!==undefined)document.getElementById('hdr-sub').textContent=org.subtitle;
+  const ftrEls=(cfg.footer||{}).elements;
+  let c;
+  if(ftrEls&&ftrEls.length){
+    c=ftrEls.join(' · ');
+  } else {
+    c='Source: ';
+    c+=cit.source_url?'<a href="'+cit.source_url+'" target="_blank" rel="noopener">'+(cit.source_name||'UNHCR')+'</a>':(cit.source_name||'UNHCR');
+    if(cit.processed_by)c+=' · Processed by '+cit.processed_by;
+    if(cit.methodology_url)c+=' · <a href="'+cit.methodology_url+'" target="_blank" rel="noopener">Methodology</a>';
+  }
   document.getElementById('footer-cite').innerHTML=c;
+}
+
+function mdToHtml(md){
+  if(!md)return'';
+  return md.split(/\n{2,}/).map(p=>{
+    let s=p.trim();
+    s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    s=s.replace(/\*(.+?)\*/g,'<em>$1</em>');
+    s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+    s=s.replace(/\n/g,'<br>');
+    return'<p>'+s+'</p>';
+  }).join('');
+}
+function showPopup(){
+  const p=cfg.popup;if(!p||(!p.title&&!p.body))return;
+  const ov=document.createElement('div');ov.className='popup-overlay';
+  ov.innerHTML='<div class="popup-box" role="dialog" aria-modal="true">'
+    +'<div class="popup-head"><h2>'+(p.title||'')+'</h2>'
+    +'<button class="popup-close-x" onclick="this.closest(\'.popup-overlay\').remove()" aria-label="Close">✕</button></div>'
+    +'<div class="popup-body">'+mdToHtml(p.body||'')+'</div>'
+    +'<div class="popup-foot"><button class="popup-close-btn" onclick="this.closest(\'.popup-overlay\').remove()">Close</button></div>'
+    +'</div>';
+  document.body.appendChild(ov);
+  ov.addEventListener('click',e=>{if(e.target===ov)ov.remove();});
+  ov.addEventListener('keydown',e=>{if(e.key==='Escape')ov.remove();});
 }
 
 async function loadData(){
@@ -324,6 +418,7 @@ async function loadData(){
   if(yrs.length)document.getElementById('footer-range').textContent='Data: '+yrs[0]+'–'+yrs[yrs.length-1];
 }
 
+// §FILTERS & UTILS
 function filter(rows){
   return rows.filter(r=>{
     const iso=r['Country of Origin ISO']||'';
@@ -348,6 +443,7 @@ function pctChange(cur,prev){if(!prev)return null;const v=(cur-prev)/prev*100;re
 function pctClass(s){if(!s)return'';return s.startsWith('+')?'delta up':'delta dn';}
 function safeKey(s){return(s||'').replace(/[^a-zA-Z0-9]/g,'_');}
 
+// §UI CONTROLS
 function buildYearSelectors(){
   const years=allYears();if(!years.length)return;
   F.yearMin=parseInt(years[0]);F.yearMax=parseInt(years[years.length-1]);
@@ -369,7 +465,7 @@ function setTab(tab){
   renderAll();
 }
 function setMyanmar(val){
-  F.myanmar=val;pocPickerBuilt=false;
+  F.myanmar=val;pocPickerBuilt=false;decChartBuilt=false;depFlowBuilt=false;subPickerBuilt=false;
   document.querySelectorAll('.seg-btn[data-mmr]').forEach(b=>b.classList.toggle('active',b.dataset.mmr===val));
   document.getElementById('ctx-banner').classList.toggle('on',val==='only');
   renderAll();
@@ -382,6 +478,7 @@ function toggleTheme(){
   renderAll();
 }
 
+// §POC NAT PICKER
 function buildNatPicker(rows){
   const byNat={};
   rows.forEach(r=>{const k=r['Country of Origin'];byNat[k]=(byNat[k]||0)+n(r['Refugees'])+n(r['Asylum-seekers']);});
@@ -401,6 +498,7 @@ document.addEventListener('click',e=>{
   if(l&&l.classList.contains('open')&&!l.contains(e.target)&&e.target!==b){l.classList.remove('open');b.textContent='Select countries ▾';}
 });
 
+// §CHART HELPERS
 function td(){
   const dark=document.documentElement.getAttribute('data-theme')==='dark';
   return{grid:dark?'rgba(255,255,255,.07)':'rgba(0,0,0,.06)',tick:dark?'#8892a4':'#64748b',tipBg:dark?'#191c2a':'#fff',tipTx:dark?'#e8eaf0':'#1a1a2e',tipBd:dark?'#2a2f45':'#e2e8f0'};
@@ -413,7 +511,7 @@ function mkChart(id,type,data,extra){
   const opts={responsive:true,maintainAspectRatio:false,
     plugins:{legend:{labels:{color:t.tick,font:{size:11},boxWidth:11,boxHeight:11,padding:10}},
              tooltip:{backgroundColor:t.tipBg,titleColor:t.tipTx,bodyColor:t.tipTx,borderColor:t.tipBd,borderWidth:1,
-                      callbacks:{label:ctx=>' '+(ctx.dataset.label||'')+': '+Number(ctx.parsed.y??ctx.parsed??0).toLocaleString()}}},
+                      callbacks:{label:ctx=>{const v=ctx.chart.options.indexAxis==='y'?ctx.parsed.x:(ctx.parsed.y??ctx.raw??0);return' '+(ctx.dataset.label||'')+': '+Number(v??0).toLocaleString();}}}},
     scales:(type!=='pie'&&type!=='doughnut')?bs:undefined};
   if(extra){
     if(extra.scales){
@@ -426,6 +524,7 @@ function mkChart(id,type,data,extra){
   charts[id]=new Chart(el,{type,data,options:opts});
 }
 
+// §TABLE HELPERS
 function dlCSV(tId,name){
   const t=document.getElementById(tId+'-t');if(!t)return;
   const rows=[...t.querySelectorAll('tr')].map(tr=>[...tr.querySelectorAll('th,td')].map(c=>{const cl=c.cloneNode(true);cl.querySelectorAll('.tag-unk,.exp-icon,.delta').forEach(s=>s.remove());return'"'+cl.textContent.trim().replace(/"/g,'""')+'"';}).join(','));
@@ -439,8 +538,40 @@ function toggleSubRows(key){
   const opening=rows[0]&&rows[0].style.display==='none';
   rows.forEach(r=>r.style.display=opening?'':'none');
   if(icon)icon.classList.toggle('open',opening);
+  opening?openRows.add(key):openRows.delete(key);
+}
+function restoreOpenRows(){
+  openRows.forEach(key=>{
+    const rows=document.querySelectorAll('.row-sub[data-parent="'+key+'"]');
+    if(!rows.length)return;
+    rows.forEach(r=>r.style.display='');
+    const icon=document.getElementById('icon-'+key);
+    if(icon)icon.classList.add('open');
+  });
 }
 
+// §SORT HELPERS
+function sortTable(arr,getKey,getTot,order){
+  if(order==='tot-asc')return arr.slice().sort((a,b)=>getTot(a)-getTot(b));
+  if(order==='az')return arr.slice().sort((a,b)=>dispOrigin(getKey(a)).localeCompare(dispOrigin(getKey(b))));
+  if(order==='za')return arr.slice().sort((a,b)=>dispOrigin(getKey(b)).localeCompare(dispOrigin(getKey(a))));
+  return arr;
+}
+function sortSelect(id){
+  const v=tblSort[id];
+  const opts=[['tot-desc','Totals high to low'],['tot-asc','Totals low to high'],['az','A-Z'],['za','Z-A']];
+  return '<select onchange="setTblSort(\''+id+'\',this.value)" style="font-size:.72rem;padding:.2rem .45rem">'+opts.map(([val,lbl])=>'<option value="'+val+'"'+(v===val?' selected':'')+'>'+lbl+'</option>').join('')+'</select>';
+}
+function setTblSort(id,val){
+  tblSort[id]=val;
+  if(id==='poc'){const rows=filter(raw.poc||[]);renderPocTable(rows,yearsIn(rows));}
+  else if(id==='app')renderApplications();
+  else if(id==='dec'){const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
+  else if(id==='dep'){const rows=filter(raw.departures||[]);renderDepTable(rows,yearsIn(rows));}
+  else if(id==='sub')renderSubmissions();
+}
+
+// §MAP HELPERS
 function makeTileLayer(m){
   const dark=document.documentElement.getAttribute('data-theme')==='dark';
   const url=dark?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png':'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
@@ -462,54 +593,8 @@ function renderMap(divId,destData){
   });
 }
 
-function renderSankey(cid,flows){
-  const el=document.getElementById(cid);if(!el)return;
-  const agg={};
-  flows.forEach(f=>{const k=f.from+'||'+f.to;if(!agg[k])agg[k]={from:f.from,to:f.to,value:0};agg[k].value+=f.value;});
-  const data=Object.values(agg).filter(f=>f.value>0);
-  if(!data.length){el.innerHTML='<p class="empty">No data for current filters.</p>';return;}
-  const W=800,H=280,nW=14,padL=165,padR=175,padT=12,padB=12,GAP=10;
-  const dark=document.documentElement.getAttribute('data-theme')==='dark';
-  const textCol=dark?'#8892a4':'#555e78';
-  const fromTot={},toTot={};
-  data.forEach(d=>{fromTot[d.from]=(fromTot[d.from]||0)+d.value;toTot[d.to]=(toTot[d.to]||0)+d.value;});
-  const grand=Object.values(fromTot).reduce((s,v)=>s+v,0);if(!grand)return;
-  const useH=H-padT-padB;
-  function posNodes(map,x){
-    const items=Object.entries(map).sort((a,b)=>b[1]-a[1]);
-    const fH=useH-GAP*(items.length-1);
-    let y=padT;
-    return items.map(([name,val],i)=>{const h=Math.max(2,(val/grand)*fH);const nd={name,val,x,y0:y,y1:y+h,color:CC[i%CC.length]};y+=h+GAP;return nd;});
-  }
-  const fromNodes=posNodes(fromTot,padL-nW);
-  const dstColor=dark?'#3a4060':'#b0bcd0';
-  const toNodes=posNodes(toTot,W-padR);toNodes.forEach(n=>n.color=dstColor);
-  const srcY=Object.fromEntries(fromNodes.map(n=>[n.name,n.y0]));
-  const dstY=Object.fromEntries(toNodes.map(n=>[n.name,n.y0]));
-  const flowH=useH-GAP*(Math.max(fromNodes.length,toNodes.length)-1);
-  const toOrder=Object.fromEntries(toNodes.map((n,i)=>[n.name,i]));
-  data.sort((a,b)=>(toOrder[a.to]||0)-(toOrder[b.to]||0));
-  let paths='',rects='',lbls='';
-  data.forEach(link=>{
-    const sn=fromNodes.find(n=>n.name===link.from),dn=toNodes.find(n=>n.name===link.to);if(!sn||!dn)return;
-    const lh=Math.max(1,(link.value/grand)*flowH);
-    const x0=sn.x+nW,x1=dn.x,y0a=srcY[link.from],y0b=y0a+lh,y1a=dstY[link.to],y1b=y1a+lh;
-    srcY[link.from]+=lh;dstY[link.to]+=lh;
-    const cx=x0+(x1-x0)*.5;
-    const d='M'+x0+','+y0a+' C'+cx+','+y0a+' '+cx+','+y1a+' '+x1+','+y1a+' L'+x1+','+y1b+' C'+cx+','+y1b+' '+cx+','+y0b+' '+x0+','+y0b+' Z';
-    paths+='<path d="'+d+'" fill="'+sn.color+'" fill-opacity="'+(dark?.28:.18)+'"><title>'+link.from+' \u2192 '+link.to+': '+link.value.toLocaleString()+'</title></path>';
-  });
-  fromNodes.forEach(n=>{
-    rects+='<rect x="'+n.x+'" y="'+n.y0+'" width="'+nW+'" height="'+(n.y1-n.y0)+'" fill="'+n.color+'" rx="2"/>';
-    lbls+='<text x="'+(n.x-6)+'" y="'+((n.y0+n.y1)/2)+'" text-anchor="end" dominant-baseline="middle" font-size="11" font-family="IBM Plex Sans,sans-serif" fill="'+textCol+'">'+n.name+'</text>';
-  });
-  toNodes.forEach(n=>{
-    rects+='<rect x="'+n.x+'" y="'+n.y0+'" width="'+nW+'" height="'+(n.y1-n.y0)+'" fill="'+n.color+'" rx="2"/>';
-    lbls+='<text x="'+(n.x+nW+6)+'" y="'+((n.y0+n.y1)/2)+'" text-anchor="start" dominant-baseline="middle" font-size="11" font-family="IBM Plex Sans,sans-serif" fill="'+textCol+'">'+n.name+'</text>';
-  });
-  el.innerHTML='<svg width="100%" viewBox="0 0 '+W+' '+H+'" style="overflow:visible;display:block">'+paths+rects+lbls+'</svg>';
-}
 
+// §RENDER DISPATCH
 function renderAll(){
   if(activeTab==='poc')renderPOC();
   if(activeTab==='applications')renderApplications();
@@ -518,6 +603,7 @@ function renderAll(){
   if(activeTab==='submissions')renderSubmissions();
 }
 
+// §POC
 function renderPOC(){
   const rows=filter(raw.poc||[]),years=yearsIn(rows);
   mkChart('c-poc-year','bar',{labels:years,datasets:[
@@ -532,6 +618,7 @@ function renderPOC(){
   let fn='<h4>Notes</h4><p>Stateless persons are excluded throughout.</p>';
   if(ooc>0)fn+='<p>"Others of concern" ('+ooc.toLocaleString()+' persons across the selected period) are excluded from totals above. This UNHCR category covers people who likely need international protection but are not formally classified as refugees or asylum-seekers. See <a href="'+methUrl+'" target="_blank" rel="noopener">UNHCR methodology</a>.</p>';
   const noteText=(cfg.citation||{}).note||'';if(noteText)fn+='<p>'+noteText+'</p>';
+  const pocExtra=(cfg.notes||{}).poc||'';if(pocExtra)fn+='<p>'+pocExtra+'</p>';
   document.getElementById('fn-poc').innerHTML=fn;
 }
 
@@ -555,41 +642,63 @@ function renderPocTable(rows,years){
     if(!natMap[k][r.Year])natMap[k][r.Year]={ref:0,asy:0};
     natMap[k][r.Year].ref+=n(r['Refugees']);natMap[k][r.Year].asy+=n(r['Asylum-seekers']);
   });
-  const sorted=Object.entries(natMap).map(([k,yrs])=>({k,yrs,tot:Object.values(yrs).reduce((s,v)=>s+v.ref+v.asy,0)})).sort((a,b)=>b.tot-a.tot);
-  const cols=showPocDelta?4:3;
+  const _pocUnsorted=Object.entries(natMap).map(([k,yrs])=>({k,yrs,tot:Object.values(yrs).reduce((s,v)=>s+v.ref+v.asy,0)})).sort((a,b)=>b.tot-a.tot);
+  const sorted=sortTable(_pocUnsorted,d=>d.k,d=>d.tot,tblSort.poc);
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
-  let html='<div class="tbl-head"><h3>Population figures</h3><div class="tbl-actions"><button class="btn-sm'+(showPocDelta?' on':'')+'" onclick="togglePocDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-poc\',\'population-figures\')">↓ CSV</button></div></div>';
-  html+='<div class="tbl-scroll"><table id="tbl-poc-t"><thead><tr><th class="sticky-col" rowspan="2">Country</th>';
-  years.forEach(y=>{html+='<th class="yr-grp" colspan="'+cols+'">'+y+'</th>';});
+  let html='<div class="tbl-head"><h3>Population</h3><div class="tbl-actions"><button class="btn-sm'+(showPocDelta?' on':'')+'" onclick="togglePocDelta()">Δ% change</button>'+sortSelect('poc')+'<button class="btn-sm" onclick="dlCSV(\'tbl-poc\',\'population-figures\')">↓ CSV</button></div></div>';
+  html+='<div class="tbl-scroll"><table id="tbl-poc-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
+  years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="3">'+y+'</th>';});
   html+='</tr><tr>';
-  years.forEach(()=>{html+='<th class="num">Refugees</th><th class="num">Asylum-seekers</th><th class="num">Total</th>'+(showPocDelta?'<th class="num">Δ%</th>':'');});
+  years.forEach((y,yi)=>{
+    const sc=yi%2===0?' col-stripe':'';
+    html+='<th class="num'+sc+'" style="min-width:5.5rem">Refugees</th><th class="num'+sc+'" style="min-width:5.5rem">Asylum-seekers</th><th class="num'+sc+'" style="min-width:5.5rem">Total</th>';
+  });
   html+='</tr></thead><tbody>';
   sorted.forEach(({k,yrs})=>{
     html+='<tr><td class="sticky-col">'+dispOrigin(k)+(unk(k)?'<span class="tag-unk" title="'+unkNote+'">?</span>':'')+'</td>';
     years.forEach((y,yi)=>{
+      const sc=yi%2===0?' col-stripe':'';
       const cur=yrs[y]||{ref:0,asy:0},curT=cur.ref+cur.asy;
-      const prev=yi>0?(yrs[years[yi-1]]||{ref:0,asy:0}):null,prevT=prev?prev.ref+prev.asy:null;
-      const d=showPocDelta?pctChange(curT,prevT):null;
-      html+='<td class="num">'+(cur.ref||'—')+'</td><td class="num">'+(cur.asy||'—')+'</td><td class="num">'+(curT||'—')+'</td>';
-      if(showPocDelta)html+='<td class="num"><span class="'+pctClass(d)+'">'+(d||'—')+'</span></td>';
+      if(showPocDelta&&yi>0){
+        const prev=yrs[years[yi-1]]||{ref:0,asy:0},prevT=prev.ref+prev.asy;
+        const dR=pctChange(cur.ref,prev.ref),dA=pctChange(cur.asy,prev.asy),dT=pctChange(curT,prevT);
+        html+='<td class="num'+sc+'"><span class="'+pctClass(dR)+'">'+(dR||'—')+'</span></td>';
+        html+='<td class="num'+sc+'"><span class="'+pctClass(dA)+'">'+(dA||'—')+'</span></td>';
+        html+='<td class="num'+sc+'"><span class="'+pctClass(dT)+'">'+(dT||'—')+'</span></td>';
+      } else if(showPocDelta){
+        html+='<td class="num'+sc+'">—</td><td class="num'+sc+'">—</td><td class="num'+sc+'">—</td>';
+      } else {
+        html+='<td class="num'+sc+'">'+(cur.ref?cur.ref.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cur.asy?cur.asy.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(curT?curT.toLocaleString():'—')+'</td>';
+      }
     });
     html+='</tr>';
   });
   html+='<tfoot><tr><td class="sticky-col">Total</td>';
   years.forEach((y,yi)=>{
+    const sc=yi%2===0?' col-stripe':'';
     const cR=sorted.reduce((s,{yrs:yr})=>s+(yr[y]||{ref:0}).ref,0);
     const cA=sorted.reduce((s,{yrs:yr})=>s+(yr[y]||{asy:0}).asy,0);
     const cT=cR+cA;
-    const pT=yi>0?sorted.reduce((s,{yrs:yr})=>s+(yr[years[yi-1]]||{ref:0,asy:0}).ref+(yr[years[yi-1]]||{ref:0,asy:0}).asy,0):null;
-    const d=showPocDelta?pctChange(cT,pT):null;
-    html+='<td class="num">'+cR.toLocaleString()+'</td><td class="num">'+cA.toLocaleString()+'</td><td class="num">'+cT.toLocaleString()+'</td>';
-    if(showPocDelta)html+='<td class="num"><span class="'+pctClass(d)+'">'+(d||'—')+'</span></td>';
+    if(showPocDelta&&yi>0){
+      const pR=sorted.reduce((s,{yrs:yr})=>s+(yr[years[yi-1]]||{ref:0}).ref,0);
+      const pA=sorted.reduce((s,{yrs:yr})=>s+(yr[years[yi-1]]||{asy:0}).asy,0);
+      const pT=pR+pA;
+      const dR=pctChange(cR,pR),dA=pctChange(cA,pA),dT=pctChange(cT,pT);
+      html+='<td class="num'+sc+'"><span class="'+pctClass(dR)+'">'+(dR||'—')+'</span></td>';
+      html+='<td class="num'+sc+'"><span class="'+pctClass(dA)+'">'+(dA||'—')+'</span></td>';
+      html+='<td class="num'+sc+'"><span class="'+pctClass(dT)+'">'+(dT||'—')+'</span></td>';
+    } else if(showPocDelta){
+      html+='<td class="num'+sc+'">—</td><td class="num'+sc+'">—</td><td class="num'+sc+'">—</td>';
+    } else {
+      html+='<td class="num'+sc+'">'+cR.toLocaleString()+'</td><td class="num'+sc+'">'+cA.toLocaleString()+'</td><td class="num'+sc+'">'+cT.toLocaleString()+'</td>';
+    }
   });
   html+='</tr></tfoot></table></div>';
-  el.innerHTML=html;
+  el.innerHTML=html;restoreOpenRows();
 }
 function togglePocDelta(){showPocDelta=!showPocDelta;const rows=filter(raw.poc||[]);renderPocTable(rows,yearsIn(rows));}
 
+// §APPLICATIONS
 function renderApplications(){
   const rows=filter(raw.applications||[]),years=yearsIn(rows);
   mkChart('c-app-year','bar',{labels:years,datasets:[
@@ -597,34 +706,156 @@ function renderApplications(){
     {label:'Appeal',stack:'a',backgroundColor:CC[1],data:years.map(y=>rows.filter(r=>r.Year===y&&r['Application type']==='A').reduce((s,r)=>s+n(r['Applied']),0))},
     {label:'Repeat/reopened',stack:'a',backgroundColor:CC[2],data:years.map(y=>rows.filter(r=>r.Year===y&&r['Application type']==='R').reduce((s,r)=>s+n(r['Applied']),0))}
   ]},{scales:{x:{stacked:true},y:{stacked:true}}});
-  const byNat={};rows.forEach(r=>{const k=dispOrigin(r['Country of Origin']);byNat[k]=(byNat[k]||0)+n(r['Applied']);});
-  const sd=Object.entries(byNat).sort((a,b)=>b[1]-a[1]).slice(0,15);
-  mkChart('c-app-nat','bar',{labels:sd.map(d=>d[0]),datasets:[{label:'Applications',data:sd.map(d=>d[1]),backgroundColor:sd.map((_,i)=>CC[i%CC.length])}]},{indexAxis:'y',plugins:{legend:{display:false}}});
-  const nm={};rows.forEach(r=>{const k=r['Country of Origin'];if(!nm[k])nm[k]={N:0,A:0,R:0};nm[k][r['Application type']]=(nm[k][r['Application type']]||0)+n(r['Applied']);});
-  const tRows=Object.entries(nm).map(([k,v])=>({Country:dispOrigin(k),New:v.N||0,Appeal:v.A||0,'Repeat/reopened':v.R||0,Total:(v.N||0)+(v.A||0)+(v.R||0),_unk:unk(k)})).sort((a,b)=>b.Total-a.Total);
-  const f={Country:'Total',New:tRows.reduce((s,r)=>s+r.New,0),Appeal:tRows.reduce((s,r)=>s+r.Appeal,0),'Repeat/reopened':tRows.reduce((s,r)=>s+r['Repeat/reopened'],0),Total:tRows.reduce((s,r)=>s+r.Total,0)};
-  buildSimpleTable('tbl-app','Application detail',['Country','New','Appeal','Repeat/reopened','Total'],tRows,f,'asylum-applications');
-}
 
-function renderDecisions(){
+  const DL={FA:'First inst. & appeal',FI:'First instance',AR:'Appeal',RA:'Repeat/reopened'};
+  const byNatDL={};
+  rows.forEach(r=>{
+    const k=dispOrigin(r['Country of Origin']),dl=r['Decision level'];
+    if(!byNatDL[k])byNatDL[k]={FA:0,FI:0,AR:0,RA:0};
+    if(DL[dl]!==undefined)byNatDL[k][dl]+=n(r['Applied']);
+  });
+  const topNat=Object.entries(byNatDL).map(([k,v])=>({k,tot:Object.values(v).reduce((s,x)=>s+x,0)})).sort((a,b)=>b.tot-a.tot).slice(0,15).map(d=>d.k);
+  mkChart('c-app-nat','bar',{
+    labels:topNat,
+    datasets:Object.entries(DL).map(([dl,lbl],i)=>({
+      label:lbl,stack:'a',backgroundColor:CC[i%CC.length],
+      data:topNat.map(k=>(byNatDL[k]||{})[dl]||0)
+    }))
+  },{
+    indexAxis:'y',
+    scales:{x:{stacked:true},y:{stacked:true,ticks:{display:false},grid:{display:false}}}
+  });
+
+  // Table: Country | FA | FI | AR | RA | Total, expandable per-year sub-rows
+  const nm={};
+  rows.forEach(r=>{
+    const k=r['Country of Origin'],dl=r['Decision level'],y=r['Year'];
+    if(!nm[k])nm[k]={FA:0,FI:0,AR:0,RA:0,tot:0,byYear:{}};
+    if(DL[dl]!==undefined)nm[k][dl]+=n(r['Applied']);
+    nm[k].tot+=n(r['Applied']);
+    if(!nm[k].byYear[y])nm[k].byYear[y]={FA:0,FI:0,AR:0,RA:0,tot:0};
+    if(DL[dl]!==undefined)nm[k].byYear[y][dl]+=n(r['Applied']);
+    nm[k].byYear[y].tot+=n(r['Applied']);
+  });
+  const _appUnsorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const sorted=sortTable(_appUnsorted,d=>d[0],d=>d[1].tot,tblSort.app);
+  const el=document.getElementById('tbl-app');if(!el)return;
+  let html='<div class="tbl-head"><h3>Application details</h3><div class="tbl-actions"><button class="btn-sm'+(showAppDelta?' on':'')+'" onclick="toggleAppDelta()">Δ% change</button>'+sortSelect('app')+'<button class="btn-sm" onclick="dlCSV(\'tbl-app\',\'asylum-applications\')">↓ CSV</button></div></div>';
+  html+='<div class="tbl-scroll"><table id="tbl-app-t"><thead><tr><th>Country</th><th class="num">FA</th><th class="num">FI</th><th class="num">AR</th><th class="num">RA</th><th class="num">Total</th></tr></thead><tbody>';
+  sorted.forEach(([k,v])=>{
+    const sk=safeKey(k);
+    html+='<tr class="row-exp" onclick="toggleSubRows(\'app_'+sk+'\')"><td><span class="exp-icon" id="icon-app_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td><td class="num">'+v.FA.toLocaleString()+'</td><td class="num">'+v.FI.toLocaleString()+'</td><td class="num">'+v.AR.toLocaleString()+'</td><td class="num">'+v.RA.toLocaleString()+'</td><td class="num">'+v.tot.toLocaleString()+'</td></tr>';
+    const yks=Object.keys(v.byYear).sort();
+    yks.forEach((y,yi)=>{
+      const yv=v.byYear[y];
+      if(showAppDelta&&yi>0){
+        const pv=v.byYear[yks[yi-1]];
+        const dFA=pctChange(yv.FA,pv.FA),dFI=pctChange(yv.FI,pv.FI),dAR=pctChange(yv.AR,pv.AR),dRA=pctChange(yv.RA,pv.RA),dT=pctChange(yv.tot,pv.tot);
+        html+='<tr class="row-sub" data-parent="app_'+sk+'" style="display:none"><td>'+y+'</td><td class="num"><span class="'+pctClass(dFA)+'">'+(dFA||'—')+'</span></td><td class="num"><span class="'+pctClass(dFI)+'">'+(dFI||'—')+'</span></td><td class="num"><span class="'+pctClass(dAR)+'">'+(dAR||'—')+'</span></td><td class="num"><span class="'+pctClass(dRA)+'">'+(dRA||'—')+'</span></td><td class="num"><span class="'+pctClass(dT)+'">'+(dT||'—')+'</span></td></tr>';
+      } else {
+        html+='<tr class="row-sub" data-parent="app_'+sk+'" style="display:none"><td>'+y+'</td><td class="num">'+yv.FA.toLocaleString()+'</td><td class="num">'+yv.FI.toLocaleString()+'</td><td class="num">'+yv.AR.toLocaleString()+'</td><td class="num">'+yv.RA.toLocaleString()+'</td><td class="num">'+yv.tot.toLocaleString()+'</td></tr>';
+      }
+    });
+  });
+  const gFA=sorted.reduce((s,[,v])=>s+v.FA,0),gFI=sorted.reduce((s,[,v])=>s+v.FI,0),gAR=sorted.reduce((s,[,v])=>s+v.AR,0),gRA=sorted.reduce((s,[,v])=>s+v.RA,0),gTot=sorted.reduce((s,[,v])=>s+v.tot,0);
+  const gByYear={};sorted.forEach(([,v])=>{Object.entries(v.byYear).forEach(([y,yv])=>{if(!gByYear[y])gByYear[y]={FA:0,FI:0,AR:0,RA:0,tot:0};gByYear[y].FA+=yv.FA;gByYear[y].FI+=yv.FI;gByYear[y].AR+=yv.AR;gByYear[y].RA+=yv.RA;gByYear[y].tot+=yv.tot;});});
+  const gYks=Object.keys(gByYear).sort();
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'app_total\')"><td><span class="exp-icon" id="icon-app_total">▶</span>Total</td><td class="num">'+gFA.toLocaleString()+'</td><td class="num">'+gFI.toLocaleString()+'</td><td class="num">'+gAR.toLocaleString()+'</td><td class="num">'+gRA.toLocaleString()+'</td><td class="num">'+gTot.toLocaleString()+'</td></tr>';
+  gYks.forEach((y,yi)=>{const yv=gByYear[y];if(showAppDelta&&yi>0){const pv=gByYear[gYks[yi-1]];const dFA=pctChange(yv.FA,pv.FA),dFI=pctChange(yv.FI,pv.FI),dAR=pctChange(yv.AR,pv.AR),dRA=pctChange(yv.RA,pv.RA),dT=pctChange(yv.tot,pv.tot);html+='<tr class="row-sub" data-parent="app_total" style="display:none"><td>'+y+'</td><td class="num"><span class="'+pctClass(dFA)+'">'+(dFA||'—')+'</span></td><td class="num"><span class="'+pctClass(dFI)+'">'+(dFI||'—')+'</span></td><td class="num"><span class="'+pctClass(dAR)+'">'+(dAR||'—')+'</span></td><td class="num"><span class="'+pctClass(dRA)+'">'+(dRA||'—')+'</span></td><td class="num"><span class="'+pctClass(dT)+'">'+(dT||'—')+'</span></td></tr>';}else{html+='<tr class="row-sub" data-parent="app_total" style="display:none"><td>'+y+'</td><td class="num">'+yv.FA.toLocaleString()+'</td><td class="num">'+yv.FI.toLocaleString()+'</td><td class="num">'+yv.AR.toLocaleString()+'</td><td class="num">'+yv.RA.toLocaleString()+'</td><td class="num">'+yv.tot.toLocaleString()+'</td></tr>';}});
+  html+='</tfoot></table></div>';
+  el.innerHTML=html;restoreOpenRows();
+  const appExtra=(cfg.notes||{}).applications||'';
+  const fnApp=document.getElementById('fn-app');
+  if(fnApp)fnApp.innerHTML=appExtra?'<h4>Notes</h4><p>'+appExtra+'</p>':'';
+}
+function toggleAppDelta(){showAppDelta=!showAppDelta;renderApplications();}
+
+// §DECISIONS
+function buildDecChartPicker(rows){
+  const wrap=document.getElementById('dec-chart-picker-wrap');if(!wrap)return;
+  const byNat={};rows.forEach(r=>{const k=r['Country of Origin'];byNat[k]=(byNat[k]||0)+n(r['dec total']);});
+  const sorted=Object.entries(byNat).sort((a,b)=>b[1]-a[1]);
+  wrap.innerHTML='<button class="nat-picker-btn" id="dec-picker-btn" onclick="toggleDecPicker()">Filter chart countries ▾</button><div class="nat-picker-list" id="dec-picker-list"><div class="nat-picker-actions"><button class="nat-act-btn" onclick="setAllDecChart(true)">Select all</button><button class="nat-act-btn" onclick="setAllDecChart(false)">Clear</button></div>'+
+    sorted.map(([k])=>'<label class="nat-item"><input type="checkbox" value="'+k.replace(/"/g,'&quot;')+'" checked onchange="onDecChartChange()">'+dispOrigin(k)+'</label>').join('')+'</div>';
+  document.addEventListener('click',function(e){
+    const l=document.getElementById('dec-picker-list'),b=document.getElementById('dec-picker-btn');
+    if(l&&l.classList.contains('open')&&!l.contains(e.target)&&e.target!==b){l.classList.remove('open');if(b)b.textContent='Filter chart countries ▾';}
+  });
+}
+function toggleDecPicker(){
+  const l=document.getElementById('dec-picker-list'),b=document.getElementById('dec-picker-btn');
+  if(!l)return;const open=l.classList.toggle('open');if(b)b.textContent=open?'Filter chart countries ▴':'Filter chart countries ▾';
+}
+function setAllDecChart(checked){document.querySelectorAll('#dec-picker-list input').forEach(el=>el.checked=checked);onDecChartChange();}
+function onDecChartChange(){
+  const sel=[...document.querySelectorAll('#dec-picker-list input:checked')].map(el=>el.value);
+  decChartSel=sel.length?sel:null;
   const rows=filter(raw.decisions||[]),years=yearsIn(rows);
+  _renderDecCharts(rows,years);
+}
+function buildDecLevelPicker(rows){
+  const wrap=document.getElementById('dec-level-picker-wrap');if(!wrap)return;
+  const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened',FA:'First inst. & appeal'};
+  const existing=new Set(rows.map(r=>r['Dec level']).filter(Boolean));
+  const available=Object.entries(pL).filter(([code])=>existing.has(code));
+  wrap.innerHTML='<button class="nat-picker-btn" id="dec-level-btn" onclick="toggleDecLevelPicker()">Filter decision levels ▾</button><div class="nat-picker-list" id="dec-level-list"><div class="nat-picker-actions"><button class="nat-act-btn" onclick="setAllDecLevel(true)">Select all</button><button class="nat-act-btn" onclick="setAllDecLevel(false)">Clear</button></div>'+
+    available.map(([code,label])=>'<label class="nat-item"><input type="checkbox" value="'+code+'" checked onchange="onDecLevelChange()">'+label+'</label>').join('')+'</div>';
+  document.addEventListener('click',function(e){
+    const l=document.getElementById('dec-level-list'),b=document.getElementById('dec-level-btn');
+    if(l&&l.classList.contains('open')&&!l.contains(e.target)&&e.target!==b){l.classList.remove('open');if(b)b.textContent='Filter decision levels ▾';}
+  });
+}
+function toggleDecLevelPicker(){
+  const l=document.getElementById('dec-level-list'),b=document.getElementById('dec-level-btn');
+  if(!l)return;const open=l.classList.toggle('open');if(b)b.textContent=open?'Filter decision levels ▴':'Filter decision levels ▾';
+}
+function setAllDecLevel(checked){document.querySelectorAll('#dec-level-list input').forEach(el=>el.checked=checked);onDecLevelChange();}
+function onDecLevelChange(){
+  const sel=[...document.querySelectorAll('#dec-level-list input:checked')].map(el=>el.value);
+  decLevelSel=sel.length?sel:null;
+  const rows=filter(raw.decisions||[]),years=yearsIn(rows);
+  _renderDecCharts(rows,years);
+}
+function _renderDecCharts(rows,years){
+  let chartRows=decChartSel?rows.filter(r=>decChartSel.includes(r['Country of Origin'])):rows;
+  if(decLevelSel)chartRows=chartRows.filter(r=>decLevelSel.includes(r['Dec level']));
   const byYear=years.map(y=>{
-    const yr=rows.filter(r=>r.Year===y);
-    const rec=yr.reduce((s,r)=>s+n(r['dec recognized']),0);
+    const yr=chartRows.filter(r=>r.Year===y);
+    const rec=yr.reduce((s,r)=>s+n(r['Dec recognized']),0);
     const rej=yr.reduce((s,r)=>s+n(r['dec rejected']),0);
     const clo=yr.reduce((s,r)=>s+n(r['dec closed']),0);
     const oth=yr.reduce((s,r)=>s+n(r['dec other']),0);
     const tot=yr.reduce((s,r)=>s+n(r['dec total']),0);
-    return{rec,rej,clo,oth,tot,rate:tot>0?Math.round(rec/tot*100):0};
+    const effTot=decExclClosed?rec+rej:tot;
+    return{rec,rej,clo,oth,tot,effTot,rate:effTot>0?Math.round(rec/effTot*100):0};
   });
   mkChart('c-dec-year','bar',{labels:years,datasets:[
     {label:'Recognised',stack:'a',backgroundColor:CC[2],data:byYear.map(d=>d.rec)},
     {label:'Rejected',stack:'a',backgroundColor:CC[3],data:byYear.map(d=>d.rej)},
     {label:'Closed',stack:'a',backgroundColor:CC[9],data:byYear.map(d=>d.clo)},
     {label:'Other',stack:'a',backgroundColor:CC[1],data:byYear.map(d=>d.oth)}
-  ]},{scales:{x:{stacked:true},y:{stacked:true}}});
-  mkChart('c-dec-rate','line',{labels:years,datasets:[{label:'Recognition rate (%)',data:byYear.map(d=>d.rate),borderColor:CC[0],backgroundColor:CC[0]+'22',fill:true,tension:.35,pointRadius:5,pointBackgroundColor:CC[0]}]},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{label:ctx=>' '+ctx.parsed.y+'%'}}}});
+  ]},{scales:{x:{stacked:true},y:{stacked:true}},plugins:{tooltip:{callbacks:{title:ctx=>ctx[0].label+' — total '+byYear[ctx[0].dataIndex].effTot.toLocaleString()+' decisions',label:ctx=>{const v=ctx.parsed.y??ctx.raw??0;return' '+(ctx.dataset.label||'')+': '+Number(v??0).toLocaleString();}}}}});
+  if(decChartSel&&decChartSel.length){
+    const byNatYear={},totByCountry={};
+    decChartSel.forEach(k=>{const kRows=chartRows.filter(r=>r['Country of Origin']===k);const kRec=kRows.reduce((s,r)=>s+n(r['Dec recognized']),0),kRej=kRows.reduce((s,r)=>s+n(r['dec rejected']),0),kTot=kRows.reduce((s,r)=>s+n(r['dec total']),0);totByCountry[k]=decExclClosed?kRec+kRej:kTot;byNatYear[k]=years.map(y=>{const yr=kRows.filter(r=>r.Year===y);const rec=yr.reduce((s,r)=>s+n(r['Dec recognized']),0),rej=yr.reduce((s,r)=>s+n(r['dec rejected']),0),tot=yr.reduce((s,r)=>s+n(r['dec total']),0);const et=decExclClosed?rec+rej:tot;return et>0?Math.round(rec/et*100):0;});});
+    mkChart('c-dec-rate','line',{labels:years,datasets:decChartSel.map((k,i)=>({label:dispOrigin(k),data:byNatYear[k],borderColor:CC[i%CC.length],backgroundColor:CC[i%CC.length]+'22',fill:false,tension:.35,pointRadius:4}))},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{label:ctx=>' '+dispOrigin(decChartSel[ctx.datasetIndex])+' — total '+totByCountry[decChartSel[ctx.datasetIndex]].toLocaleString()+' decisions: '+ctx.parsed.y+'%'}}}});
+  } else {
+    mkChart('c-dec-rate','line',{labels:years,datasets:[{label:'Recognition rate (%)',data:byYear.map(d=>d.rate),borderColor:CC[0],backgroundColor:CC[0]+'22',fill:true,tension:.35,pointRadius:5,pointBackgroundColor:CC[0]}]},{scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'}}},plugins:{tooltip:{callbacks:{title:ctx=>ctx[0].label+' — total '+byYear[ctx[0].dataIndex].effTot.toLocaleString()+' decisions',label:ctx=>' '+ctx.parsed.y+'%'}}}});
+  }
+}
+function setDecView(v){
+  decView=v;
+  document.querySelectorAll('.seg-btn[data-decview]').forEach(b=>b.classList.toggle('active',b.dataset.decview===v));
+  const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));
+}
+function renderDecisions(){
+  const rows=filter(raw.decisions||[]),years=yearsIn(rows);
+  if(!decChartBuilt){buildDecChartPicker(rows);buildDecLevelPicker(rows);decChartBuilt=true;}
+  _renderDecCharts(rows,years);
   renderDecTable(rows,years);
+  const decExtra=(cfg.notes||{}).decisions||'';
+  const fnDec=document.getElementById('fn-dec');
+  if(fnDec)fnDec.innerHTML=decExtra?'<h4>Notes</h4><p>'+decExtra+'</p>':'';
 }
 
 function renderDecTable(rows,years){
@@ -632,52 +863,173 @@ function renderDecTable(rows,years){
   const nm={};
   rows.forEach(r=>{
     const k=r['Country of Origin'];
-    if(!nm[k])nm[k]={rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{FI:{rec:0,rej:0,clo:0,oth:0,tot:0},AR:{rec:0,rej:0,clo:0,oth:0,tot:0},RA:{rec:0,rej:0,clo:0,oth:0,tot:0}},byYear:{}};
+    if(!nm[k])nm[k]={rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{FI:{rec:0,rej:0,clo:0,oth:0,tot:0},AR:{rec:0,rej:0,clo:0,oth:0,tot:0},RA:{rec:0,rej:0,clo:0,oth:0,tot:0},FA:{rec:0,rej:0,clo:0,oth:0,tot:0}},byYear:{}};
     const m=nm[k];
-    const rec=n(r['dec recognized']),rej=n(r['dec rejected']),clo=n(r['dec closed']),oth=n(r['dec other']),tot=n(r['dec total']);
+    const rec=n(r['Dec recognized']),rej=n(r['dec rejected']),clo=n(r['dec closed']),oth=n(r['dec other']),tot=n(r['dec total']);
     m.rec+=rec;m.rej+=rej;m.clo+=clo;m.oth+=oth;m.tot+=tot;
     const dl=r['Dec level'];if(m.byProc[dl]){m.byProc[dl].rec+=rec;m.byProc[dl].rej+=rej;m.byProc[dl].clo+=clo;m.byProc[dl].oth+=oth;m.byProc[dl].tot+=tot;}
-    if(!m.byYear[r.Year])m.byYear[r.Year]={rec:0,tot:0};m.byYear[r.Year].rec+=rec;m.byYear[r.Year].tot+=tot;
+    if(!m.byYear[r.Year])m.byYear[r.Year]={rec:0,rej:0,clo:0,oth:0,tot:0,byProc:{FI:{rec:0,rej:0,clo:0,oth:0,tot:0},AR:{rec:0,rej:0,clo:0,oth:0,tot:0},RA:{rec:0,rej:0,clo:0,oth:0,tot:0},FA:{rec:0,rej:0,clo:0,oth:0,tot:0}}};
+    const yp=m.byYear[r.Year];yp.rec+=rec;yp.rej+=rej;yp.clo+=clo;yp.oth+=oth;yp.tot+=tot;if(yp.byProc[dl]){yp.byProc[dl].rec+=rec;yp.byProc[dl].rej+=rej;yp.byProc[dl].clo+=clo;yp.byProc[dl].oth+=oth;yp.byProc[dl].tot+=tot;}
   });
-  const sorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
-  const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened'};
-  const dCol=showDecDelta?'<th class="num">Δ% (vs prev yr)</th>':'';
-  let html='<div class="tbl-head"><h3>Decision detail</h3><div class="tbl-actions"><button class="btn-sm'+(showDecDelta?' on':'')+'" onclick="toggleDecDelta()">Δ% change</button><button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
-  html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th>'+dCol+'</tr></thead><tbody>';
-  sorted.forEach(([k,v])=>{
-    const rate=v.tot>0?Math.round(v.rec/v.tot*100):0,sk=safeKey(k);
-    let dh='';
-    if(showDecDelta){const yks=Object.keys(v.byYear).sort();if(yks.length>=2){const d=pctChange(v.byYear[yks[yks.length-1]].tot,v.byYear[yks[yks.length-2]].tot);dh='<td class="num"><span class="'+pctClass(d)+'">'+(d||'—')+'</span></td>';}else dh='<td class="num">—</td>';}
-    html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_'+sk+'\')"><td><span class="exp-icon" id="icon-dec_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td><td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+v.clo.toLocaleString()+'</td><td class="num">'+v.oth.toLocaleString()+'</td><td class="num">'+v.tot.toLocaleString()+'</td><td class="num">'+rate+'%</td>'+dh+'</tr>';
-    Object.entries(pL).forEach(([code,label])=>{
-      const p=v.byProc[code];if(!p||p.tot===0)return;
-      const pr=p.tot>0?Math.round(p.rec/p.tot*100):0;
-      html+='<tr class="row-sub" data-parent="dec_'+sk+'" style="display:none"><td>'+label+'</td><td class="num">'+p.rec.toLocaleString()+'</td><td class="num">'+p.rej.toLocaleString()+'</td><td class="num">'+p.clo.toLocaleString()+'</td><td class="num">'+p.oth.toLocaleString()+'</td><td class="num">'+p.tot.toLocaleString()+'</td><td class="num">'+pr+'%</td>'+(showDecDelta?'<td></td>':'')+'</tr>';
+  const _decUnsorted=Object.entries(nm).sort((a,b)=>b[1].tot-a[1].tot);
+  const sorted=sortTable(_decUnsorted,d=>d[0],d=>d[1].tot,tblSort.dec);
+  const pL={FI:'First instance',AR:'Admin. review',RA:'Repeat/reopened',FA:'First inst. & appeal'};
+  // excl helpers — used by both views
+  const eT=v=>decExclClosed?v.rec+v.rej:v.tot;
+  const eR=v=>{const t=eT(v);return t>0?Math.round(v.rec/t*100):0;};
+  const viewBtns='<div class="seg" style="margin-right:.5rem"><button class="seg-btn'+(decView==='totals'?' active':'')+'" data-decview="totals" onclick="setDecView(\'totals\')">Totals</button><button class="seg-btn'+(decView==='peryear'?' active':'')+'" data-decview="peryear" onclick="setDecView(\'peryear\')">Per year</button></div>';
+  const deltaBtn=decView==='peryear'?'<button class="btn-sm'+(showDecDelta?' on':'')+'" onclick="toggleDecDelta()">Δ% change</button>':'';
+  let html='<div class="tbl-head"><h3>Decision details</h3><div class="tbl-actions">'+viewBtns+deltaBtn+sortSelect('dec')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dec\',\'asylum-decisions\')">↓ CSV</button></div></div>';
+  if(decView==='totals'){
+    const th=decExclClosed?'<th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Total</th><th class="num">Rate%</th>':'<th>Country</th><th class="num">Recognised</th><th class="num">Rejected</th><th class="num">Closed</th><th class="num">Other</th><th class="num">Total</th><th class="num">Rate%</th>';
+    const tCell=v=>{const t=eT(v),r=eR(v);return decExclClosed?'<td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+t.toLocaleString()+'</td><td class="num">'+r+'%</td>':'<td class="num">'+v.rec.toLocaleString()+'</td><td class="num">'+v.rej.toLocaleString()+'</td><td class="num">'+v.clo.toLocaleString()+'</td><td class="num">'+v.oth.toLocaleString()+'</td><td class="num">'+t.toLocaleString()+'</td><td class="num">'+r+'%</td>';};
+    html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr>'+th+'</tr></thead><tbody>';
+    sorted.forEach(([k,v])=>{
+      const sk=safeKey(k);
+      html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_'+sk+'\')"><td><span class="exp-icon" id="icon-dec_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>'+tCell(v)+'</tr>';
+      Object.entries(pL).forEach(([code,label])=>{
+        const p=v.byProc[code];if(!p||p.tot===0)return;
+        html+='<tr class="row-sub" data-parent="dec_'+sk+'" style="display:none"><td>'+label+'</td>'+tCell(p)+'</tr>';
+      });
     });
-  });
-  const tots=sorted.reduce((s,[,v])=>({rec:s.rec+v.rec,rej:s.rej+v.rej,clo:s.clo+v.clo,oth:s.oth+v.oth,tot:s.tot+v.tot}),{rec:0,rej:0,clo:0,oth:0,tot:0});
-  const totR=tots.tot>0?Math.round(tots.rec/tots.tot*100):0;
-  html+='<tfoot><tr><td>Total</td><td class="num">'+tots.rec.toLocaleString()+'</td><td class="num">'+tots.rej.toLocaleString()+'</td><td class="num">'+tots.clo.toLocaleString()+'</td><td class="num">'+tots.oth.toLocaleString()+'</td><td class="num">'+tots.tot.toLocaleString()+'</td><td class="num">'+totR+'%</td>'+(showDecDelta?'<td></td>':'')+'</tr></tfoot></table></div>';
-  el.innerHTML=html;
+    const tots=sorted.reduce((s,[,v])=>({rec:s.rec+v.rec,rej:s.rej+v.rej,clo:s.clo+v.clo,oth:s.oth+v.oth,tot:s.tot+v.tot}),{rec:0,rej:0,clo:0,oth:0,tot:0});
+    const totByLevel={};Object.keys(pL).forEach(code=>{totByLevel[code]={rec:0,rej:0,clo:0,oth:0,tot:0};});sorted.forEach(([,v])=>{Object.keys(pL).forEach(code=>{const p=v.byProc[code];if(p){totByLevel[code].rec+=p.rec;totByLevel[code].rej+=p.rej;totByLevel[code].clo+=p.clo;totByLevel[code].oth+=p.oth;totByLevel[code].tot+=p.tot;}});});
+    html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_total\')"><td><span class="exp-icon" id="icon-dec_total">▶</span>Total</td>'+tCell(tots)+'</tr>';
+    Object.entries(pL).forEach(([code,label])=>{const p=totByLevel[code];if(!p||p.tot===0)return;html+='<tr class="row-sub" data-parent="dec_total" style="display:none"><td>'+label+'</td>'+tCell(p)+'</tr>';});
+    html+='</tfoot></table></div>';
+  } else {
+    const colspan=decExclClosed?4:6;
+    const pyGet=(v,y)=>v.byYear[y]||{rec:0,rej:0,clo:0,oth:0,tot:0};
+    const pyGetL=(v,y,code)=>(v.byYear[y]&&v.byYear[y].byProc&&v.byYear[y].byProc[code])||{rec:0,rej:0,clo:0,oth:0,tot:0};
+    const pySum=y=>sorted.reduce((a,[,v])=>{const r=v.byYear[y]||{};return{rec:a.rec+(r.rec||0),rej:a.rej+(r.rej||0),clo:a.clo+(r.clo||0),oth:a.oth+(r.oth||0),tot:a.tot+(r.tot||0)};},{rec:0,rej:0,clo:0,oth:0,tot:0});
+    const pySumL=(y,code)=>sorted.reduce((a,[,v])=>{const p=pyGetL(v,y,code);return{rec:a.rec+p.rec,rej:a.rej+p.rej,clo:a.clo+p.clo,oth:a.oth+p.oth,tot:a.tot+p.tot};},{rec:0,rej:0,clo:0,oth:0,tot:0});
+    const pyCell=(sc,cv,pv)=>{
+      const t=eT(cv),rate=eR(cv);
+      if(pv&&showDecDelta){
+        const pt=eT(pv),pr=eR(pv);
+        const dRec=pctChange(cv.rec,pv.rec),dRej=pctChange(cv.rej,pv.rej),dTot=pctChange(t,pt),dRate=pctChange(rate,pr);
+        if(decExclClosed)return'<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
+        const dClo=pctChange(cv.clo,pv.clo),dOth=pctChange(cv.oth,pv.oth);
+        return'<td class="num'+sc+'"><span class="'+pctClass(dRec)+'">'+(dRec||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRej)+'">'+(dRej||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dClo)+'">'+(dClo||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dOth)+'">'+(dOth||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dTot)+'">'+(dTot||'—')+'</span></td><td class="num'+sc+'"><span class="'+pctClass(dRate)+'">'+(dRate||'—')+'</span></td>';
+      }
+      if(decExclClosed)return'<td class="num'+sc+'">'+(cv.rec?cv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.rej?cv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?t.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?rate+'%':'—')+'</td>';
+      return'<td class="num'+sc+'">'+(cv.rec?cv.rec.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.rej?cv.rej.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.clo?cv.clo.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(cv.oth?cv.oth.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?t.toLocaleString():'—')+'</td><td class="num'+sc+'">'+(t?rate+'%':'—')+'</td>';
+    };
+    html+='<div class="tbl-scroll"><table id="tbl-dec-t"><thead><tr><th class="sticky-col" rowspan="2" style="vertical-align:bottom;min-width:14rem">Country</th>';
+    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+='<th class="yr-grp'+sc+'" colspan="'+colspan+'">'+y+'</th>';});
+    html+='</tr><tr>';
+    years.forEach((y,yi)=>{const sc=yi%2===0?' col-stripe':'';html+=decExclClosed?'<th class="num'+sc+'">Rec</th><th class="num'+sc+'">Rej</th><th class="num'+sc+'">Tot</th><th class="num'+sc+'">Rate%</th>':'<th class="num'+sc+'">Rec</th><th class="num'+sc+'">Rej</th><th class="num'+sc+'">Clo</th><th class="num'+sc+'">Oth</th><th class="num'+sc+'">Tot</th><th class="num'+sc+'">Rate%</th>';});
+    html+='</tr></thead><tbody>';
+    sorted.forEach(([k,v])=>{
+      const sk=safeKey(k);
+      html+='<tr class="row-exp" onclick="toggleSubRows(\'dec_py_'+sk+'\')"><td class="sticky-col"><span class="exp-icon" id="icon-dec_py_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk">?</span>':'')+'</td>';
+      years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pyGet(v,y),yi>0?pyGet(v,years[yi-1]):null);});
+      html+='</tr>';
+      Object.entries(pL).forEach(([code,label])=>{
+        const hasData=years.some(y=>pyGetL(v,y,code).tot>0);if(!hasData)return;
+        html+='<tr class="row-sub" data-parent="dec_py_'+sk+'" style="display:none"><td class="sticky-col">'+label+'</td>';
+        years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pyGetL(v,y,code),yi>0?pyGetL(v,years[yi-1],code):null);});
+        html+='</tr>';
+      });
+    });
+    html+='</tbody><tfoot><tr class="row-exp" onclick="toggleSubRows(\'dec_py_total\')"><td class="sticky-col"><span class="exp-icon" id="icon-dec_py_total">▶</span>Total</td>';
+    years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pySum(y),yi>0?pySum(years[yi-1]):null);});
+    html+='</tr>';
+    Object.entries(pL).forEach(([code,label])=>{
+      const hasData=years.some(y=>pySumL(y,code).tot>0);if(!hasData)return;
+      html+='<tr class="row-sub" data-parent="dec_py_total" style="display:none"><td class="sticky-col">'+label+'</td>';
+      years.forEach((y,yi)=>{html+=pyCell(yi%2===0?' col-stripe':'',pySumL(y,code),yi>0?pySumL(years[yi-1],code):null);});
+      html+='</tr>';
+    });
+    html+='</tfoot></table></div>';
+  }
+  el.innerHTML=html;restoreOpenRows();
 }
 function toggleDecDelta(){showDecDelta=!showDecDelta;const rows=filter(raw.decisions||[]);renderDecTable(rows,yearsIn(rows));}
+function onDecExclClosedCb(){const cb=document.getElementById('dec-excl-closed-cb');decExclClosed=!cb.checked;const rows=filter(raw.decisions||[]),years=yearsIn(rows);_renderDecCharts(rows,years);renderDecTable(rows,years);}
 
+// §DEPARTURES
+function buildDepFlowPicker(rows){
+  const wrap=document.getElementById('dep-flow-picker-wrap');if(!wrap)return;
+  const byOT={};rows.forEach(r=>{const k=dispOrigin(r['Country of Origin']);byOT[k]=(byOT[k]||0)+n(r['Total']);});
+  const sorted=Object.entries(byOT).sort((a,b)=>b[1]-a[1]);
+  wrap.innerHTML='<button class="nat-picker-btn" id="dep-flow-btn" onclick="toggleDepFlowPicker()">Filter origins ▾</button><div class="nat-picker-list" id="dep-flow-list"><div class="nat-picker-actions"><button class="nat-act-btn" onclick="setAllDepFlow(true)">Select all</button><button class="nat-act-btn" onclick="setAllDepFlow(false)">Clear</button></div>'+
+    sorted.map(([k,v])=>'<label class="nat-item"><input type="checkbox" value="'+k.replace(/"/g,'&quot;')+'" checked onchange="onDepFlowChange()">'+k+'<span class="nat-count">'+v.toLocaleString()+'</span></label>').join('')+'</div>';
+  document.addEventListener('click',function(e){
+    const l=document.getElementById('dep-flow-list'),b=document.getElementById('dep-flow-btn');
+    if(l&&l.classList.contains('open')&&!l.contains(e.target)&&e.target!==b){l.classList.remove('open');if(b)b.textContent='Filter origins ▾';}
+  });
+}
+function toggleDepFlowPicker(){
+  const l=document.getElementById('dep-flow-list'),b=document.getElementById('dep-flow-btn');
+  if(!l)return;const open=l.classList.toggle('open');if(b)b.textContent=open?'Filter origins ▴':'Filter origins ▾';
+}
+function setAllDepFlow(checked){document.querySelectorAll('#dep-flow-list input').forEach(el=>el.checked=checked);onDepFlowChange();}
+function onDepFlowChange(){
+  const sel=[...document.querySelectorAll('#dep-flow-list input:checked')].map(el=>el.value);
+  depFlowSel=sel.length?sel:null;
+  const rows=filter(raw.departures||[]),years=yearsIn(rows);
+  _renderDepFlowChart(rows);
+}
+function _renderDepFlowChart(rows){
+  const destTots={};
+  rows.filter(r=>r['Country of Resettlement']&&r['Country of Resettlement']!=='-').forEach(r=>{
+    const d=r['Country of Resettlement'];destTots[d]=(destTots[d]||0)+n(r['Total']);
+  });
+  const topDests=Object.entries(destTots).sort((a,b)=>b[1]-a[1]).slice(0,10).map(d=>d[0]);
+  const byOrgDest={};
+  rows.filter(r=>r['Country of Resettlement']&&r['Country of Resettlement']!=='-').forEach(r=>{
+    const o=dispOrigin(r['Country of Origin']),d=r['Country of Resettlement'];
+    if(!byOrgDest[o])byOrgDest[o]={};
+    byOrgDest[o][d]=(byOrgDest[o][d]||0)+n(r['Total']);
+  });
+  const allOrigins=Object.entries(byOrgDest).map(([o,ds])=>({o,tot:Object.values(ds).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.tot-a.tot).slice(0,14).map(d=>d.o);
+  const origins=depFlowSel?allOrigins.filter(o=>depFlowSel.includes(o)):allOrigins;
+  mkChart('c-dep-flow','bar',{
+    labels:origins,
+    datasets:topDests.map((dest,i)=>({
+      label:dest,stack:'a',backgroundColor:CC[i%CC.length],
+      data:origins.map(o=>(byOrgDest[o]||{})[dest]||0)
+    }))
+  },{indexAxis:'y',scales:{x:{stacked:true},y:{stacked:true,ticks:{display:false}}}});
+}
 function renderDepartures(){
   const rows=filter(raw.departures||[]),years=yearsIn(rows);
-  const sankeyFlows=rows.filter(r=>r['Country of Resettlement']&&r['Country of Resettlement']!=='-').map(r=>({from:dispOrigin(r['Country of Origin']),to:r['Country of Resettlement'],value:n(r['Total'])}));
-  setTimeout(()=>renderSankey('sankey-dep',sankeyFlows),80);
+
+  if(!depFlowBuilt){buildDepFlowPicker(rows);depFlowBuilt=true;}
+  _renderDepFlowChart(rows);
+
   const byOT={};rows.forEach(r=>{const k=dispOrigin(r['Country of Origin']);byOT[k]=(byOT[k]||0)+n(r['Total']);});
   const top=Object.entries(byOT).sort((a,b)=>b[1]-a[1]).slice(0,8).map(d=>d[0]);
   mkChart('c-dep-year','bar',{labels:years,datasets:top.map((org,i)=>({label:org,stack:'a',backgroundColor:CC[i%CC.length],data:years.map(y=>rows.filter(r=>r.Year===y&&dispOrigin(r['Country of Origin'])===org).reduce((s,r)=>s+n(r['Total']),0))}))},{scales:{x:{stacked:true},y:{stacked:true}}});
-  const byDest={};rows.forEach(r=>{const d=r['Country of Resettlement'];if(d&&d!=='-')byDest[d]=(byDest[d]||0)+n(r['Total']);});
-  const sd=Object.entries(byDest).sort((a,b)=>b[1]-a[1]);
-  mkChart('c-dep-dest','bar',{labels:sd.map(d=>d[0]),datasets:[{label:'Departures',data:sd.map(d=>d[1]),backgroundColor:sd.map((_,i)=>CC[i%CC.length])}]},{indexAxis:'y',plugins:{legend:{display:false}}});
-  const mapData=sd.map(([name,total])=>({iso:(rows.find(r=>r['Country of Resettlement']===name)||{})['Country of Resettlement ISO'],name,total})).filter(d=>d.iso&&DEST_COORDS[d.iso]);
+
+  // Dest chart: stacked by origin
+  const byDestOrg={};
+  rows.filter(r=>r['Country of Resettlement']&&r['Country of Resettlement']!=='-').forEach(r=>{
+    const d=r['Country of Resettlement'],o=dispOrigin(r['Country of Origin']);
+    if(!byDestOrg[d])byDestOrg[d]={};
+    byDestOrg[d][o]=(byDestOrg[d][o]||0)+n(r['Total']);
+  });
+  const sd=Object.entries(byDestOrg).sort((a,b)=>Object.values(b[1]).reduce((s,v)=>s+v,0)-Object.values(a[1]).reduce((s,v)=>s+v,0));
+  const destLabels=sd.map(d=>d[0]);
+  mkChart('c-dep-dest','bar',{
+    labels:destLabels,
+    datasets:top.map((org,i)=>({label:org,stack:'a',backgroundColor:CC[i%CC.length],data:destLabels.map(d=>(byDestOrg[d]||{})[org]||0)}))
+  },{indexAxis:'y',scales:{x:{stacked:true},y:{stacked:true,ticks:{display:false}}}});
+
+  const mapData=sd.map(([name])=>({iso:(rows.find(r=>r['Country of Resettlement']===name)||{})['Country of Resettlement ISO'],name,total:Object.values(byDestOrg[name]).reduce((s,v)=>s+v,0)})).filter(d=>d.iso&&DEST_COORDS[d.iso]);
   setTimeout(()=>renderMap('map-dep',mapData),80);
   renderDepTable(rows,years);
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/[\n\r]+/g,' ');
   const unkLabel=(cfg.labels||{}).unknown_origin||'Origin not disclosed';
-  if(unkNote)document.getElementById('fn-dep').innerHTML='<h4>Notes</h4><p><strong>'+unkLabel+':</strong> '+unkNote+'</p>';
+  const depExtra=(cfg.notes||{}).departures||'';
+  const fnEl=document.getElementById('fn-dep');
+  if(unkNote||depExtra){
+    let fn='<h4>Notes</h4>';
+    if(unkNote)fn+='<p><strong>'+unkLabel+':</strong> '+unkNote+'</p>';
+    if(depExtra)fn+='<p>'+depExtra+'</p>';
+    fnEl.innerHTML=fn;
+  }
 }
 
 function renderDepTable(rows,years){
@@ -688,48 +1040,114 @@ function renderDepTable(rows,years){
     if(!om[o])om[o]={};if(!om[o][d])om[o][d]={};
     om[o][d][r.Year]=(om[o][d][r.Year]||0)+n(r['Total']);
   });
-  const sorted=Object.entries(om).map(([o,dests])=>({o,dests,tot:Object.values(dests).flatMap(d=>Object.values(d)).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.tot-a.tot);
-  let html='<div class="tbl-head"><h3>Departures detail</h3><div class="tbl-actions"><button class="btn-sm" onclick="dlCSV(\'tbl-dep\',\'resettlement-departures\')">↓ CSV</button></div></div>';
-  html+='<div class="tbl-scroll"><table id="tbl-dep-t"><thead><tr><th class="sticky-col">Country of origin</th>'+years.map(y=>'<th class="num">'+y+'</th>').join('')+'<th class="num">Total</th></tr></thead><tbody>';
+  const _depUnsorted=Object.entries(om).map(([o,dests])=>({o,dests,tot:Object.values(dests).flatMap(d=>Object.values(d)).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.tot-a.tot);
+  const sorted=sortTable(_depUnsorted,d=>d.o,d=>d.tot,tblSort.dep);
+  const gTots=years.map(y=>rows.reduce((s,r)=>s+(r.Year===y?n(r['Total']):0),0));
+  const grand=rows.reduce((s,r)=>s+n(r['Total']),0);
+  let html='<div class="tbl-head"><h3>Departures details</h3><div class="tbl-actions">'+sortSelect('dep')+'<button class="btn-sm" onclick="dlCSV(\'tbl-dep\',\'resettlement-departures\')">↓ CSV</button></div></div>';
+  html+='<div class="tbl-scroll"><table id="tbl-dep-t"><thead><tr><th class="sticky-col" style="min-width:14rem">Country of origin</th>'+years.map(y=>'<th class="num">'+y+'</th>').join('')+'<th class="num">Total</th></tr></thead><tbody>';
   sorted.forEach(({o,dests,tot})=>{
     const sk=safeKey(o);
     const yTots=years.map(y=>Object.values(dests).reduce((s,d)=>s+(d[y]||0),0));
-    html+='<tr class="row-exp" onclick="toggleSubRows(\'dep_'+sk+'\')"><td class="sticky-col"><span class="exp-icon" id="icon-dep_'+sk+'">▶</span>'+dispOrigin(o)+(unk(o)?'<span class="tag-unk">?</span>':'')+'</td>'+yTots.map(v=>'<td class="num">'+(v||'—')+'</td>').join('')+'<td class="num">'+tot.toLocaleString()+'</td></tr>';
+    const yCells=years.map((y,yi)=>{
+      const val=yTots[yi];
+      const dStr=yi>0?pctChange(val,yTots[yi-1]):null;
+      return'<td class="num">'+(val?val.toLocaleString():'—')+(dStr?'<small class="inl-delta '+pctClass(dStr)+'">'+dStr+'</small>':'')+'</td>';
+    }).join('');
+    html+='<tr class="row-exp" onclick="toggleSubRows(\'dep_'+sk+'\')"><td class="sticky-col"><span class="exp-icon" id="icon-dep_'+sk+'">▶</span>'+dispOrigin(o)+(unk(o)?'<span class="tag-unk">?</span>':'')+'</td>'+yCells+'<td class="num">'+tot.toLocaleString()+'</td></tr>';
     Object.entries(dests).map(([d,yrs])=>({d,yrs,dt:Object.values(yrs).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.dt-a.dt).forEach(({d,yrs,dt})=>{
       html+='<tr class="row-sub" data-parent="dep_'+sk+'" style="display:none"><td class="sticky-col">'+d+'</td>'+years.map(y=>'<td class="num">'+(yrs[y]?yrs[y].toLocaleString():'—')+'</td>').join('')+'<td class="num">'+dt.toLocaleString()+'</td></tr>';
     });
   });
-  const gTots=years.map(y=>rows.reduce((s,r)=>s+(r.Year===y?n(r['Total']):0),0));
-  const grand=rows.reduce((s,r)=>s+n(r['Total']),0);
-  html+='<tfoot><tr><td class="sticky-col">Total</td>'+gTots.map(v=>'<td class="num">'+v.toLocaleString()+'</td>').join('')+'<td class="num">'+grand.toLocaleString()+'</td></tr></tfoot></table></div>';
-  el.innerHTML=html;
+  const footCells=years.map((y,yi)=>{
+    const val=gTots[yi];
+    const dStr=yi>0?pctChange(val,gTots[yi-1]):null;
+    return'<td class="num">'+val.toLocaleString()+(dStr?'<small class="inl-delta '+pctClass(dStr)+'">'+dStr+'</small>':'')+'</td>';
+  }).join('');
+  const destMap={};sorted.forEach(({dests})=>{Object.entries(dests).forEach(([d,yrs])=>{if(!destMap[d])destMap[d]={};Object.entries(yrs).forEach(([y,v])=>{destMap[d][y]=(destMap[d][y]||0)+v;});});});
+  const sortedDests=Object.entries(destMap).map(([d,yrs])=>({d,yrs,dt:Object.values(yrs).reduce((s,v)=>s+v,0)})).sort((a,b)=>b.dt-a.dt);
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'dep_total\')"><td class="sticky-col"><span class="exp-icon" id="icon-dep_total">▶</span>Total</td>'+footCells+'<td class="num">'+grand.toLocaleString()+'</td></tr>';
+  sortedDests.forEach(({d,yrs,dt})=>{html+='<tr class="row-sub" data-parent="dep_total" style="display:none"><td class="sticky-col">'+d+'</td>'+years.map(y=>'<td class="num">'+(yrs[y]?yrs[y].toLocaleString():'—')+'</td>').join('')+'<td class="num">'+dt.toLocaleString()+'</td></tr>';});
+  html+='</tfoot></table></div>';
+  el.innerHTML=html;restoreOpenRows();
 }
 
+// §SUBMISSIONS
+function buildSubPicker(rows){
+  const wrap=document.getElementById('sub-picker-wrap');if(!wrap)return;
+  const byOT={};rows.forEach(r=>{const k=dispOrigin(r['Country of Origin']);byOT[k]=(byOT[k]||0)+n(r['Persons']);});
+  const sorted=Object.entries(byOT).sort((a,b)=>b[1]-a[1]);
+  wrap.innerHTML='<button class="nat-picker-btn" id="sub-picker-btn" onclick="toggleSubPicker()">Filter origins ▾</button><div class="nat-picker-list" id="sub-picker-list"><div class="nat-picker-actions"><button class="nat-act-btn" onclick="setAllSub(true)">Select all</button><button class="nat-act-btn" onclick="setAllSub(false)">Clear</button></div>'+
+    sorted.map(([k,v])=>'<label class="nat-item"><input type="checkbox" value="'+k.replace(/"/g,'&quot;')+'" checked onchange="onSubPickerChange()">'+k+'<span class="nat-count">'+v.toLocaleString()+'</span></label>').join('')+'</div>';
+  document.addEventListener('click',function(e){
+    const l=document.getElementById('sub-picker-list'),b=document.getElementById('sub-picker-btn');
+    if(l&&l.classList.contains('open')&&!l.contains(e.target)&&e.target!==b){l.classList.remove('open');if(b)b.textContent='Filter origins ▾';}
+  });
+}
+function toggleSubPicker(){
+  const l=document.getElementById('sub-picker-list'),b=document.getElementById('sub-picker-btn');
+  if(!l)return;const open=l.classList.toggle('open');if(b)b.textContent=open?'Filter origins ▴':'Filter origins ▾';
+}
+function setAllSub(checked){document.querySelectorAll('#sub-picker-list input').forEach(el=>el.checked=checked);onSubPickerChange();}
+function onSubPickerChange(){
+  const sel=[...document.querySelectorAll('#sub-picker-list input:checked')].map(el=>el.value);
+  subChartSel=sel.length?sel:null;
+  const rows=filter(raw.submissions||[]),years=yearsIn(rows);
+  _renderSubChart(rows,years);
+}
+function _renderSubChart(rows,years){
+  const byOT={};rows.forEach(r=>{const k=dispOrigin(r['Country of Origin']);byOT[k]=(byOT[k]||0)+n(r['Persons']);});
+  const allOrgs=Object.entries(byOT).sort((a,b)=>b[1]-a[1]).map(d=>d[0]);
+  const orgs=subChartSel?allOrgs.filter(o=>subChartSel.includes(o)):allOrgs;
+  mkChart('c-sub-year','bar',{labels:years,datasets:orgs.map((org,i)=>({label:org,stack:'a',backgroundColor:CC[i%CC.length],data:years.map(y=>rows.filter(r=>r.Year===y&&dispOrigin(r['Country of Origin'])===org).reduce((s,r)=>s+n(r['Persons']),0))}))},{scales:{x:{stacked:true},y:{stacked:true}}});
+}
 function renderSubmissions(){
   const rows=filter(raw.submissions||[]),years=yearsIn(rows);
-  const byOT={};rows.forEach(r=>{const k=dispOrigin(r['Country of Origin']);byOT[k]=(byOT[k]||0)+n(r['Persons']);});
-  const top=Object.entries(byOT).sort((a,b)=>b[1]-a[1]).slice(0,8).map(d=>d[0]);
-  mkChart('c-sub-year','bar',{labels:years,datasets:top.map((org,i)=>({label:org,stack:'a',backgroundColor:CC[i%CC.length],data:years.map(y=>rows.filter(r=>r.Year===y&&dispOrigin(r['Country of Origin'])===org).reduce((s,r)=>s+n(r['Persons']),0))}))},{scales:{x:{stacked:true},y:{stacked:true}}});
+  if(!subPickerBuilt){buildSubPicker(rows);subPickerBuilt=true;}
+  _renderSubChart(rows,years);
   const om={};
   rows.forEach(r=>{const k=r['Country of Origin'];if(!om[k])om[k]={};if(!om[k][r.Year])om[k][r.Year]={cases:0,persons:0};om[k][r.Year].cases+=n(r['Cases']);om[k][r.Year].persons+=n(r['Persons']);});
-  const sorted=Object.entries(om).map(([k,yrs])=>({k,yrs,tc:Object.values(yrs).reduce((s,v)=>s+v.cases,0),tp:Object.values(yrs).reduce((s,v)=>s+v.persons,0)})).sort((a,b)=>b.tp-a.tp);
+  const _subUnsorted=Object.entries(om).map(([k,yrs])=>({k,yrs,tc:Object.values(yrs).reduce((s,v)=>s+v.cases,0),tp:Object.values(yrs).reduce((s,v)=>s+v.persons,0)})).sort((a,b)=>b.tp-a.tp);
+  const sorted=sortTable(_subUnsorted,d=>d.k,d=>d.tp,tblSort.sub);
   const el=document.getElementById('tbl-sub');if(!el)return;
   const unkNote=((cfg.labels||{}).unknown_origin_note||'').replace(/"/g,'&quot;');
-  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions"><button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
-  html+='<div class="tbl-scroll"><table id="tbl-sub-t"><thead><tr><th>Country of origin</th><th class="num">Cases (total)</th><th class="num">Persons (total)</th></tr></thead><tbody>';
+  const gByYear={};years.forEach(y=>{gByYear[y]={cases:sorted.reduce((s,{yrs})=>s+(yrs[y]?yrs[y].cases:0),0),persons:sorted.reduce((s,{yrs})=>s+(yrs[y]?yrs[y].persons:0),0)};});
+  let html='<div class="tbl-head"><h3>Submissions detail</h3><div class="tbl-actions">'+sortSelect('sub')+'<button class="btn-sm" onclick="dlCSV(\'tbl-sub\',\'resettlement-submissions\')">↓ CSV</button></div></div>';
+  html+='<div class="tbl-scroll"><table id="tbl-sub-t"><thead><tr><th>Country of origin</th><th class="num">Cases</th><th class="num">Δ% cases</th><th class="num">Persons</th><th class="num">Δ% persons</th></tr></thead><tbody>';
   sorted.forEach(({k,yrs,tc,tp})=>{
     const sk=safeKey(k);
-    html+='<tr class="row-exp" onclick="toggleSubRows(\'sub_'+sk+'\')"><td><span class="exp-icon" id="icon-sub_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk" title="'+unkNote+'">?</span>':'')+'</td><td class="num">'+tc.toLocaleString()+'</td><td class="num">'+tp.toLocaleString()+'</td></tr>';
-    years.forEach(y=>{const v=yrs[y];if(!v||(!v.cases&&!v.persons))return;html+='<tr class="row-sub" data-parent="sub_'+sk+'" style="display:none"><td>'+y+'</td><td class="num">'+v.cases.toLocaleString()+'</td><td class="num">'+v.persons.toLocaleString()+'</td></tr>';});
+    const yks=Object.keys(yrs).sort().filter(y=>yrs[y]&&(yrs[y].cases||yrs[y].persons));
+    const lastY=yks[yks.length-1],prevY=yks.length>1?yks[yks.length-2]:null;
+    const dC=prevY?pctChange(yrs[lastY].cases,yrs[prevY].cases):null;
+    const dP=prevY?pctChange(yrs[lastY].persons,yrs[prevY].persons):null;
+    html+='<tr class="row-exp" onclick="toggleSubRows(\'sub_'+sk+'\')"><td><span class="exp-icon" id="icon-sub_'+sk+'">▶</span>'+dispOrigin(k)+(unk(k)?'<span class="tag-unk" title="'+unkNote+'">?</span>':'')+'</td><td class="num">'+tc.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dC)+'">'+(dC||'—')+'</span></td><td class="num">'+tp.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dP)+'">'+(dP||'—')+'</span></td></tr>';
+    years.forEach((y,yi)=>{
+      const v=yrs[y];if(!v||(!v.cases&&!v.persons))return;
+      const pv=yi>0?yrs[years[yi-1]]:null;
+      const dCy=pv&&pv.cases?pctChange(v.cases,pv.cases):null,dPy=pv&&pv.persons?pctChange(v.persons,pv.persons):null;
+      html+='<tr class="row-sub" data-parent="sub_'+sk+'" style="display:none"><td>'+y+'</td><td class="num">'+v.cases.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dCy)+'">'+(dCy||'—')+'</span></td><td class="num">'+v.persons.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dPy)+'">'+(dPy||'—')+'</span></td></tr>';
+    });
   });
   const totC=sorted.reduce((s,r)=>s+r.tc,0),totP=sorted.reduce((s,r)=>s+r.tp,0);
-  html+='<tfoot><tr><td>Total</td><td class="num">'+totC.toLocaleString()+'</td><td class="num">'+totP.toLocaleString()+'</td></tr></tfoot></table></div>';
-  el.innerHTML=html;
+  const lastGY=years[years.length-1],prevGY=years.length>1?years[years.length-2]:null;
+  const dGC=prevGY?pctChange(gByYear[lastGY].cases,gByYear[prevGY].cases):null;
+  const dGP=prevGY?pctChange(gByYear[lastGY].persons,gByYear[prevGY].persons):null;
+  html+='<tfoot><tr class="row-exp" onclick="toggleSubRows(\'sub_total\')"><td><span class="exp-icon" id="icon-sub_total">▶</span>Total</td><td class="num">'+totC.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dGC)+'">'+(dGC||'—')+'</span></td><td class="num">'+totP.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dGP)+'">'+(dGP||'—')+'</span></td></tr>';
+  years.forEach((y,yi)=>{const yv=gByYear[y];const pv=yi>0?gByYear[years[yi-1]]:null;const dCy=pv&&pv.cases?pctChange(yv.cases,pv.cases):null,dPy=pv&&pv.persons?pctChange(yv.persons,pv.persons):null;html+='<tr class="row-sub" data-parent="sub_total" style="display:none"><td>'+y+'</td><td class="num">'+yv.cases.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dCy)+'">'+(dCy||'—')+'</span></td><td class="num">'+yv.persons.toLocaleString()+'</td><td class="num"><span class="'+pctClass(dPy)+'">'+(dPy||'—')+'</span></td></tr>';});
+  html+='</tfoot></table></div>';
+  el.innerHTML=html;restoreOpenRows();
   const unkNote2=((cfg.labels||{}).unknown_origin_note||'').replace(/[\n\r]+/g,' ');
   const unkLabel=(cfg.labels||{}).unknown_origin||'Origin not disclosed';
-  if(unkNote2)document.getElementById('fn-sub').innerHTML='<h4>Notes</h4><p><strong>'+unkLabel+':</strong> '+unkNote2+'</p>';
+  const subExtra=(cfg.notes||{}).submissions||'';
+  const fnSubEl=document.getElementById('fn-sub');
+  if(unkNote2||subExtra){
+    let fn='<h4>Notes</h4>';
+    if(unkNote2)fn+='<p><strong>'+unkLabel+':</strong> '+unkNote2+'</p>';
+    if(subExtra)fn+='<p>'+subExtra+'</p>';
+    fnSubEl.innerHTML=fn;
+  }
 }
-
+// §GENERIC TABLE
 function buildSimpleTable(cid,title,headers,rows,foot,dlName){
   const el=document.getElementById(cid);if(!el)return;
   if(!rows.length){el.innerHTML='<div class="empty">No data for current filters.</div>';return;}
@@ -746,6 +1164,31 @@ function buildSimpleTable(cid,title,headers,rows,foot,dlName){
 }
 
 document.addEventListener('DOMContentLoaded',init);
+
+function popOutChart(id,title){
+  if(_chartModalOv)return;
+  const src=charts[id];if(!src)return;
+  const ov=document.createElement('div');ov.className='chart-modal-overlay';
+  const modal=document.createElement('div');modal.className='chart-modal';
+  modal.innerHTML='<div class="chart-modal-header"><span class="chart-modal-title">'+title+'</span><button class="chart-modal-close" onclick="closeChartModal()">✕ Close</button></div>';
+  const body=document.createElement('div');body.style.cssText='position:relative;height:72vh';
+  const cv=document.createElement('canvas');
+  body.appendChild(cv);modal.appendChild(body);ov.appendChild(modal);document.body.appendChild(ov);
+  let safeData;
+  try{safeData=JSON.parse(JSON.stringify(src.config.data));}catch(e){safeData=src.config.data;}
+  const modalChart=new Chart(cv,{type:src.config.type,data:safeData,options:src.config.options});
+  ov._modalChart=modalChart;
+  ov.addEventListener('click',e=>{if(e.target===ov)closeChartModal();});
+  document.addEventListener('keydown',_chartModalEsc);
+  _chartModalOv=ov;
+}
+function closeChartModal(){
+  if(!_chartModalOv)return;
+  if(_chartModalOv._modalChart)_chartModalOv._modalChart.destroy();
+  _chartModalOv.remove();_chartModalOv=null;
+  document.removeEventListener('keydown',_chartModalEsc);
+}
+function _chartModalEsc(e){if(e.key==='Escape')closeChartModal();}
 </script>
 </body>
 </html>

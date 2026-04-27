@@ -13,7 +13,10 @@
 # ORGANISATION
 # ----------------------------------------------------------------
 organisation:
-  name: "Center for Asylum Protection"
+  name: "Thailand Refugee Statistics Dashboard"
+
+  # Short subtitle shown below the title in the header
+  subtitle: "Last updated: 23 April 2025. 2025 data are current until 30 June 2025."
 
   # Path to your logo, relative to index.html
   # Place your logo file in the assets/ folder
@@ -52,6 +55,14 @@ colours:
   primary: "#29307d"   # Header, headings, active tabs, primary buttons
   accent:  "#f9ad18"   # Highlights, chart accents, map bubbles, underlines
 
+  # Header colours — use a named value or any hex code (e.g. "#1a3a5c")
+  # header_background options: primary | accent | white | [hexcode]
+  # header_title     options: primary | accent | white | black | [hexcode]
+  # header_subtitle  options: primary | accent | mutedlight | muteddark | [hexcode]
+  header_background: white
+  header_title: primary
+  header_subtitle: muteddark
+
 
 # ----------------------------------------------------------------
 # CITATION & METHODOLOGY
@@ -59,7 +70,7 @@ colours:
 citation:
   source_name: "UNHCR Refugee Data Finder"
   source_url: "https://www.unhcr.org/refugee-statistics/"
-  processed_by: "Kristian Benestad (Center for Asylum Protection"
+  processed_by: "Kristian Benestad (Center for Asylum Protection)"
   methodology_url: "https://www.unhcr.org/refugee-statistics/methodology/"
 
   # Shown as a footnote on the Refugees & Asylum-Seekers section
@@ -90,6 +101,48 @@ labels:
   # Source: UNHCR Statistical Methodology
   # https://www.unhcr.org/refugee-statistics/methodology/
   others_of_concern_note: ""
+
+
+# ----------------------------------------------------------------
+# NOTES
+# ----------------------------------------------------------------
+# Optional extra text appended to each section's footnote area.
+# Leave a key blank (or omit it) to show no extra note for that section.
+notes:
+  poc: ""           # Refugees & asylum-seekers footnote
+  applications: ""  # Asylum applications footnote
+  decisions: ""     # Asylum decisions footnote
+  departures: "Figures include only refugee resettled with the assistance of UNHCR. Refugees resettled through private sponsorship or national solutions outside the UNHCR resettlement framework are not captured in this dataset."    # Resettlement departures footnote
+  submissions: ""   # Resettlement submissions footnote
+
+
+# ----------------------------------------------------------------
+# FOOTER
+# ----------------------------------------------------------------
+# Each element is displayed in the footer, separated by a bullet (·).
+# If this section is absent the tool falls back to the citation block above.
+# HTML is allowed (e.g. <a href="...">link text</a>).
+# footer:
+#   elements:
+#     - 'Source: <a href="https://www.unhcr.org/refugee-statistics/" target="_blank" rel="noopener">UNHCR Refugee Data Finder</a>'
+#     - "Processed by: Kristian Benestad (Center for Asylum Protection)"
+#     - '<a href="https://www.unhcr.org/refugee-statistics/methodology/" target="_blank" rel="noopener">Methodology</a>'
+
+
+# ----------------------------------------------------------------
+# WELCOME POPUP
+# ----------------------------------------------------------------
+# Shown once when the page loads. Remove this section (or delete
+# both title and body) to disable the popup.
+# Body text supports Markdown (bold, italic, links, paragraphs).
+#
+popup:
+  title: "Welcome"
+  body: |
+    The **Thailand Refugee Statistics Dashboard** is a visulisation tool developed by the **Center for Asylum Protection**. It uses the *Forced Displacement* (population, asylum applications, asylum decisions) and *Solutions* (UNHCR-assisted refugee resettlement submissions and - departures) datasets.
+    Please see UNHCR's (Methodology)[https://www.unhcr.org/refugee-statistics/methodology] for more information about the datasets, definitions, and structure.
+
+    For questions or feedback, please contact (Kristian Benestad)[mailto:kristian.benestad@pspfoundation.org].
 
 
 # ----------------------------------------------------------------
